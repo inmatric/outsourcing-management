@@ -16,7 +16,7 @@ Panduan instalasi untuk menjalankan Laravel secara lokal menggunakan **Laragon**
 ## 1️⃣ Instal Laragon
 
 1. Download Laragon:
-   👉 https://laragon.org/download/
+   👉 https://github.com/leokhoa/laragon/releases/download/6.0.0/laragon-wamp.exe
 
 2. Install dengan setting default.
 3. Setelah terpasang, buka Laragon, klik kanan → `Start All`.
