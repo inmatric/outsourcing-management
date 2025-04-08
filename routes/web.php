@@ -7,6 +7,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+Route::get('/test', [ProductController::class, 'test']);
+
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index');           // GET /api/v1/products
