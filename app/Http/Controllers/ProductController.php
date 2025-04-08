@@ -15,6 +15,11 @@ class ProductController extends Controller
             'data' => $products,
         ]);
     }
+    public function test()
+    {
+        return view('welcome');
+
+    }
 
     public function store(Request $request)
     {
