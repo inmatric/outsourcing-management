@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -17,4 +18,14 @@ Route::prefix('v1')->group(function () {
         Route::put('{id}', 'update');       // PUT /api/v1/products/{id}
         Route::delete('{id}', 'destroy');   // DELETE /api/v1/products/{id}
     });
+});
+
+
+Route::prefix('users')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/create', 'create');
+    Route::post('/', 'store');
+    Route::get('/{id}/edit', 'edit');
+    Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'destroy');
 });

@@ -87,7 +87,7 @@ git checkout -b feature/users
 ```
 2. Generate Model, Migration, Controller
 ```bash
-php artisan make:model User -mc
+php artisan make:model User -mcs
 ```
 3. Edit Migration
 database/migrations/xxxx_xx_xx_create_users_table.php
