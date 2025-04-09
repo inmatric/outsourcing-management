@@ -83,7 +83,7 @@ Sebagai Admin, saya ingin dapat menghapus user, sehingga user yang tidak aktif a
 ```bash
 git checkout dev
 git pull origin dev
-git checkout -b feature/crud-users
+git checkout -b feature/users
 ```
 2. Generate Model, Migration, Controller
 ```bash
