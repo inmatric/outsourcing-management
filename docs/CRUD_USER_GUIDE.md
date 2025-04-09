@@ -84,6 +84,7 @@ Sebagai Admin, saya ingin dapat menghapus user, sehingga user yang tidak aktif a
 git checkout dev
 git pull origin dev
 git checkout -b feature/crud-users
+```
 2. Generate Model, Migration, Controller
 ```bash
 php artisan make:model User -mc
