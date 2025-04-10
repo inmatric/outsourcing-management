@@ -25,10 +25,7 @@ return new class extends Migration
             $table->string('contract_file', 255)->nullable();
             $table->timestamps();
 
-            // Indexing
-            $table->index('employee_id');
-            $table->index('contract_number');
-            $table->index('status');
+           
         });
     }
 
