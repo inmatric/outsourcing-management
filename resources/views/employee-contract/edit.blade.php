@@ -1,5 +1,5 @@
 @extends('components.layouts.main-layout')
-@section('title', 'Create Employee Contract')
+@section('title', 'Edit Employee Contract')
 @section('content')
 
 <div class="">
@@ -48,7 +48,7 @@
                             d="m1 9 4-4-4-4" />
                     </svg>
                     <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">
-                        Create Employee Contract</span>
+                        Edit Employee Contract</span>
                 </div>
             </li>
         </ol>
@@ -61,10 +61,10 @@
     <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg p-6 mx-auto w-full">
         <form class="max-w-3xl mx-auto">
             {{-- heading --}}
-            <h3 class="text-2xl font-semibold dark:text-white my-6 mx-auto justify-center flex">Create Employee Contract
+            <h3 class="text-2xl font-semibold dark:text-white my-6 mx-auto justify-center flex">Edit Employee Contract
                 Data</h3>
-            <div class="flex items-center p-4 mb-8 text-sm text-blue-800 border border-blue-300 rounded-lg bg-blue-50 dark:bg-gray-800 dark:text-blue-400 dark:border-blue-800 mt-6"
-                role="alert">
+            <div class="flex items-center p-4 mb-4 text-sm text-yellow-800 rounded-lg bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300"
+                role="alert" role="alert">
                 <svg class="shrink-0 inline w-4 h-4 me-3" aria-hidden="true" xmlns="http://www.w3.org/2000/svg"
                     fill="currentColor" viewBox="0 0 20 20">
                     <path
@@ -72,9 +72,9 @@
                 </svg>
                 <span class="sr-only">Info</span>
                 <div>
-                    <span class="font-medium">NOTE!</span>
-                    <p>Please make sure to fill in all fields in the 'Add
-                        Employee Contract' form carefully. Missing or incorrect information may cause delays.</p>
+                    <span class="font-medium">WARNING !</span>
+                    <p>Incomplete or incorrect information in the Add Employee Contract form may prevent
+                        successful data creation. Please review all fields carefully before submitting.</p>
                 </div>
             </div>
             <div class="flex flex-col gap-6 mb-6 md:flex-row">
@@ -215,8 +215,7 @@
                         aria-describedby="user_avatar_help" id="user_avatar" type="file">
                 </div>
                 <div class="flex justify-end">
-                    <button type="submit"
-                        class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">Submit</button>
+                    <button type="button" class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit Data</button>
                 </div>
         </form>
     </div>

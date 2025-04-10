@@ -44,7 +44,7 @@ class EmployeeContractController extends Controller
      */
     public function edit(EmployeeContract $employeeContract)
     {
-        //
+        return view('employee-contract.edit');
     }
 
     /**

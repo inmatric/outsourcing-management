@@ -48,7 +48,7 @@ Route::prefix('employee-contract')->controller(EmployeeContractController::class
     Route::get('/', 'index');
     Route::get('/create', 'create');
     Route::post('/', 'store');
-    Route::get('/{id}/edit', 'edit');
+    Route::get('/edit', 'edit');
     Route::put('/{id}', 'update');
     Route::delete('/{id}', 'destroy');
 });
