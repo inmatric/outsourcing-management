@@ -19,4 +19,9 @@ class Location extends Model
         'location_type',
         'information',
     ];
+
+    public function locationDivisions()
+    {
+        return $this->hasMany(LocationDivision::class);
+    }
 }    

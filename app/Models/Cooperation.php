@@ -11,4 +11,9 @@ class Cooperation extends Model
     use HasFactory;
     protected $table = 'cooperations';
 
+    public function locationDivisions()
+    {
+        return $this->hasMany(LocationDivision::class);
+    }
+
 }
