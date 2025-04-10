@@ -38,7 +38,6 @@
                 <th>Nama Lokasi</th>
                 <th>Tipe Lokasi</th>
                 <th>Informasi</th>
-                <th>Jumlah Ruangan</th>
             </tr>
         </thead>
         <tbody>
@@ -49,7 +48,6 @@
                 <td>{{ $location->location }}</td>
                 <td>{{ $location->location_type }}</td>
                 <td>{{ $location->information }}</td>
-                <td>{{ $location->unit }}</td>
             </tr>
             @endforeach
         </tbody>

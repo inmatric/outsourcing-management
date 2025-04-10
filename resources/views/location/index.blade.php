@@ -57,7 +57,6 @@
                     <th class="px-6 py-3 text-center">Nama Lokasi</th>
                     <th class="px-6 py-3 text-center">Tipe Lokasi</th>
                     <th class="px-6 py-3 text-center">Informasi</th>
-                    <th class="px-6 py-3 text-center">Jumlah Ruangan</th>
                     <th class="px-6 py-3 text-center">Opsi</th>
                 </tr>
             </thead>
@@ -69,7 +68,6 @@
                     <td class="px-6 py-4 text-center">{{ $location->location }}</td>
                     <td class="px-6 py-4 text-center">{{ $location->location_type }}</td>
                     <td class="px-6 py-4 text-center">{{ $location->information }}</td>
-                    <td class="px-6 py-4 text-center">{{ $location->unit }}</td>
                     <td class="px-6 py-4 text-center space-x-2">
                         <a href="{{ route('location.edit', $location->id) }}"
                             class="inline-flex items-center px-3 py-1.5 text-xs font-medium text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:ring-2 focus:outline-none focus:ring-blue-300">

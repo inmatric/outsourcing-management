@@ -26,3 +26,4 @@ class CreateLocationTypeTable extends Migration
         Schema::dropIfExists('location_type');
     }
 }
+
