@@ -13,7 +13,22 @@ return new class extends Migration
     {
         Schema::create('employee_contracts', function (Blueprint $table) {
             $table->id();
+            $table->string('employee_id', 50); // Atau bisa pakai foreignId jika relasi ke tabel employees
+            $table->string('contract_number', 100);
+            $table->date('start_date');
+            $table->date('end_date')->nullable();
+            $table->string('position', 100);
+            $table->unsignedBigInteger('location_id');
+            $table->string('working_hours', 50);
+            $table->string('salary', 255);
+            $table->enum('status', ['active', 'inactive', 'terminated'])->default('active');
+            $table->string('contract_file', 255)->nullable();
             $table->timestamps();
+
+            // Indexing
+            $table->index('employee_id');
+            $table->index('contract_number');
+            $table->index('status');
         });
     }
 
