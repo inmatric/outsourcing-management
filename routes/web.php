@@ -9,7 +9,9 @@ use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\LocationDivisionController;
 use App\Http\Middleware\AuthMiddleware;
 
 Route::get('/', function () {
@@ -25,6 +27,12 @@ Route::get('/location/pdf', [LocationController::class, 'downloadPDF'])->name('l
 Route::resource('location', LocationController::class);
 Route::resource('location-type', LocationTypeController::class);
 
+Route::get('/location-division', [LocationDivisionController::class, 'index'])->name('location-division.index');
+Route::get('/location-division/create', [LocationDivisionController::class, 'create'])->name('location-division.create');
+Route::post('/location-division', [LocationDivisionController::class, 'store'])->name('location-division.store');
+Route::get('/location-division/{id}/edit', [LocationDivisionController::class, 'edit'])->name('location-division.edit');
+Route::put('/location-division/{id}', [LocationDivisionController::class, 'update'])->name('location-division.update');
+Route::delete('/location-division/{id}', [LocationDivisionController::class, 'destroy'])->name('location-division.destroy');
 
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
