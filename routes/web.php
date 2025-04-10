@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -41,4 +42,13 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+});
+
+Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/create', 'create');
+    Route::post('/', 'store');
+    Route::get('/{id}/edit', 'edit');
+    Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'destroy');
 });
