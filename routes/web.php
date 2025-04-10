@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\ProfileController;
 use App\Http\Middleware\AuthMiddleware;
 
 Route::get('/', function () {
@@ -44,6 +45,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'show'])->name('profileform');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
