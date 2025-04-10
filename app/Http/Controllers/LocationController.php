@@ -73,7 +73,6 @@ class LocationController extends Controller
             'location' => 'required|string|max:255',
             'information' => 'nullable|string',
             'location_type' => 'nullable|array',
-            'unit' => 'nullable|integer',
         ]);
     
         // Generate unique location code
@@ -87,7 +86,6 @@ class LocationController extends Controller
             'information' => $request->information,
             'location_code' => $code,
             'location_type' => is_array($request->location_type) ? implode(',', $request->location_type) : null,
-            'unit' => $request->unit
         ]);
     
         return redirect()->route('location.index')->with('success', 'Data lokasi berhasil ditambahkan.');
@@ -128,7 +126,6 @@ class LocationController extends Controller
         'location' => 'required|string|max:255',
         'information' => 'nullable|string',
         'location_type' => 'nullable|array',
-        'unit' => 'nullable|integer',
     ]);
 
     // Hanya update location_code kalau company berubah
@@ -144,7 +141,6 @@ class LocationController extends Controller
         'location' => $request->location,
         'information' => $request->information,
         'location_type' => is_array($request->location_type) ? implode(',', $request->location_type) : null,
-        'unit' => $request->unit
     ]);
 
     return redirect()->route('location.index')->with('success', 'Data lokasi berhasil diperbarui.');
