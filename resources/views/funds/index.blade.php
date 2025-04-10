@@ -1,5 +1,5 @@
 @extends('components.layouts.main-layout')
-@section('title', 'Employee')
+@section('title', 'Fund')
 @section('content')
     <div class="">
         
