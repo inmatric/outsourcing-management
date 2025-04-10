@@ -63,9 +63,11 @@
                                         role="menuitem">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white"
-                                        role="menuitem">Settings</a>
+                                    <a href="{{ url('/profile/' . $user->id . '/edit') }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+                                        {{-- Icon edit --}}
+                                        Update
+                                    </a>
                                 </li>
                                 <li>
                                     <a href="#"
@@ -190,7 +192,7 @@
         </div>
     </aside>
 
-    <div class="p-4 sm:ml-64">
+    <div class="p-4 sm:ml-64 bg-white">
         <div class="p-4  mt-14">
 
             <div class="m-5">
