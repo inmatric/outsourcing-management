@@ -11,13 +11,14 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->id(); // Primary key
+        Schema::create('funds', function (Blueprint $table) {
+            $table->id();
             $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
-            $table->string('location', 255);
-            $table->string('location_type', 255);
-            $table->string('information', 255);
-            $table->string('status', 255);
+            $table->date('date');
+            $table->decimal('fund_received', 15, 2);
+            $table->string('payment', 50);
+            $table->string('receipt', 50);
+            $table->text('description')->nullable();
             $table->timestamps();
         });
 
@@ -28,6 +29,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('funds');
     }
 };

@@ -2,17 +2,17 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\EmployeeContract;
+use App\Models\EmployeeEvaluation;
 use Illuminate\Http\Request;
 
-class EmployeeContractController extends Controller
+class EmployeeEvaluationController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
     public function index()
     {
-        return view('employee-contract.index');
+        //
     }
 
     /**
@@ -20,7 +20,7 @@ class EmployeeContractController extends Controller
      */
     public function create()
     {
-        return view('employee-contract.create');
+        //
     }
 
     /**
@@ -34,7 +34,7 @@ class EmployeeContractController extends Controller
     /**
      * Display the specified resource.
      */
-    public function show(EmployeeContract $employeeContract)
+    public function show(EmployeeEvaluation $employeeEvaluation)
     {
         //
     }
@@ -42,15 +42,15 @@ class EmployeeContractController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(EmployeeContract $employeeContract)
+    public function edit(EmployeeEvaluation $employeeEvaluation)
     {
-        return view('employee-contract.edit');
+        //
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, EmployeeContract $employeeContract)
+    public function update(Request $request, EmployeeEvaluation $employeeEvaluation)
     {
         //
     }
@@ -58,7 +58,7 @@ class EmployeeContractController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(EmployeeContract $employeeContract)
+    public function destroy(EmployeeEvaluation $employeeEvaluation)
     {
         //
     }

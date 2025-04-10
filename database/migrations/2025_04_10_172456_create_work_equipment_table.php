@@ -1,8 +1,10 @@
 <?php
 
+
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+
 
 return new class extends Migration
 {
@@ -11,23 +13,23 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('locations', function (Blueprint $table) {
-            $table->id(); // Primary key
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+        Schema::create('work_equipment', function (Blueprint $table) {
+            $table->id();
+            $table->string('employee_id', 50);
+            $table->string('position', 255);
             $table->string('location', 255);
-            $table->string('location_type', 255);
-            $table->string('information', 255);
-            $table->string('status', 255);
+            $table->string('equipment', 255);
+            $table->enum('condition', ['good', 'fair', 'damaged']);
             $table->timestamps();
         });
-
     }
+
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('locations');
+        Schema::dropIfExists('work_equipment');
     }
 };
