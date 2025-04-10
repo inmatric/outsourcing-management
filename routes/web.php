@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
@@ -12,6 +13,9 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [ProductController::class, 'test']);
+Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
+Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
+
 
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
