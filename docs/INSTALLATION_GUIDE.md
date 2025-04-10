@@ -6,6 +6,7 @@ Panduan instalasi untuk menjalankan Laravel secara lokal menggunakan **Laragon**
 
 ## ✅ Tools yang Akan Diinstal
 
+- ✅ Git
 - ✅ PHP 8.2.28
 - ✅ Composer
 - ✅ Node.js & NPM
@@ -13,8 +14,24 @@ Panduan instalasi untuk menjalankan Laravel secara lokal menggunakan **Laragon**
 - ✅ Flowbite (UI components TailwindCSS)
 - ✅ Laragon (Laravel-friendly stack)
 - ✅ Setting Environment Variable
-
 ---
+## 0️⃣ Instal Git
+
+1. Download Git untuk Windows:  
+   👉 https://git-scm.com/download/win
+
+2. Jalankan installer, gunakan pengaturan default.
+3. Setelah selesai, buka `cmd` dan ketik:
+```bash
+   git --version
+```
+4. (Opsional) Set konfigurasi awal Git:
+
+```bash
+
+git config --global user.name "Nama Kamu"
+git config --global user.email "emailkamu@example.com"
+```
 
 ## 1️⃣ Instal Laragon
 
