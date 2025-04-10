@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -22,6 +23,15 @@ Route::prefix('v1')->group(function () {
 
 
 Route::prefix('users')->controller(UserController::class)->group(function () {
+    Route::get('/', 'index');
+    Route::get('/create', 'create');
+    Route::post('/', 'store');
+    Route::get('/{id}/edit', 'edit');
+    Route::put('/{id}', 'update');
+    Route::delete('/{id}', 'destroy');
+});
+
+Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
     Route::get('/', 'index');
     Route::get('/create', 'create');
     Route::post('/', 'store');
