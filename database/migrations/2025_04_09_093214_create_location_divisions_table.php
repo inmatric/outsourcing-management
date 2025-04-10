@@ -12,17 +12,14 @@ return new class extends Migration {
     {
         Schema::create('location_divisions', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_name');
-            $table->string('company');
-            $table->string('location');
-            $table->string('work_type');
-            $table->text('work_detail')->nullable();
-            $table->enum('status', ['completed', 'in_progress'])->default('in_progress');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');
+            $table->foreignId('work_id')->constrained('works')->onDelete('cascade'); // Asumsi ada tabel works
+            $table->text('detail_work')->nullable();
+            $table->enum('status', ['in_progress', 'completed'])->default('in_progress');
             $table->timestamps();
-            // $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            // $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');
-            // $table->foreignId('work_id')->constrained('works')->onDelete('cascade');
         });
+
     }
 
     /**
