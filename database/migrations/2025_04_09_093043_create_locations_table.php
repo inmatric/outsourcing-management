@@ -18,7 +18,6 @@ return new class extends Migration
             $table->string('location_type');
             $table->string('location_code');
             $table->string('information');
-            $table->integer('unit');
             $table->timestamps();
         });
     }

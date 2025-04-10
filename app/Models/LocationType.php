@@ -11,10 +11,7 @@ class LocationType extends Model
 
     // Kolom yang bisa diisi
     protected $fillable = [
-        'name',
+        'location_type',
         'description'
     ];
-
-    // Nonaktifkan timestamps (created_at & updated_at)
-    public $timestamps = false;
 }

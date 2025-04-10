@@ -11,9 +11,9 @@
             @method('PUT')
             
             <div class="mb-4">
-                <label for="name" class="block mb-2 text-sm font-medium text-gray-700">Nama Jenis Lokasi</label>
-                <input type="text" id="name" name="name"
-                    value="{{ old('name', $locationType->location_type) }}"
+                <label for="location_type" class="block mb-2 text-sm font-medium text-gray-700">Nama Jenis Lokasi</label>
+                <input type="text" id="location_type" name="location_type"
+                    value="{{ old('location_type', $locationType->location_type) }}"
                     class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
                     required />
             </div>
