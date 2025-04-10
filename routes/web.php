@@ -1,13 +1,13 @@
 <?php
 
-use App\Http\Controllers\ProductController;
+use App\Http\Controllers\FundController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/test', [ProductController::class, 'test']);
+Route::resource('funds', FundController::class);
 
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
