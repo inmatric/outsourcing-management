@@ -12,7 +12,7 @@ class LocationSeeder extends Seeder
     {
         $now = Carbon::now();
 
-        DB::table('location')->insert([
+        DB::table('locations')->insert([
             ['id' => 1, 'company' => 'Politeknik Negeri Cilacap', 'location' => 'Lantai 2 Gedung A', 'location_type' => 'Ruang Kelas', 'location_code' => 'P.2', 'information' => 'Dekat tangga utama', 'unit' => 8, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 2, 'company' => 'Politeknik Negeri Cilacap', 'location' => 'Lantai 3 Gedung A', 'location_type' => 'Ruang Kelas', 'location_code' => 'P.3', 'information' => 'Ruang multimedia', 'unit' => 6, 'created_at' => $now, 'updated_at' => $now],
             ['id' => 3, 'company' => 'Politeknik Negeri Cilacap', 'location' => 'Gedung B', 'location_type' => 'Ruang Lab', 'location_code' => 'P.B', 'information' => 'Lab komputer & jaringan', 'unit' => 10, 'created_at' => $now, 'updated_at' => $now],
