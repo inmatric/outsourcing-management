@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('location_type');
             $table->string('location_code');
             $table->string('information');
+            $table->string('status');
             $table->timestamps();
         });
     }

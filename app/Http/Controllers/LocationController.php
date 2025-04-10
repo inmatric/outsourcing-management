@@ -66,31 +66,38 @@ class LocationController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    {
-        $request->validate([
-            'company' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
-            'information' => 'nullable|string',
-            'location_type' => 'nullable|array',
-        ]);
-    
-        // Generate unique location code
-        do {
-            $code = strtoupper(substr($request->company, 0, 1)) . rand(100, 999);
-        } while (Location::where('location_code', $code)->exists());
-    
-        Location::create([
-            'company' => $request->company,
-            'location' => $request->location,
-            'information' => $request->information,
-            'location_code' => $code,
-            'location_type' => is_array($request->location_type) ? implode(',', $request->location_type) : null,
-        ]);
-    
-        return redirect()->route('location.index')->with('success', 'Data lokasi berhasil ditambahkan.');
+
+public function store(Request $request)
+{
+    $request->validate([
+        'company' => 'required|string|max:255',
+        'location' => 'required|string|max:255',
+        'information' => 'nullable|string',
+        'location_type' => 'nullable|array',
+    ]);
+
+    $cooperation = Cooperation::where('company_name', $request->company)->first();
+
+    if (!$cooperation) {
+        return redirect()->back()->withErrors(['company' => 'Perusahaan tidak ditemukan dalam data kerja sama.']);
     }
-    
+
+    do {
+        $code = strtoupper(substr($request->company, 0, 1)) . rand(100, 999);
+    } while (Location::where('location_code', $code)->exists());
+
+    Location::create([
+        'company' => $request->company,
+        'location' => $request->location,
+        'information' => $request->information,
+        'location_code' => $code,
+        'location_type' => is_array($request->location_type) ? implode(',', $request->location_type) : null,
+        'status' => $cooperation->status, 
+    ]);
+
+    return redirect()->route('location.index')->with('success', 'Data lokasi berhasil ditambahkan.');
+}
+
 
 
 
@@ -126,6 +133,7 @@ class LocationController extends Controller
         'location' => 'required|string|max:255',
         'information' => 'nullable|string',
         'location_type' => 'nullable|array',
+        'status' => 'nullable|array',
     ]);
 
     // Hanya update location_code kalau company berubah
@@ -141,6 +149,7 @@ class LocationController extends Controller
         'location' => $request->location,
         'information' => $request->information,
         'location_type' => is_array($request->location_type) ? implode(',', $request->location_type) : null,
+        'status' => $request->status,
     ]);
 
     return redirect()->route('location.index')->with('success', 'Data lokasi berhasil diperbarui.');

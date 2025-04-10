@@ -18,5 +18,6 @@ class Location extends Model
         'location_code',
         'location_type',
         'information',
+        'status',
     ];
 }    
