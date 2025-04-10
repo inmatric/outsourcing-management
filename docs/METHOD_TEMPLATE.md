@@ -55,3 +55,19 @@ Karena banyak yang mengedit `web.php`, kemungkinan terjadi conflict sangat besar
 Silakan lihat video berikut untuk panduan menyelesaikan konflik:  
 📺 [Cara Menyelesaikan Merge Conflict](https://youtu.be/DloR0BOGNU0?si=Xh42y_-Aqj_GAllo)
 
+### 6. Permintaan Penggabungan Pekerjaan dengan master 
+buka link github [click](https://github.com/inmatric/v1-boilerplate)
+![alt text](image-1.png)
+- klik pull request dan new pull request 
+### 7. Pilih branch yang akan digabung 
+- base <strong>dev</strong> (yang akan dimasukkan) commpare <strong>feature/users</strong> 
+- create pull request
+![alt text](image-2.png)
+- pilih reviewer dahulu agar mengecek pekerjaan kalian 
+![alt text](image-3.png)
+- create pull request 
+
+### Langkah Selesai Dan minta reviewer untuk mereview pekerjaan 
+jangan di merge sendiri
+- kalau ada tampilan ini biarkan saja
+![alt text](image-4.png)
