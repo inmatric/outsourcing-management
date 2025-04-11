@@ -15,7 +15,11 @@ jika sebelumnya sudah membuat branch
 pindah ke branch kalian
 ```bash
 git checkout feature/users
+jika belum
+```bash
+git checkout -b feature/nama-fitur
 ```
+
 Setelah itu, jalankan migration dan seeder:
 
 ```bash
