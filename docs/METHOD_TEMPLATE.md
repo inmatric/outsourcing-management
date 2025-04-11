@@ -9,7 +9,7 @@ Untuk mengantisipasi error yang tidak terduga, sebaiknya kita **membuat cadangan
 ### 2. 📥 Ambil Kode Terbaru  
 
 ```bash
-git clone https://github.com/inmatric/outsoucing-management.git
+git clone https://github.com/inmatric/outsourcing-management.git
 ```
 jika sebelumnya sudah membuat branch 
 pindah ke branch kalian
