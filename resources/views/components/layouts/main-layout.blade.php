@@ -30,7 +30,7 @@
                     <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
                         <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ">Flowbite</span>
+                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ">Management Outsourcing</span>
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -59,7 +59,7 @@
                             <ul class="py-1" role="none">
                                 <li>
                                     <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">
+                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Dashboard</a>
                                 </li>
                                 <li>

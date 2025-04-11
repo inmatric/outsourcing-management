@@ -23,6 +23,18 @@ class SidebarMenus extends Component
                 'name' => 'Cooperations',
                 'href' => '/cooperations',
             ],
+            [
+                'name' => 'employee-contract',
+                'href' => '/employee-contract',
+            ],
+            [
+                'name' => 'location-division',
+                'href' => '/location-division',
+            ],
+            [
+                'name' => 'processing_wd',
+                'href' => '/processing_wd',
+            ],
             // Tambah menu lainnya di sini
         ];
     }
