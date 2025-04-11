@@ -7,13 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cooperation extends Model
 {
-    /** @use HasFactory<\Database\Factories\LocationFactory> */
     use HasFactory;
-    protected $table = 'cooperations';
 
-    public function locationDivisions()
-    {
-        return $this->hasMany(LocationDivision::class);
-    }
 
+    protected $table = 'cooperations'; // ← perbaiki di sini
+
+    protected $fillable = [
+        'company_name', 'start_date', 'end_date', 'status', 'cooperation_type', 'contract_file'
+    ];
 }

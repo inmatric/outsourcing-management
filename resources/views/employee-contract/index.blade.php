@@ -44,7 +44,7 @@
     </nav>
 
     {{-- heading --}}
-    <h2 class="text-4xl font-bold dark:text-white my-6">Employee Contract</h2>
+    <h2 class="text-3xl font-bold dark:text-white my-6">Employee Contract</h2>
 
     {{-- table header --}}
     <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
@@ -75,7 +75,7 @@
                     Employee Data</a>
                 <a href="{{ url('/employee-contract/create') }}"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                    Add Contract</a>
+                    Create Employee Contract</a>
                 <div class="flex items-center w-full space-x-3 md:w-auto">
                 </div>
             </div>
@@ -145,10 +145,10 @@
                         <td class="px-6 py-4">Active</td>
                         <td class="px-6 py-4">contract_001.pdf</td>
                         <td class="px-6 py-4">
+                            <a href="{{ url('employee-contract/edit') }}"
+                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                             <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                         </td>
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
@@ -166,10 +166,10 @@
                         <td class="px-6 py-4">Active</td>
                         <td class="px-6 py-4">contract_002.pdf</td>
                         <td class="px-6 py-4">
+                            <a href="{{ url('employee-contract/edit') }}"
+                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                             <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                         </td>
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
@@ -187,10 +187,10 @@
                         <td class="px-6 py-4">Active</td>
                         <td class="px-6 py-4">contract_003.pdf</td>
                         <td class="px-6 py-4">
+                            <a href="{{ url('employee-contract/edit') }}"
+                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                             <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                         </td>
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
@@ -208,10 +208,10 @@
                         <td class="px-6 py-4">Active</td>
                         <td class="px-6 py-4">contract_004.pdf</td>
                         <td class="px-6 py-4">
+                            <a href="{{ url('employee-contract/edit') }}"
+                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                             <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                         </td>
                     </tr>
                     <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
@@ -229,115 +229,10 @@
                         <td class="px-6 py-4">Active</td>
                         <td class="px-6 py-4">contract_005.pdf</td>
                         <td class="px-6 py-4">
+                            <a href="{{ url('employee-contract/edit') }}"
+                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</a>
                             <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4">6</td>
-                        <td class="px-6 py-4">EMP006</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Indah Pratiwi
-                        </td>
-                        <td class="px-6 py-4">CTR-006</td>
-                        <td class="px-6 py-4">2023-07-01</td>
-                        <td class="px-6 py-4">2024-06-30</td>
-                        <td class="px-6 py-4">HR Officer</td>
-                        <td class="px-6 py-4">LOC-03</td>
-                        <td class="px-6 py-4">08:30 - 17:00</td>
-                        <td class="px-6 py-4">Rp 6.000.000</td>
-                        <td class="px-6 py-4">Expired</td>
-                        <td class="px-6 py-4">contract_006.pdf</td>
-                        <td class="px-6 py-4">
-                            <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4">7</td>
-                        <td class="px-6 py-4">EMP007</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Andi Saputra
-                        </td>
-                        <td class="px-6 py-4">CTR-007</td>
-                        <td class="px-6 py-4">2024-05-01</td>
-                        <td class="px-6 py-4">2025-04-30</td>
-                        <td class="px-6 py-4">DevOps Engineer</td>
-                        <td class="px-6 py-4">LOC-01</td>
-                        <td class="px-6 py-4">08:00 - 16:00</td>
-                        <td class="px-6 py-4">Rp 9.000.000</td>
-                        <td class="px-6 py-4">Active</td>
-                        <td class="px-6 py-4">contract_007.pdf</td>
-                        <td class="px-6 py-4">
-                            <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4">8</td>
-                        <td class="px-6 py-4">EMP008</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Nina Amelia
-                        </td>
-                        <td class="px-6 py-4">CTR-008</td>
-                        <td class="px-6 py-4">2023-09-01</td>
-                        <td class="px-6 py-4">2024-08-31</td>
-                        <td class="px-6 py-4">Marketing</td>
-                        <td class="px-6 py-4">LOC-02</td>
-                        <td class="px-6 py-4">09:00 - 18:00</td>
-                        <td class="px-6 py-4">Rp 5.500.000</td>
-                        <td class="px-6 py-4">Expired</td>
-                        <td class="px-6 py-4">contract_008.pdf</td>
-                        <td class="px-6 py-4">
-                            <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4">9</td>
-                        <td class="px-6 py-4">EMP009</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Reza Fahlevi
-                        </td>
-                        <td class="px-6 py-4">CTR-009</td>
-                        <td class="px-6 py-4">2024-01-10</td>
-                        <td class="px-6 py-4">2024-12-10</td>
-                        <td class="px-6 py-4">Frontend Developer</td>
-                        <td class="px-6 py-4">LOC-03</td>
-                        <td class="px-6 py-4">08:00 - 17:00</td>
-                        <td class="px-6 py-4">Rp 7.800.000</td>
-                        <td class="px-6 py-4">Active</td>
-                        <td class="px-6 py-4">contract_009.pdf</td>
-                        <td class="px-6 py-4">
-                            <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
-                        </td>
-                    </tr>
-                    <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
-                        <td class="px-6 py-4">10</td>
-                        <td class="px-6 py-4">EMP010</td>
-                        <td class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">Sri Wahyuni
-                        </td>
-                        <td class="px-6 py-4">CTR-010</td>
-                        <td class="px-6 py-4">2024-04-01</td>
-                        <td class="px-6 py-4">2025-03-31</td>
-                        <td class="px-6 py-4">Finance Staff</td>
-                        <td class="px-6 py-4">LOC-01</td>
-                        <td class="px-6 py-4">08:30 - 17:00</td>
-                        <td class="px-6 py-4">Rp 6.700.000</td>
-                        <td class="px-6 py-4">Active</td>
-                        <td class="px-6 py-4">contract_010.pdf</td>
-                        <td class="px-6 py-4">
-                            <button type="button"
-                                class="focus:outline-none text-white bg-yellow-400 hover:bg-yellow-500 focus:ring-4 focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:focus:ring-yellow-900">Edit</button>
-                            <button type="button"
-                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Red</button>
+                                class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900">Delete</button>
                         </td>
                     </tr>
                 </tbody>

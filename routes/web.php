@@ -9,6 +9,9 @@ use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+
+use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\LocationDivisionController;
 use App\Http\Middleware\AuthMiddleware;
 
@@ -43,14 +46,15 @@ Route::prefix('v1')->group(function () {
 });
 
 
-Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-Route::post('/login', [LoginController::class, 'login']);
+    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+    Route::post('/login', [LoginController::class, 'login']);
 
 
 Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
+    Route::get('/profile/{id}/edit', [ProfileController::class, 'show'])->name('profileform');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
@@ -61,13 +65,16 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+
+    Route::resource('cooperations', CooperationController::class);
+
+    Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/create', 'create');
+        Route::post('/', 'store');
+        Route::get('/edit', 'edit');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+    });
 });
 
-Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/create', 'create');
-    Route::post('/', 'store');
-    Route::get('/{id}/edit', 'edit');
-    Route::put('/{id}', 'update');
-    Route::delete('/{id}', 'destroy');
-});
