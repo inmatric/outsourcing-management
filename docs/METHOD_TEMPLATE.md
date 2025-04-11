@@ -29,7 +29,6 @@ Jika belum memiliki branch untuk fitur yang akan dikerjakan, jalankan perintah b
 ```bash
 git checkout -b feature/users
 ```
-
 > Pastikan di pojok kiri bawah editor (seperti VSCode) sudah menunjukkan branch yang sesuai.
 
 ![Branch Check](image.png)
