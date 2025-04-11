@@ -79,7 +79,7 @@
             </div> --}}
 
             <!-- Detail Pekerjaan -->
-            <div class="mb-4">
+            {{-- <div class="mb-4">
                 <label for="work_detail" class="block text-sm font-medium text-gray-700">Work Detail</label>
                 <select name="work_detail" id="work_detail"
                     class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"required>
@@ -94,7 +94,7 @@
                 @error('work_detail')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
-            </div>
+            </div> --}}
 
             <!-- Status (hidden - default: in_progress) -->
             <input type="hidden" name="status" value="in_progress">

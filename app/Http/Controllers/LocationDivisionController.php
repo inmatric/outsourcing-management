@@ -12,22 +12,33 @@ class LocationDivisionController extends Controller
     /**
      * Display a listing of the resource.
      */
-
-    public function index()
+    public function index(Request $request)
     {
-        $locationDivision = LocationDivision::with(['cooperations', 'location'])->get();
-        $cooperations = Cooperation::all(); // <-- ini penting
-    
-        return view('location-division.index', compact('locationDivision', 'cooperations'));
+        $search = $request->input('search');
+
+        $locationDivision = LocationDivision::with(['cooperations', 'location'])
+            ->when($search, function ($query, $search) {
+                $query->where('employee_name', 'like', "%{$search}%")
+                    ->orWhere('company', 'like', "%{$search}%")
+                    ->orWhere('location', 'like', "%{$search}%")
+                    ->orWhere('work_type', 'like', "%{$search}%");
+            })
+            ->get();
+
+        return view('location-division.index', compact('locationDivision'));
     }
-    
+
     /**
      * Show the form for creating a new resource.
      */
     public function create()
     {
-        return view('location-division.create');
+        $cooperations = Cooperation::all();
+        $locations = Location::all();
+
+        return view('location-division.create', compact('cooperations', 'locations'));
     }
+
 
     /**
      * Store a newly created resource in storage.

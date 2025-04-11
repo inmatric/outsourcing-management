@@ -31,17 +31,17 @@
 
         <div class="relative overflow-x-auto shadow-md sm:rounded-lg">
             <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
-                <thead class="text-xs text-gray-700 uppercase bg-gray-200 dark:bg-gray-700 dark:text-gray-400 text-center">
+                <thead class="text-base text-black bg-gray-200 dark:bg-gray-700 text-center">
                     <tr>
-                        <th class="px-6 py-3 font-bold">Employee Name</th>
+                        <th class="px-6 py-3 font-bold">Employee name</th>
                         <th class="px-6 py-3 font-bold">Company</th>
                         <th class="px-6 py-3 font-bold">Location</th>
-                        <th class="px-6 py-3 font-bold">Work Type</th>
-                        <th class="px-6 py-3 font-bold">Work Detail</th>
+                        <th class="px-6 py-3 font-bold">Work type</th>
+                        <th class="px-6 py-3 font-bold">Work detail</th>
                         <th class="px-6 py-3 font-bold">Status</th>
                         <th class="px-6 py-3 font-bold">Action</th>
                     </tr>
-                </thead>
+                </thead>                
                 <tbody>
                     @forelse ($locationDivision as $data)
                         <tr class="odd:bg-white even:bg-gray-50 border-b dark:border-gray-700 text-center">

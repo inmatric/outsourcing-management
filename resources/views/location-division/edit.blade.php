@@ -105,8 +105,7 @@
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-
-            <!-- Status -->
+            
             <!-- Status -->
             <div class="mb-4">
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
