@@ -50,6 +50,17 @@
 
             <!-- Photo Before -->
             <div>
+                <video id="cameraPreview" width="320" height="320" autoplay style="display:none;"></video>
+                <canvas id="photoCanvas" width="320" height="240" style="display: none;"></canvas>
+
+                <button id="startCamera">Akses Kamera</button>
+                <button id="capturePhoto" style="display: none">Ambil Foto</button>
+
+                <div id="photoResult"></div>
+                <input type="hidden" name="photo_data" id="photoData">
+            </div>
+            
+            <div>
                 <label for="photo_before" class="block text-sm font-medium text-gray-700">Before Photo</label>
                 <input type="file" id="photo_before" name="photo_before" accept="image/*"
                     class="mt-1 block w-full text-sm text-gray-500 file:mr-4 file:py-2 file:px-4 file:rounded-md file:border-0 file:text-sm file:font-semibold file:bg-blue-50 file:text-blue-700 hover:file:bg-blue-100">
