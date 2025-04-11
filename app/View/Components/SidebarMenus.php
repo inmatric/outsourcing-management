@@ -24,16 +24,72 @@ class SidebarMenus extends Component
                 'href' => '/cooperations',
             ],
             [
-                'name' => 'employee-contract',
-                'href' => '/employee-contract',
+                'name' => 'Employee',
+                'href' => '/employes',
             ],
             [
-                'name' => 'location-division',
-                'href' => '/location-division',
+                'name' => 'Employee Contract',
+                'href' => '/employee_contract',
             ],
             [
-                'name' => 'processing_wd',
-                'href' => '/processing_wd',
+                'name' => 'Work Table',
+                'href' => '/work_table',
+            ],
+            [
+                'name' => 'Work Equipment',
+                'href' => '/work_equipment',
+            ],
+            [
+                'name' => 'SOP',
+                'href' => '/worktool',
+            ],
+            [
+                'name' => 'Location',
+                'href' => '/location',
+            ],         
+            [
+                'name' => 'Location Division',
+                'href' => '/location_division',
+            ],            
+            [
+                'name' => 'Attendance',
+                'href' => '/attendance',
+            ],            
+            [
+                'name' => 'Work Tracking',
+                'href' => '/workprogresstracking',
+            ],
+            [
+                'name' => 'Complaint',
+                'href' => '/complaint',
+            ],
+            [
+                'name' => 'Complaint Resolutions',
+                'href' => '/complaintresolution',
+            ],            
+            [
+                'name' => 'Employee Evaluations',
+                'href' => '/employeeevaluation',
+            ],
+            [
+                'name' => 'Offence',
+                'href' => '/offence',
+            ],            
+            [
+                'name' => 'Report',
+                'href' => '/workreport',
+            ],
+            [
+                'name' => 'Lost/Found',
+                'href' => '/lostfound',
+            ],            
+            [
+                'name' => 'Permission',
+                'href' => '/permission',
+            ],            
+            [
+                'name' => 'Fund',
+                'href' => '/fund',
             ],
             // Tambah menu lainnya di sini
         ];
