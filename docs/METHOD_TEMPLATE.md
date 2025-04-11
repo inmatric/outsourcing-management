@@ -9,7 +9,7 @@ Untuk mengantisipasi error yang tidak terduga, sebaiknya kita **membuat cadangan
 ### 2. 📥 Ambil Kode Terbaru  
 
 ```bash
-https://github.com/inmatric/v1-boilerplate/
+https://github.com/inmatric/v1-boilerplate/](https://github.com/inmatric/outsoucing-management)
 ```
 jika sebelumnya sudah membuat branch 
 ```bash
