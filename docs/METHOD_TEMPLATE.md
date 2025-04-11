@@ -9,11 +9,12 @@ Untuk mengantisipasi error yang tidak terduga, sebaiknya kita **membuat cadangan
 ### 2. 📥 Ambil Kode Terbaru  
 
 ```bash
-https://github.com/inmatric/v1-boilerplate/](https://github.com/inmatric/outsoucing-management)
+git clone https://github.com/inmatric/outsoucing-management.git
 ```
 jika sebelumnya sudah membuat branch 
+pindah ke branch kalian
 ```bash
-https://github.com/inmatric/v1-boilerplate/
+git checkout feature/users
 ```
 Setelah itu, jalankan migration dan seeder:
 
