@@ -11,6 +11,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\LocationDivisionController;
 use App\Http\Middleware\AuthMiddleware;
 
@@ -65,13 +66,16 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+
+    Route::resource('cooperations', CooperationController::class);
+    
+    Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/create', 'create');
+        Route::post('/', 'store');
+        Route::get('/edit', 'edit');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+    });
 });
 
-Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
-    Route::get('/', 'index');
-    Route::get('/create', 'create');
-    Route::post('/', 'store');
-    Route::get('/edit', 'edit');
-    Route::put('/{id}', 'update');
-    Route::delete('/{id}', 'destroy');
-});
