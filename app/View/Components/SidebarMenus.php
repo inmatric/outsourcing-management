@@ -19,6 +19,10 @@ class SidebarMenus extends Component
                 'name' => 'Users',
                 'href' => '/users',
             ],
+            [
+                'name' => 'Cooperations',
+                'href' => '/cooperations',
+            ],
             // Tambah menu lainnya di sini
         ];
     }
