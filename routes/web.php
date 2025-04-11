@@ -7,6 +7,7 @@ use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\WorkToolsController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 
@@ -17,6 +18,7 @@ use App\Http\Middleware\AuthMiddleware;
 Route::get('/', function () {
     return redirect()->route('login');
 });
+
 
 Route::get('/test', [ProductController::class, 'test']);
 Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
@@ -64,6 +66,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::put('/{id}', 'update')->name('update');
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
+    Route::get('/WorkTools', [WorkToolsController::class, 'index'])->name('worktools.index');
 });
 
 Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
