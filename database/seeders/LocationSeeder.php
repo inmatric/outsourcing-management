@@ -13,7 +13,8 @@ class LocationSeeder extends Seeder
     {
         DB::table('locations')->insert([
             [
-                'company_id' => 1,
+                'id' => 1,
+                'cooperation_id' => 1,
                 'location' => 'Gedung A - Lantai 1',
                 'location_type' => 'Ruang Kerja',
                 'information' => 'Ruang kerja utama untuk staf administrasi',
@@ -22,7 +23,8 @@ class LocationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'company_id' => 1,
+                'id' => 2,
+                'cooperation_id' => 1,
                 'location' => 'Gudang Utama',
                 'location_type' => 'Gudang',
                 'information' => 'Penyimpanan barang inventaris kantor',
@@ -31,7 +33,18 @@ class LocationSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'company_id' => 2,
+                'id' => 3,
+                'cooperation_id' => 1,
+                'location' => 'Gudang Utama',
+                'location_type' => 'Gudang',
+                'information' => 'Penyimpanan barang inventaris kantor',
+                'status' => 'aktif',
+                'created_at' => now(),
+                'updated_at' => now(),
+            ],
+            [
+                'id' => 4,
+                'cooperation_id' => 2,
                 'location' => 'Kantor Cabang Bandung',
                 'location_type' => 'Kantor Cabang',
                 'information' => 'Kantor operasional di wilayah Bandung',

@@ -11,6 +11,7 @@ class LocationDivisionSeeder extends Seeder
     {
         DB::table('location_divisions')->insert([
             [
+                'id' => 1,
                 'employee_id' => 1,
                 'location_id' => 1,
                 'work_id' => 1,
@@ -20,6 +21,7 @@ class LocationDivisionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'id' => 2,
                 'employee_id' => 2,
                 'location_id' => 2,
                 'work_id' => 2,
@@ -29,6 +31,7 @@ class LocationDivisionSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
+                'id' => 3,
                 'employee_id' => 3,
                 'location_id' => 3,
                 'work_id' => 3,

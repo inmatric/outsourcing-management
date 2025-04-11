@@ -17,9 +17,8 @@ return new class extends Migration
             $table->string('customer_phone', 255);
             $table->text('description');
             $table->string('proof_image', 255)->nullable();
-
+            $table->enum('status', ['pending', 'processed', 'resolved', 'rejected'])->default('pending');
             // Foreign key to complaint_resolutions table for status
-            $table->foreignId('complaint_resolution_id')->constrained('complaint_resolutions');
 
             $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');
 

@@ -13,7 +13,8 @@ class FundSeeder extends Seeder
     {
         DB::table('funds')->insert([
             [
-                'company_id' => 1,
+                'id' => 1,
+                'cooperation_id' => 1,
                 'date' => Carbon::parse('2024-01-15'),
                 'fund_received' => 1500000.00,
                 'payment' => 'INV-001',
@@ -23,7 +24,8 @@ class FundSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'company_id' => 2,
+                'id' => 2,
+                'cooperation_id' => 2,
                 'date' => Carbon::parse('2024-02-01'),
                 'fund_received' => 2500000.00,
                 'payment' => 'INV-002',
@@ -33,7 +35,8 @@ class FundSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                'company_id' => 1,
+                'id' => 3,
+                'cooperation_id' => 1,
                 'date' => Carbon::parse('2024-03-10'),
                 'fund_received' => 1800000.00,
                 'payment' => 'INV-003',

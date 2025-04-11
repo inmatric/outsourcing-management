@@ -11,7 +11,7 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('izin', function (Blueprint $table) {
+        Schema::create('permission_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->enum('izin_type', ['cuti', 'sakit', 'pribadi', 'dinas', 'lainnya']);
