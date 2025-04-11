@@ -46,10 +46,9 @@ Route::prefix('v1')->group(function () {
 });
 
 
-Route::middleware('guest')->group(function () {
     Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
     Route::post('/login', [LoginController::class, 'login']);
-});
+
 
 Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/profile', function () {
@@ -68,7 +67,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     });
 
     Route::resource('cooperations', CooperationController::class);
-    
+
     Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
         Route::get('/', 'index');
         Route::get('/create', 'create');
