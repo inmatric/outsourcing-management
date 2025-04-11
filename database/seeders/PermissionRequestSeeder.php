@@ -14,7 +14,7 @@ class PermissionRequestSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('permission_request')->insert([
+        DB::table('permission_requests')->insert([
             [
                 'employee_id' => 1,
                 'izin_type' => 'cuti',

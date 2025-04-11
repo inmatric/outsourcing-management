@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('funds', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->foreignId('cooperation_id')->constrained('cooperations')->onDelete('cascade');
             $table->date('date');
             $table->decimal('fund_received', 15, 2);
             $table->string('payment', 50);

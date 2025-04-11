@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id(); // Primary key
-            $table->foreignId('company_id')->constrained('companies')->onDelete('cascade');
+            $table->unsignedBigInteger('cooperation_id');
             $table->string('location', 255);
             $table->string('location_type', 255);
             $table->string('information', 255);

@@ -9,7 +9,7 @@ class WorkSeeder extends Seeder
 {
     public function run(): void
     {
-        DB::table('work')->insert([
+        DB::table('works')->insert([
             [
                 'id' => 1,
                 'employee_id' => 1,
