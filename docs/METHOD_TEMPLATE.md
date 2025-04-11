@@ -7,18 +7,18 @@ Untuk mengantisipasi error yang tidak terduga, sebaiknya kita **membuat cadangan
 ---
 
 ### 2. 📥 Ambil Kode Terbaru  
-Pastikan berada di branch `dev` dan tarik update terbaru:
 
 ```bash
-git checkout dev
-git pull origin dev
+https://github.com/inmatric/v1-boilerplate/
 ```
-
+jika sebelumnya sudah membuat branch 
+```bash
+https://github.com/inmatric/v1-boilerplate/
+```
 Setelah itu, jalankan migration dan seeder:
 
 ```bash
-php artisan migrate:fresh
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ---
