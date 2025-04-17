@@ -2,31 +2,34 @@
 @section('title', 'Attendance')
 @section('content')
 
-  <p class="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center">Form Attendance</p>
+  @php
+    $attendanceType = request()->get('type', 'start'); // default 'start'
+  @endphp
 
+  <p class="max-w-lg text-3xl font-semibold leading-loose text-gray-900 dark:text-white text-center">Form Attendance</p>
   <form
-    class="max-w-lg mx-auto mt-8 space-y-6 p-8 border-2 border-gray-300 rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-600">
-    <!-- Name Section -->
+    class="max-w-lg mx-auto mt-8 space-y-6 p-8 border-2 border-gray-300 rounded-lg shadow-lg bg-white dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400"
+    method="POST" action="{{ route('attendances.store') }}">
+    @csrf
+    <input type="hidden" name="attendance_type" value="{{ $attendanceType }}">
     <div class="mb-5">
     <label for="name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">NAME</label>
-    <p class="text-gray-900 dark:text-white text-sm font-semibold">
-      Aurelli Elysia Prasetyo
-    </p>
+    <input type="text" id="small-input" name="name"
+      class="block w-full p-2 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-xs focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
     </div>
 
-    <!-- Date Section -->
     <div class="mb-5">
-    <label for="company" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATE</label>
+    <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">DATE</label>
     <p id="current-date" class="text-gray-900 dark:text-white text-sm font-semibold"></p>
     </div>
 
-    <!-- Photo Section with Camera -->
     <div class="mb-5">
     <label for="photo" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">PHOTO</label>
     <button type="button" onclick="startCamera()"
       class="w-full bg-gray-500 text-white py-2 px-4 rounded-lg hover:bg-gray-600 transition duration-200">Open
       Camera</button>
     <div class="mt-4">
+      <p id="time-status" class="mt-2 text-sm font-semibold"></p>
       <video id="video" width="100%" height="auto" autoplay class="mt-3 rounded-lg hidden shadow-md"></video>
       <canvas id="canvas" style="display: none;"></canvas>
       <div class="mt-3">
@@ -44,7 +47,6 @@
     </div>
     </div>
 
-    <!-- Submit and Back Buttons -->
     <div class="flex justify-between">
     <button type="submit"
       class="text-white bg-yellow-700 hover:bg-yellow-800 focus:ring-4 focus:outline-none focus:ring-yellow-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-200 dark:bg-yellow-600 dark:hover:bg-yellow-700 dark:focus:ring-yellow-800">
@@ -54,8 +56,38 @@
       class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-200">BACK</button>
     </div>
   </form>
-
   <script>
+    function checkAttendanceTime() {
+    const now = new Date();
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = hours * 60 + minutes;
+
+    // Batas waktu untuk form attendance (07.00 - 09.00)
+    const startTime = 7 * 60; // 07:00
+    const endTime = 9 * 60; // 09:00
+    const label = "07.00 - 09.00";
+
+    const timeStatus = document.getElementById('time-status');
+
+    if (currentTime >= startTime && currentTime <= endTime) {
+      timeStatus.textContent = `You are within the attendance time (${label}).`;
+      timeStatus.classList.remove('text-red-600');
+      timeStatus.classList.add('text-green-600');
+    } else {
+      timeStatus.textContent = `Attendance time is over! (${label})`;
+      timeStatus.classList.remove('text-green-600');
+      timeStatus.classList.add('text-red-600');
+    }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    // Sembunyikan tombol submit di awal
+    document.querySelector('button[type="submit"]').style.display = 'none';
+    document.getElementById('current-date').textContent = getCurrentDate();
+    checkAttendanceTime(); // Cek waktu saat ini
+    });
+
     // Display the current date in the paragraph with id 'current-date'
     document.getElementById('current-date').textContent = getCurrentDate();
 
@@ -120,9 +152,16 @@
     retryButton.classList.remove('hidden');
     photoInfo.classList.remove('hidden');
 
-    // Display timestamp and coordinates
-    timestampElement.textContent = "Timestamp: " + timestamp;
-    coordinatesElement.textContent = "Location: Lat " + latitude + ", Lon " + longitude;
+    // Set the value of a hidden input field with the Base64 data
+    const photoInput = document.createElement('input');
+    photoInput.type = 'hidden';
+    photoInput.name = 'photo';
+    photoInput.value = imageUrl;
+    document.querySelector('form').appendChild(photoInput);
+
+    // Sembunyikan tombol "Take Picture" dan tampilkan tombol "SUBMIT"
+    document.querySelector('button[onclick="takePicture()"]').style.display = 'none';
+    document.querySelector('button[type="submit"]').style.display = 'block';
 
     // Disable the capture button
     document.querySelector('button[onclick="takePicture()"]').disabled = true;
@@ -149,6 +188,14 @@
 
     // Re-enable the capture button
     document.querySelector('button[onclick="takePicture()"]').disabled = false;
+    document.querySelector('button[onclick="takePicture()"]').style.display = 'block'; // Show take picture button
+    document.querySelector('button[type="submit"]').style.display = 'none'; // Hide submit button
+
+    // Remove the hidden photo input
+    const photoInput = document.querySelector('input[name="photo"]');
+    if (photoInput) {
+      photoInput.remove();
+    }
 
     // Show the video again and restart the camera
     videoElement.classList.remove('hidden');
@@ -166,10 +213,15 @@
     function getCurrentDate() {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0');
+    const month = String(today.getMonth() + 1).padStart(2, '0'); // Ingat bulan dimulai dari 0
     const year = today.getFullYear();
     return `${day}-${month}-${year}`;
     }
+
+    document.addEventListener('DOMContentLoaded', function () {
+    document.getElementById('current-date').textContent = getCurrentDate();
+    checkAttendanceTime(); // Cek waktu saat ini (fungsi yang sudah ada)
+    });
     // Get user's current location and store it
     if (navigator.geolocation) {
     navigator.geolocation.getCurrentPosition(
@@ -184,7 +236,6 @@
     } else {
     console.warn("Geolocation is not supported by this browser.");
     }
-
   </script>
 
 @endsection

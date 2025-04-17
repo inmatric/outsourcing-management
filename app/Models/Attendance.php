@@ -9,4 +9,13 @@ class Attendance extends Model
 {
     /** @use HasFactory<\Database\Factories\AttendanceFactory> */
     use HasFactory;
+    protected $fillable = [
+        'name',
+        'date',
+        'start_time',
+        'end_time',
+        'photo',
+        'end_photo',
+        'keterangan',
+    ];
 }
