@@ -7,13 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Cooperation extends Model
 {
-    /** @use HasFactory<\Database\Factories\LocationFactory> */
     use HasFactory;
+    protected $fillable = [
+        'company_name', 'start_date', 'end_date', 'status', 'cooperation_type'
+    ];
+   
     protected $table = 'cooperations';
 
-    public function locationDivisions()
-    {
-        return $this->hasMany(LocationDivision::class);
-    }
-
+    // public function locationDivisions()
+    // {
+    //     return $this->hasMany(LocationDivision::class);
+    // }
 }
