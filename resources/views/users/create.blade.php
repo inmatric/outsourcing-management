@@ -39,18 +39,18 @@
                     required>
                     <option value="">Pilih role</option>
                     <option value="admin" {{ old('role_name') == 'admin' ? 'selected' : '' }}>Admin</option>
-                    <option value="user" {{ old('role_name') == 'user' ? 'selected' : '' }}>User</option>%
-                <option value="hrd" {{ old('role_name') == 'hrd' ? 'selected' : '' }}>HRD</option>
-            </select>
-            @error('role_name')
-                <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-            @enderror
-        </div>
+                    <option value="user" {{ old('role_name') == 'user' ? 'selected' : '' }}>User</option>
+                    <option value="hrd" {{ old('role_name') == 'hrd' ? 'selected' : '' }}>HRD</option>
+                </select>
+                @error('role_name')
+                    <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                @enderror
+            </div>
 
-        <button type="submit"
-        class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">
-        Submit
-    </button>
-    </form>
-</div>
+            <button type="submit"
+                class="w-full text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg px-5 py-2.5">
+                Submit
+            </button>
+        </form>
+    </div>
 @endsection
