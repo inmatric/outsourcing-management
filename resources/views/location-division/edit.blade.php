@@ -4,7 +4,7 @@
 
 @section('content')
     <div class="container mx-auto p-4">
-        <h2 class="text-2xl font-bold mb-6 text-gray-800">Edit Location Division</h2>
+        <h2 class="text-2xl font-bold mb-4 text-gray-800">Edit Location Division</h2>
 
         <form action="{{ route('location-division.update', $locationDivision->id) }}" method="POST"
             class="bg-white p-6 rounded-lg shadow-md">
@@ -90,29 +90,19 @@
             <!-- Detail Pekerjaan -->
             <div class="mb-4">
                 <label for="work_detail" class="block text-sm font-medium text-gray-700">Work Detail</label>
-                <select name="work_detail" id="work_detail"
-                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
-                    required>
-                    <option value="">-- Select Work Detail --</option>
-                    @foreach ($works as $work)
-                        <option value="{{ $work->work_detail }}"
-                            {{ old('work_detail', $locationDivision->work_detail) == $work->work_detail ? 'selected' : '' }}>
-                            {{ $work->work_detail }}
-                        </option>
-                    @endforeach
-                </select>
+                <textarea name="work_detail" id="work_detail" rows="4"
+                    class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500" required>{{ old('work_detail', $locationDivision->work_detail) }}</textarea>
                 @error('work_detail')
                     <p class="text-red-500 text-sm mt-1">{{ $message }}</p>
                 @enderror
             </div>
-            
+
             <!-- Status -->
             <div class="mb-4">
                 <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                 <select name="status" id="status"
                     class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required>
-                    <option value="">-- Select Status --</option>
                     <option value="in_progress"
                         {{ old('status', $locationDivision->status ?? '') == 'in_progress' ? 'selected' : '' }}>In Progress
                     </option>

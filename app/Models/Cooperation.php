@@ -14,8 +14,8 @@ class Cooperation extends Model
         'company_name', 'start_date', 'end_date', 'status', 'cooperation_type', 'contract_file'
     ];
 
-     // public function locationDivisions()
-    // {
-    //     return $this->hasMany(LocationDivision::class);
-    // }
+    public function locationDivision()
+    {
+        return $this->hasMany(LocationDivision::class);
+    }
 }

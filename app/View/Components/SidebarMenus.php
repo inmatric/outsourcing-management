@@ -49,7 +49,7 @@ class SidebarMenus extends Component
             ],         
             [
                 'name' => 'Location Division',
-                'href' => '/location_division',
+                'href' => '/location-division',
             ],            
             [
                 'name' => 'Attendance',

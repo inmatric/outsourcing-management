@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\LocationDivision;
 use App\Models\Cooperation;
+use App\Models\Employee;
+use App\Models\Work;
 use App\Models\Location;
 use Illuminate\Http\Request;
 
@@ -16,14 +18,22 @@ class LocationDivisionController extends Controller
     {
         $search = $request->input('search');
 
-        $locationDivision = LocationDivision::with(['cooperations', 'location'])
+        $locationDivision = LocationDivision::with(['cooperation', 'location', 'employee', 'work'])
             ->when($search, function ($query, $search) {
-                $query->where('employee_name', 'like', "%{$search}%")
-                    ->orWhere('company', 'like', "%{$search}%")
-                    ->orWhere('location', 'like', "%{$search}%")
-                    ->orWhere('work_type', 'like', "%{$search}%");
+                $query->whereHas('employee', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                })
+                    ->orWhereHas('cooperation', function ($q) use ($search) {
+                        $q->where('company_name', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('location', function ($q) use ($search) {
+                        $q->where('location', 'like', "%{$search}%");
+                    })
+                    ->orWhereHas('work', function ($q) use ($search) {
+                        $q->where('work_type', 'like', "%{$search}%");
+                    });
             })
-            ->get();
+            ->paginate(10); // Menambahkan pagination untuk efisiensi
 
         return view('location-division.index', compact('locationDivision'));
     }
@@ -33,31 +43,34 @@ class LocationDivisionController extends Controller
      */
     public function create()
     {
+        $employees = Employee::all();
         $cooperations = Cooperation::all();
         $locations = Location::all();
+        $works = Work::all();
 
-        return view('location-division.create', compact('cooperations', 'locations'));
+        return view('location-division.create', compact('employees', 'cooperations', 'locations', 'works'));
     }
-
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
+        // Validasi data yang dikirim dari form
         $validated = $request->validate([
-            // 'employee_id'    => 'required|exists:employees,id',
+            'employee_id' => 'required|exists:employees,id',
             'cooperation_id' => 'required|exists:cooperations,id',
             'location_id' => 'required|exists:locations,id',
-            // 'work_id'        => 'required|exists:works,id',
+            'work_id' => 'required|exists:works,id',
             'work_detail' => 'nullable|string',
+            'status' => 'nullable|in:in_progress,completed', 
         ]);
 
-        // Set default status
-        $validated['status'] = 'in_progress';
+        $validated['status'] = $validated['status'] ?? 'in_progress'; 
 
         LocationDivision::create($validated);
 
+        // Redirect ke halaman index dengan pesan sukses
         return redirect()->route('location-division.index')
             ->with('success', 'Pembagian lokasi kerja berhasil ditambahkan');
     }
@@ -68,10 +81,10 @@ class LocationDivisionController extends Controller
     public function edit($id)
     {
         $locationDivision = LocationDivision::findOrFail($id);
-        // $employees = Employee::all();
+        $employees = Employee::all();
         $cooperations = Cooperation::all();
         $locations = Location::all();
-        // $works = Work::all();
+        $works = Work::all();
 
         return view('location-division.edit', compact(
             'locationDivision',
@@ -90,13 +103,14 @@ class LocationDivisionController extends Controller
         $locationDivision = LocationDivision::findOrFail($id);
 
         $validated = $request->validate([
-            // 'employee_id' => 'required|exists:employees,id',
+            'employee_id' => 'required|exists:employees,id',
             'cooperation_id' => 'required|exists:cooperations,id',
             'location_id' => 'required|exists:locations,id',
-            // 'work_id' => 'required|exists:works,id',
+            'work_id' => 'required|exists:works,id',
             'work_detail' => 'nullable|string',
-            'status' => 'required|in:completed,in_progress',
+            'status' => 'nullable|in:completed,in_progress',
         ]);
+        $validated['status'] = $validated['status'] ?? 'in_progress';
 
         $locationDivision->update($validated);
 

@@ -25,7 +25,7 @@ class LocationDivision extends Model
         return $this->belongsTo(Employee::class);
     }
 
-    public function cooperations()
+    public function cooperation()
     {
         return $this->belongsTo(Cooperation::class);
     }

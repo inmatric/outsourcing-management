@@ -20,7 +20,7 @@ class Location extends Model
         'information',
     ];
 
-    public function locationDivisions()
+    public function locationDivision()
     {
         return $this->hasMany(LocationDivision::class);
     }
