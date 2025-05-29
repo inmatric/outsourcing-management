@@ -13,12 +13,13 @@ class Location extends Model
 
     // Kolom yang boleh diisi
     protected $fillable = [
+        'company_id',
         'company',
         'location',
         'location_code',
         'location_type',
         'information',
         'status',
-    
+
     ];
-}    
+}
