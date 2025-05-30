@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Attendance;
+use App\Models\Employee;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Carbon;
@@ -14,8 +15,8 @@ class AttendanceController extends Controller
      */
     public function index()
     {
-
-        $attendances = Attendance::all();
+        // Mengambil semua data kehadiran dengan relasi ke employee
+        $attendances = Attendance::with('employee')->get();
         return view('attendances.index', compact('attendances'));
     }
 
@@ -24,29 +25,36 @@ class AttendanceController extends Controller
      */
     public function create()
     {
-        return view('attendances.create');
+        // Mengambil semua karyawan untuk dropdown selection
+        $employees = Employee::all();
+        return view('attendances.create', compact('employees'));
     }
     public function creates()
     {
-        return view('attendances.creates');
+        // Mengambil semua karyawan untuk dropdown selection
+        $employees = Employee::all();
+        return view('attendances.creates', compact('employees'));
     }
-
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
     {
         $request->validate([
-            'name' => 'required|string|max:255',
-            'photo' => 'required|string', // Base64 encoded image data
-            'attendance_type' => 'required|string|in:start,end', // Validasi type
+            'employee_id' => 'required|exists:employees,id',
+            'attendance_type' => 'required|string|in:start,end',
+            'photo' => 'required|string',
         ]);
 
-        $name = $request->input('name');
-        $date = now('Asia/Jakarta')->toDateString();
+        $employeeId = $request->input('employee_id');
         $attendanceType = $request->input('attendance_type');
+        $date = now('Asia/Jakarta')->toDateString();
+        $now = now('Asia/Jakarta');
+        $currentMinutes = $now->hour * 60 + $now->minute;
 
-        // Handle photo upload (akan digunakan untuk start atau end)
+
+
+        // Lanjutkan proses penyimpanan seperti sebelumnya...
         $base64Image = $request->input('photo');
         $photoPath = null;
         if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
@@ -66,30 +74,31 @@ class AttendanceController extends Controller
         }
 
         if ($attendanceType === 'end') {
-            // Cari data kehadiran yang sesuai dan end_time-nya masih kosong
-            $existingAttendance = Attendance::where('name', $name)
+            $existingAttendance = Attendance::where('employee_id', $employeeId)
                 ->where('date', $date)
                 ->whereNull('end_time')
                 ->first();
 
             if ($existingAttendance) {
-                $existingAttendance->end_time = now('Asia/Jakarta');
+                $existingAttendance->end_time = $now;
                 if ($photoPath) {
-                    $existingAttendance->end_photo = $photoPath; // Simpan foto ke end_photo
+                    $existingAttendance->end_photo = $photoPath;
+                }
+                if ($existingAttendance->start_time && $existingAttendance->end_time) {
+                    $existingAttendance->notes = 'Hadir';
                 }
                 $existingAttendance->save();
                 return redirect()->route('attendances.index')->with('success', 'End time recorded successfully!');
             } else {
-                return redirect()->back()->with('error', 'No matching start attendance found to record end time.');
+                return redirect()->back()->with('error', 'Tidak ditemukan data kehadiran untuk dicocokkan dengan waktu pulang.');
             }
         } elseif ($attendanceType === 'start') {
-            // Buat data kehadiran baru untuk start time
             $attendance = new Attendance();
-            $attendance->name = $name;
+            $attendance->employee_id = $employeeId;
             $attendance->date = $date;
-            $attendance->start_time = now('Asia/Jakarta');
+            $attendance->start_time = $now;
             if ($photoPath) {
-                $attendance->photo = $photoPath; // Simpan foto ke kolom 'photo' (untuk start)
+                $attendance->photo = $photoPath;
             }
             $attendance->save();
             return redirect()->route('attendances.index')->with('success', 'Start time recorded successfully!');
@@ -97,79 +106,53 @@ class AttendanceController extends Controller
 
         return redirect()->route('attendances.index')->with('info', 'Attendance action completed.');
     }
-    /**
-     * Display the specified resource.
-     */
-    public function show(Attendance $attendance)
-    {
-        return view('attendances.show', compact('attendance'));
-    }
+
 
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit($id)
-    {
-        $attendance = Attendance::findOrFail($id);
-        return view('attendances.edit', compact('attendance'));
-    }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Attendance $attendance)
+    public function update(Request $request, $id)
     {
-        $attendance->name = $request->name;
-        $attendance->date = $request->date;
-        $attendance->start_time = $request->date . ' ' . $request->start_time;
-        $attendance->end_time = $request->date . ' ' . $request->end_time;
-        $attendance->keterangan = $request->keterangan;
+        $request->validate([
+            'employee_id' => 'required|exists:employees,id',
+            'attendance_type' => 'required|string|in:start,end', // Validasi type
+            'photo' => 'nullable|string', // Base64 encoded image data
+        ]);
 
-        // Handle penghapusan foto start time
-        if ($request->has('remove_photo')) {
-            if ($attendance->photo) {
-                \Storage::delete('public/' . $attendance->photo);
-                $attendance->photo = null;
-            }
-        }
+        $attendance = Attendance::findOrFail($id);
+        $attendance->employee_id = $request->input('employee_id');
+        $attendance->attendance_type = $request->input('attendance_type');
 
-        // Handle upload foto start time baru (dari kamera atau file)
-        if ($request->has('photo')) { // Data URL dari kamera
-            // Proses penyimpanan data URL sebagai file (Anda perlu implementasi ini)
-            $path = $this->saveBase64Image($request->photo, 'attendances');
-            $attendance->photo = $path;
-        } elseif ($request->hasFile('new_photo')) { // File yang diunggah
-            // Hapus foto lama jika ada
-            if ($attendance->photo) {
-                \Storage::delete('public/' . $attendance->photo);
-            }
-            $path = $request->file('new_photo')->store('attendances', 'public');
-            $attendance->photo = $path;
-        }
-
-        // Lakukan logika serupa untuk end_photo
-        if ($request->has('remove_end_photo')) {
-            if ($attendance->end_photo) {
-                \Storage::delete('public/' . $attendance->end_photo);
-                $attendance->end_photo = null;
-            }
-        }
-
-        if ($request->has('end_photo')) {
-            $path = $this->saveBase64Image($request->end_photo, 'attendances');
-            $attendance->end_photo = $path;
-        } elseif ($request->hasFile('new_end_photo')) {
-            if ($attendance->end_photo) {
-                \Storage::delete('public/' . $attendance->end_photo);
-            }
-            $path = $request->file('new_end_photo')->store('attendances', 'public');
-            $attendance->end_photo = $path;
+        // Handle photo upload if present
+        if ($request->has('photo')) {
+            $base64Image = $request->input('photo');
+            $photoPath = $this->saveBase64Image($base64Image, 'photos');
+            $attendance->photo = $photoPath;
         }
 
         $attendance->save();
 
         return redirect()->route('attendances.index')->with('success', 'Attendance updated successfully!');
     }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy($id)
+    {
+        $attendance = Attendance::findOrFail($id);
+        $attendance->delete();
+
+        return redirect()->route('attendances.index')->with('success', 'Data berhasil dihapus.');
+    }
+
+    /**
+     * Save the base64 image to the public storage.
+     */
     private function saveBase64Image($base64Image, $folder)
     {
         $imageParts = explode(";base64,", $base64Image);
@@ -181,20 +164,34 @@ class AttendanceController extends Controller
         return $folder . '/' . $imageName;
     }
 
+    /**
+     * Delete the old photo if exists in storage.
+     */
     private function deleteOldPhoto($path)
     {
         if ($path && Storage::disk('public')->exists($path)) {
             Storage::disk('public')->delete($path);
         }
     }
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy($id)
+    public function show($id)
+    {
+        $attendance = Attendance::findOrFail($id); // Ambil data attendance berdasarkan ID
+        return view('attendances.show', compact('attendance'));
+    }
+
+    public function indexs()
+    {
+        $attendances = Attendance::with('employee')->get();
+        return view('employees_attendances.index', compact('attendances'));
+    }
+    public function updateStatus($id)
     {
         $attendance = Attendance::findOrFail($id);
-        $attendance->delete();
+        $attendance->status = 'completed';
+        $attendance->save();
 
-        return redirect()->route('attendances.index')->with('success', 'Data berhasil dihapus.');
+        return redirect()->back()->with('success', 'Status berhasil diperbarui!');
     }
+
+
 }

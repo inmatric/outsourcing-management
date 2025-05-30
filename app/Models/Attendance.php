@@ -10,12 +10,18 @@ class Attendance extends Model
     /** @use HasFactory<\Database\Factories\AttendanceFactory> */
     use HasFactory;
     protected $fillable = [
-        'name',
+        'employee_id',
         'date',
         'start_time',
         'end_time',
         'photo',
         'end_photo',
         'keterangan',
+        'notes',
+        'status',
     ];
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
