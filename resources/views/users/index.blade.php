@@ -41,9 +41,20 @@
                         Add User</a>
                     <div class="flex items-center w-full space-x-3 md:w-auto">
                     </div>
+                </form>
+            </div>
+
+            <div
+                class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
+
+                <a href="{{ url('/users/create') }}"
+                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
+                    Add User</a>
+                <div class="flex items-center w-full space-x-3 md:w-auto">
                 </div>
             </div>
         </div>
+    </div>
     @if (session('success'))
         <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
             {{ session('success') }}
