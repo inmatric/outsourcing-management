@@ -29,7 +29,7 @@ class SidebarMenus extends Component
             ],
             [
                 'name' => 'Employee Contract',
-                'href' => '/employee_contract',
+                'href' => '/employee-contract',
             ],
             [
                 'name' => 'Work Table',
@@ -49,7 +49,7 @@ class SidebarMenus extends Component
             ],         
             [
                 'name' => 'Location Division',
-                'href' => '/location_division',
+                'href' => '/location-division',
             ],            
             [
                 'name' => 'Attendance',
@@ -57,7 +57,7 @@ class SidebarMenus extends Component
             ],            
             [
                 'name' => 'Work Tracking',
-                'href' => '/workprogresstracking',
+                'href' => '/processing_wd',
             ],
             [
                 'name' => 'Complaint',
