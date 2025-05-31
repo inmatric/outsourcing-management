@@ -65,6 +65,12 @@
                                 </li>
                               
                                 <li>
+                                <a href="{{ url('/profile/edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+    Update
+</a>
+
+                                </li>
+
                                     <a href="{{ url('/profile/' . Auth::user()->id . '/edit') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 ">
                                         {{-- Icon edit --}}
