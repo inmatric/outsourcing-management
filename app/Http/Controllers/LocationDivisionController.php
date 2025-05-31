@@ -33,7 +33,7 @@ class LocationDivisionController extends Controller
                         $q->where('work_type', 'like', "%{$search}%");
                     });
             })
-            ->paginate(10); // Menambahkan pagination untuk efisiensi
+            ->paginate(10);
 
         return view('location-division.index', compact('locationDivision'));
     }
@@ -62,7 +62,7 @@ class LocationDivisionController extends Controller
             'cooperation_id' => 'required|exists:cooperations,id',
             'location_id' => 'required|exists:locations,id',
             'work_id' => 'required|exists:works,id',
-            'work_detail' => 'nullable|string',
+            'detail_work' => 'nullable|string',
             'status' => 'nullable|in:in_progress,completed',
         ]);
 
@@ -107,7 +107,7 @@ class LocationDivisionController extends Controller
             'cooperation_id' => 'required|exists:cooperations,id',
             'location_id' => 'required|exists:locations,id',
             'work_id' => 'required|exists:works,id',
-            'work_detail' => 'nullable|string',
+            'detail_work' => 'nullable|string',
             'status' => 'nullable|in:completed,in_progress',
         ]);
         $validated['status'] = $validated['status'] ?? 'in_progress';
@@ -132,7 +132,6 @@ class LocationDivisionController extends Controller
 
     public function indexPetugas()
     {
-        // Mengambil data LocationDivision yang statusnya 'in_progress' dengan eager loading relasi
         $data = LocationDivision::with(['employee', 'cooperation', 'location', 'work']) 
             ->where('status', 'in_progress')
             ->paginate(10);
@@ -142,19 +141,15 @@ class LocationDivisionController extends Controller
 
     public function updateStatus(Request $request, $id)
     {
-        // Mencari data berdasarkan ID
         $data = LocationDivision::findOrFail($id);
 
-        // Validasi status yang dipilih
         $validated = $request->validate([
             'status' => 'required|in:in_progress,completed',
         ]);
 
-        // Update status pekerjaan
         $data->status = $request->input('status');
         $data->save();
 
-        // Redirect kembali dengan pesan sukses
         return redirect()->route('location-division.index-petugas')->with('success', 'Status pekerjaan berhasil diperbarui.');
     }
 }
