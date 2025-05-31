@@ -28,13 +28,6 @@ Route::get('/location/pdf', [LocationController::class, 'downloadPDF'])->name('l
 Route::resource('location', LocationController::class);
 Route::resource('location-type', LocationTypeController::class);
 
-Route::get('/location-division', [LocationDivisionController::class, 'index'])->name('location-division.index');
-Route::get('/location-division/create', [LocationDivisionController::class, 'create'])->name('location-division.create');
-Route::post('/location-division', [LocationDivisionController::class, 'store'])->name('location-division.store');
-Route::get('/location-division/{id}/edit', [LocationDivisionController::class, 'edit'])->name('location-division.edit');
-Route::put('/location-division/{id}', [LocationDivisionController::class, 'update'])->name('location-division.update');
-Route::delete('/location-division/{id}', [LocationDivisionController::class, 'destroy'])->name('location-division.destroy');
-
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index');           // GET /api/v1/products
@@ -46,8 +39,8 @@ Route::prefix('v1')->group(function () {
 });
 
 
-    Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
-    Route::post('/login', [LoginController::class, 'login']);
+Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
+Route::post('/login', [LoginController::class, 'login']);
 
 
 Route::middleware([AuthMiddleware::class])->group(function () {
@@ -76,5 +69,17 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::put('/{id}', 'update');
         Route::delete('/{id}', 'destroy');
     });
+
+    Route::prefix('location-division')->controller(LocationDivisionController::class)->name('location-division.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::get('/petugas', 'indexPetugas')->name('index-petugas');
+        Route::put('/update-status/{id}', 'updateStatus')->name('update-status'); 
+    });
+
 });
 
