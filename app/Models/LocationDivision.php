@@ -16,7 +16,7 @@ class LocationDivision extends Model
         'cooperation_id',
         'location_id',
         'work_id',
-        'work_detail',
+        'detail_work',
         'status',
     ];
 
