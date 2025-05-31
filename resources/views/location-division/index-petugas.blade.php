@@ -11,10 +11,10 @@
             @foreach ($data as $location)
                 <div class="bg-white shadow-md rounded-lg p-4">
                     <h3 class="font-semibold text-lg text-gray-800">{{ $location->employee->name }}</h3>
-                    <p class="text-sm text-gray-600">Company: {{ $location->cooperation->company_name }}</p>
-                    <p class="text-sm text-gray-600">Location: {{ $location->location->location }}</p>
-                    <p class="text-sm text-gray-600">Work Type: {{ $location->work->work_type }}</p>
-                    <p class="text-sm text-gray-600">Work Detail: {{ $location->work_detail }}</p>
+                    <p class="text-sm text-gray-600">Company : {{ $location->cooperation->company_name }}</p>
+                    <p class="text-sm text-gray-600">Location : {{ $location->location->location }}</p>
+                    <p class="text-sm text-gray-600">Work Type : {{ $location->work->work_type }}</p>
+                    <p class="text-sm text-gray-600">Detail Work : {{ $location->detail_work }}</p>
 
                     <!-- Status Section -->
                     <form action="{{ route('location-division.update-status', $location->id) }}" method="POST" class="mt-4">
