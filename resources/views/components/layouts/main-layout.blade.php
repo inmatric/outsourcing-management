@@ -63,11 +63,10 @@
                                         role="menuitem">Dashboard</a>
                                 </li>
                                 <li>
-                                    <a href="{{ url('/profile/' . $user->id . '/edit') }}"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                                        {{-- Icon edit --}}
-                                        Update
-                                    </a>
+                                <a href="{{ url('/profile/edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+    Update
+</a>
+
                                 </li>
                                 <li>
                                     <a href="#"
