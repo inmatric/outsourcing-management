@@ -9,6 +9,7 @@ use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\FundController;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CooperationController;
@@ -60,6 +61,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     });
 
     Route::resource('cooperations', CooperationController::class);
+    Route::resource('funds', FundController::class);
+
 
     Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
         Route::get('/', 'index');
