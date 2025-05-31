@@ -18,10 +18,9 @@ return new class extends Migration
             $table->date('start_date');
             $table->date('end_date');
             $table->enum('status', ['active', 'inactive']);
-            $table->string('contact_person', 15);
+            $table->string('contract_file', 255)->nullable();
             $table->timestamps();
         });
-
     }
 
     /**

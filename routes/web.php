@@ -10,6 +10,7 @@ use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\WorkToolsController;
 use App\Http\Controllers\ProfileController;
+use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\LocationDivisionController;
 use App\Http\Middleware\AuthMiddleware;
 
@@ -40,7 +41,7 @@ Route::get('/location/pdf', [LocationController::class, 'downloadPDF'])->name('l
 Route::resource('location', LocationController::class);
 Route::resource('location-type', LocationTypeController::class);
 
-// API route example
+
 Route::prefix('v1')->group(function () {
     Route::prefix('products')->controller(ProductController::class)->group(function () {
         Route::get('/', 'index');
@@ -68,6 +69,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::delete('/{id}', 'destroy')->name('destroy');
     });
 
+
     Route::prefix('employee-contract')->controller(EmployeeContractController::class)->name('employee-contract.')->group(function () {
         Route::get('/', 'index')->name('index');
         Route::get('/create', 'create')->name('create');
@@ -80,3 +82,30 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
     Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
 });
+
+
+    Route::resource('cooperations', CooperationController::class);
+
+    Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
+        Route::get('/', 'index');
+        Route::get('/create', 'create');
+        Route::post('/', 'store');
+        Route::get('/edit', 'edit');
+        Route::put('/{id}', 'update');
+        Route::delete('/{id}', 'destroy');
+    });
+
+    Route::prefix('location-division')->controller(LocationDivisionController::class)->name('location-division.')->group(function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::get('/petugas', 'indexPetugas')->name('index-petugas');
+        Route::put('/update-status/{id}', 'updateStatus')->name('update-status'); 
+    });
+
+});
+
+

@@ -8,13 +8,18 @@ use Illuminate\Support\Facades\Hash;
 
 class UserController extends Controller
 {
-    public function index()
+    public function index(Request $request)
     {
-        $users = User::all();
-        // dd($users);
+        $query = User::query();
+
+        if ($request->has('email') && $request->email != '') {
+            $query->where('email', 'like', '%' . $request->email . '%');
+        }
+
+        $users = $query->orderBy('email')->get();
+
         return view('users.index', compact('users'));
     }
-
     public function create()
     {
         return view('users.create');

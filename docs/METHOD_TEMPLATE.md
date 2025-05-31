@@ -7,18 +7,24 @@ Untuk mengantisipasi error yang tidak terduga, sebaiknya kita **membuat cadangan
 ---
 
 ### 2. 📥 Ambil Kode Terbaru  
-Pastikan berada di branch `dev` dan tarik update terbaru:
 
 ```bash
-git checkout dev
-git pull origin dev
+git clone https://github.com/inmatric/outsourcing-management.git
+```
+jika sebelumnya sudah membuat branch 
+pindah ke branch kalian
+```bash
+git checkout feature/users
+```
+jika belum
+```bash
+git checkout -b feature/nama-fitur
 ```
 
 Setelah itu, jalankan migration dan seeder:
 
 ```bash
-php artisan migrate:fresh
-php artisan db:seed
+php artisan migrate:fresh --seed
 ```
 
 ---
