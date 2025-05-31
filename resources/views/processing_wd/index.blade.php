@@ -23,6 +23,7 @@
                             <th scope="col" class="px-6 py-3">Before Photo</th>
                             <th scope="col" class="px-6 py-3">After Photo</th>
                             <th scope="col" class="px-6 py-3">Status</th>
+                            <th scope="col" class="px-6 py-3">Notes</th>
                             <th scope="col" class="px-6 py-3">Actions</th>
                         </tr>
                     </thead>
@@ -52,6 +53,9 @@
                                     Completed
                                 </span>
                             </td>
+
+                            <td class="px-6 py-4">Ruangan Lab Sistem Informasi sudah bersih</td>
+
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     <a href="#" class="text-blue-500 hover:text-blue-700" title="View Details">
@@ -87,12 +91,16 @@
                                     View
                                 </button>
                             </td>
+
                             
                             <td class="px-6 py-4">
                                 <span class="px-2 py-1 text-xs rounded-full bg-yellow-100 text-yellow-800">
                                     In progress
                                 </span>
                             </td>
+
+                            <td class="px-6 py-4">Tangga darurat sudah disapu</td>
+
                             <td class="px-6 py-4">
                                 <div class="flex space-x-2">
                                     <a href="#" class="text-blue-500 hover:text-blue-700" title="View Details">

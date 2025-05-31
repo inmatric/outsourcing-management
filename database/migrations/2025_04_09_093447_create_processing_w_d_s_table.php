@@ -12,8 +12,30 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('processing_w_d_s', function (Blueprint $table) {
+            // ID dan Relasi
             $table->id();
+            $table->unsignedBigInteger('employee_id');
+
+            // Timer Tracking
+            $table->timestamp('start_time')->nullable();
+            $table->timestamp('end_time')->nullable();
+            $table->integer('duration_sec')->nullable()->comment('Durasi dalam detik');
+
+            // Dokumentasi Foto
+            $table->string('photo_before_path')->nullable();
+            $table->string('photo_after_path')->nullable();
+
+            // Status dan Catatan
+            $table->enum('status', ['pending', 'inprogress', 'completed'])->default('pending');
+            $table->text('notes')->nullable();
+
+            // Timestamps
             $table->timestamps();
+
+            // Index untuk performa
+            $table->index('employee_id');
+            $table->index('status');
+            $table->index(['start_time', 'end_time']);
         });
     }
 

@@ -19,8 +19,7 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [ProductController::class, 'test']);
-Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
-Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
+
 
 
 Route::get('/location/pdf', [LocationController::class, 'downloadPDF'])->name('location.pdf');
@@ -55,6 +54,9 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     })->name('profile');
     Route::get('/profile/{id}/edit', [ProfileController::class, 'show'])->name('profileform');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+
+    Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
+    Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
 
     Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
         Route::get('/', 'index')->name('index');
