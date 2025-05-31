@@ -24,7 +24,7 @@
             </form>
 
             <a href="{{ route('location-division.create') }}"
-                class="px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white rounded-lg text-sm font-semibold">
+                class="px-4 py-2 bg-cyan-500 hover:bg-cyan-600 text-white rounded-lg text-sm font-semibold">
                 + Add Data
             </a>
         </div>
@@ -79,7 +79,7 @@
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit"
-                                            class="bg-red-600 hover:bg-red-700 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
+                                            class="bg-red-500 hover:bg-red-600 text-white p-2 rounded focus:outline-none focus:ring-2 focus:ring-red-500"
                                             title="Delete">
                                             <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" class="w-5 h-5">
                                                 <path fill="currentColor"
