@@ -1,51 +1,79 @@
 @extends('components.layouts.main-layout')
-@section('title', 'Employee')
+@section('title', 'Edit Offence')
 @section('content')
-    
-
 
 <div class="max-w-lg mx-auto bg-white dark:bg-gray-800 shadow-md rounded-lg p-6">
-    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 text-center">Add Offence</h2>
+    <h2 class="text-2xl font-semibold text-gray-800 dark:text-white mb-6 text-center">Edit Offence</h2>
 
-    <form action="#" method="POST"> {{-- Ganti action sesuai kebutuhan --}}
+    <form action="{{ route('offence.update', $offence->id) }}" method="POST" enctype="multipart/form-data">
         @csrf
+        @method('PUT')
 
         <div class="mb-5">
             <label for="employee_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Employee Name
             </label>
-            <input type="text" id="employee_name"
-                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+            <input type="text" id="employee_name" name="employe_name"
+                value="{{ old('employe_name', $offence->employe_name) }}"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
                 placeholder="Enter employee name">
         </div>
+        <div class="mb-5">
+            <label for="date" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Date
+            </label>
+            <input type="date" id="date" name="date"
+                value="{{ old('date', $offence->date) }}"
+                class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                required>
+        </div>
+
+
 
         <div class="mb-5">
             <label for="offence_category" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Offence Category
             </label>
-            <input type="text" id="offence_category"
+            <select name="offence_category" id="offence_category"
                 class="block w-full p-3 text-gray-900 border border-gray-300 rounded-lg bg-gray-50 text-base focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                placeholder="e.g. Late, Absence">
+                required>
+                <option value="" disabled>Select offence category</option>
+                <option value="Light" {{ old('offence_category', $offence->offence_category) == 'Light' ? 'selected' : '' }}>Light</option>
+                <option value="Medium" {{ old('offence_category', $offence->offence_category) == 'Medium' ? 'selected' : '' }}>Medium</option>
+                <option value="Heavy" {{ old('offence_category', $offence->offence_category) == 'Heavy' ? 'selected' : '' }}>Heavy</option>
+            </select>
         </div>
+
 
         <div class="mb-6">
             <label for="offence_description" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
                 Offence Description
             </label>
-            <textarea id="offence_description" rows="3"
-                class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
-                placeholder="Describe the offence..."></textarea>
+            <textarea id="offence_description" name="offence_description" rows="3"
+                class="block w-full p-3 text-sm text-gray-900 border border-gray-300 rounded-lg bg-gray-50 dark:bg-gray-700 dark:border-gray-600 dark:text-white"
+                placeholder="Describe the offence...">{{ old('offence_description', $offence->offence_description) }}</textarea>
+        </div>
+
+        <div class="mb-6">
+            <label for="image" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">
+                Change Image (optional)
+            </label>
+            <input type="file" id="image" name="image"
+                class="block w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 cursor-pointer dark:text-white dark:bg-gray-700 dark:border-gray-600">
+            @if ($offence->image)
+            <img src="{{ asset('storage/' . $offence->image) }}" alt="Current Image" class="mt-2 w-24 h-auto rounded shadow">
+            <input type="hidden" name="existing_image" value="{{ $offence->image }}">
+            @endif
         </div>
 
         <div class="flex justify-between">
-                <button type="button"
-                    class="text-white bg-gray-800 hover:bg-gray-900 focus:outline-none focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-gray-800 dark:hover:bg-gray-700 dark:focus:ring-gray-700 dark:border-gray-700">
-                    Back
-                </button>
+            <a href="{{ route('offence.index') }}"
+                class="text-white bg-gray-700 hover:bg-gray-800 focus:ring-4 focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5">
+                Back
             </a>
             <button type="submit"
-                class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700">
-                Submit
+                class="text-white bg-blue-700 hover:bg-blue-800 font-medium rounded-lg text-sm px-5 py-2.5">
+                Update
             </button>
         </div>
     </form>

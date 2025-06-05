@@ -9,8 +9,16 @@ Route::get('/', function () {
 });
 
 Route::get('/test', [ProductController::class, 'test']);
-Route::get('/offence', [OffenceController::class, 'index']);
+Route::get('/offence', [OffenceController::class, 'index'])->name('offence.index');
 Route::get('/offence/create', [OffenceController::class, 'create'])->name('offence.create');
+Route::post('/offence', [OffenceController::class, 'store'])->name('offence.store');
+Route::get('/offence/{id}/edit', [OffenceController::class, 'edit'])->name('offence.edit');
+Route::put('/offence/{id}', [OffenceController::class, 'update'])->name('offence.update');
+Route::delete('/offence/{id}', [OffenceController::class, 'destroy'])->name('offence.destroy');
+Route::get('/offence/search', [OffenceController::class, 'search'])->name('offence.search');
+Route::get('/offence/show/{id}', [OffenceController::class, 'show'])->name('offence.show');
+
+
 
 
 
