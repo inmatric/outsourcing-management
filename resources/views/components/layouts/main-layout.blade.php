@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <title>Page | @yield('title')</title>
 </head>
@@ -29,8 +30,8 @@
                     </button>
                     <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                        <span
-                        class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ">Management Outsourcing</span>
+                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ">Management
+                            Outsourcing</span>
 
                     </a>
                 </div>
@@ -59,22 +60,20 @@
                             </div>
                             <ul class="py-1" role="none">
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
                                         role="menuitem">Dashboard</a>
                                 </li>
-                              
+
                                 <li>
                                     <a href="{{ url('/profile/' . Auth::user()->id . '/edit') }}"
                                         class="block px-4 py-2 text-sm text-gray-700 ">
                                         {{-- Icon edit --}}
                                         Update
                                     </a>
-                                </li> 
-                                
+                                </li>
+
                                 <li>
-                                    <a href="#"
-                                        class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
                                         role="menuitem">Earnings</a>
                                 </li>
                                 <li>
