@@ -13,6 +13,7 @@ use App\Http\Controllers\FundController;
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CooperationController;
+use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\EmployeeEvaluationController;
 use App\Http\Controllers\LocationDivisionController;
 use App\Http\Controllers\PermissionRequestController;
@@ -47,6 +48,8 @@ Route::post('/login', [LoginController::class, 'login']);
 
 
 Route::middleware([AuthMiddleware::class])->group(function () {
+    Route::resource('employes', controller: EmployeeController::class);
+
     Route::get('/profile', function () {
         return view('profile');
     })->name('profile');
@@ -98,13 +101,13 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::get('/petugas', 'indexPetugas')->name('index-petugas');
         Route::put('/update-status/{id}', 'updateStatus')->name('update-status');
     });
-});
 
-Route::prefix('permission-request')->controller(PermissionRequestController::class)->name('permissions-request.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'destroy')->name('destroy');
+    Route::prefix('permission-request')->controller(PermissionRequestController::class)->group(function () {
+        Route::get('/', 'index')->name('permission-request.index');;
+        Route::get('/create', 'create')->name('permission-request.create');;
+        Route::post('/', 'store')->name('permission-request.store');;
+        Route::get('/{id}/edit', 'edit')->name('permission-request.edit');;
+        Route::put('/{id}', 'update')->name('permission-request.update');;
+        Route::delete('/{id}', 'destroy')->name('permission-request.destroy');;
+    });
 });

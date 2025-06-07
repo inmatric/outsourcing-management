@@ -1,5 +1,5 @@
 @extends('components.layouts.main-layout')
-@section('title', 'Employee Contract')
+@section('title', 'Employee')
 @section('content')
 
     <div class="">
@@ -18,17 +18,6 @@
                         Dashboard
                     </a>
                 </li>
-                <li>
-                    <div class="flex items-center">
-                        <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
-                            xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                                d="m1 9 4-4-4-4" />
-                        </svg>
-                        <a href="/employes"
-                            class="ms-1 text-sm font-medium text-gray-700 hover:text-blue-600 md:ms-2 dark:text-gray-400 dark:hover:text-white">Employee</a>
-                    </div>
-                </li>
                 <li aria-current="page">
                     <div class="flex items-center">
                         <svg class="rtl:rotate-180 w-3 h-3 text-gray-400 mx-1" aria-hidden="true"
@@ -37,14 +26,14 @@
                                 d="m1 9 4-4-4-4" />
                         </svg>
                         <span class="ms-1 text-sm font-medium text-gray-500 md:ms-2 dark:text-gray-400">Employee
-                            Contract</span>
+                        </span>
                     </div>
                 </li>
             </ol>
         </nav>
 
         {{-- heading --}}
-        <h2 class="text-3xl font-bold dark:text-white my-6">Employee Contract</h2>
+        <h2 class="text-3xl font-bold dark:text-white my-6">Employee</h2>
         @if (session('success'))
             <div class="p-4 mb-4 text-sm text-green-700 bg-green-100 rounded-lg">
                 {{ session('success') }}
@@ -55,7 +44,7 @@
         <div class="relative bg-white shadow-md dark:bg-gray-800 sm:rounded-lg">
             <div class="flex flex-col items-center justify-between p-4 space-y-3 md:flex-row md:space-y-0 md:space-x-4">
                 <div class="w-full md:w-1/2">
-                    <form method="GET" action="{{ route('employee-contract.index') }}" class="flex items-center">
+                    <form method="GET" action="{{ route('employes.index') }}" class="flex items-center">
                         <label for="simple-search" class="sr-only">Search</label>
                         <div class="relative w-full">
                             <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
@@ -74,13 +63,9 @@
                 </div>
                 <div
                     class="flex flex-col items-stretch justify-end flex-shrink-0 w-full space-y-2 md:w-auto md:flex-row md:space-y-0 md:items-center md:space-x-3">
-
-                    <a href="{{ url('/employes') }}"
-                        class="py-2.5 px-5 me-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-lg border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-100 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700">
-                        Employee Data</a>
-                    <a href="{{ url('/employee-contract/create') }}"
+                    <a href="{{ url('/employes/create') }}"
                         class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">
-                        Create Employee Contract</a>
+                        Create Employee</a>
                     <div class="flex items-center w-full space-x-3 md:w-auto">
                     </div>
                 </div>
@@ -93,67 +78,45 @@
                 <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
                     <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                         <tr>
-                            <th scope="col" class="px-6 py-3">
-                                No
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Contract Number
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                employee Name
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Start Date
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                End Date
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Position
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Location
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Working Hours
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Salary
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Status
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Contract File
-                            </th>
-                            <th scope="col" class="px-6 py-3">
-                                Action
-                            </th>
+                            <th class="px-6 py-3">No</th>
+                            <th class="px-6 py-3">Name</th>
+                            <th class="px-6 py-3">Address</th>
+                            <th class="px-6 py-3">Age</th>
+                            <th class="px-6 py-3">Phone</th>
+                            <th class="px-6 py-3">Skill</th>
+                            <th class="px-6 py-3">Photo</th>
+                            <th class="px-6 py-3">Aksi</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($contracts as $contract)
+                        @foreach ($employes as $employe)
                             <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 border-gray-200">
                                 <td class="px-6 py-4">{{ $loop->iteration }}</td>
-                                <td class="px-6 py-4">{{ $contract->contract_number }}</td>
-                                <td class="px-6 py-4">{{ $contract->employee->name }}</td>
-                                <td class="px-6 py-4">{{ $contract->start_date }}</td>
-                                <td class="px-6 py-4">{{ $contract->end_date }}</td>
-                                <td class="px-6 py-4">{{ $contract->position }}</td>
-                                <td class="px-6 py-4">{{ $contract->location->location ?? '-' }}</td>
-                                <td class="px-6 py-4">{{ $contract->working_hours }}</td>
-                                <td class="px-6 py-4">{{ $contract->salary }}</td>
-                                <td class="px-6 py-4">{{ $contract->status }}</td>
+                                <td class="px-6 py-4">{{ $employe->name }}</td>
+                                <td class="px-6 py-4">{{ $employe->address }}</td>
+                                <td class="px-6 py-4">{{ $employe->age }}</td>
+                                <td class="px-6 py-4">{{ $employe->phone_number }}</td>
+                                <td class="px-6 py-4">{{ $employe->skill }}</td>
                                 <td class="px-6 py-4">
-                                    @if ($contract->contract_file)
-                                        <a href="{{ asset('storage/' . $contract->contract_file) }}" target="_blank"
-                                            class="text-blue-500 underline">Show file</a>
+                                    @if ($employe->photo)
+                                        <img src="{{ asset('storage/' . $employe->photo) }}"
+                                            class="w-12 h-12 object-cover rounded-full">
                                     @else
-                                        File not found
+                                        <span>-</span>
                                     @endif
                                 </td>
                                 <td class="px-6 py-4 flex">
-                                    <a href="{{ url('/employee-contract/' . $contract->id . '/edit') }}"
+                                    <a href="{{ route('employes.show', $employe->id) }}"
+                                        class="text-blue-600 hover:text-blue-800">
+                                        {{-- Icon edit --}}
+                                        <svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" width="24"
+                                            height="24" fill="currentColor" viewBox="0 0 24 24">
+                                            <path fill-rule="evenodd"
+                                                d="M4.998 7.78C6.729 6.345 9.198 5 12 5c2.802 0 5.27 1.345 7.002 2.78a12.713 12.713 0 0 1 2.096 2.183c.253.344.465.682.618.997.14.286.284.658.284 1.04s-.145.754-.284 1.04a6.6 6.6 0 0 1-.618.997 12.712 12.712 0 0 1-2.096 2.183C17.271 17.655 14.802 19 12 19c-2.802 0-5.27-1.345-7.002-2.78a12.712 12.712 0 0 1-2.096-2.183 6.6 6.6 0 0 1-.618-.997C2.144 12.754 2 12.382 2 12s.145-.754.284-1.04c.153-.315.365-.653.618-.997A12.714 12.714 0 0 1 4.998 7.78ZM12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6Z"
+                                                clip-rule="evenodd" />
+                                        </svg>
+                                    </a>
+                                    <a href="{{ route('employes.edit', $employe->id) }}"
                                         class="text-yellow-400 hover:text-yellow-500">
                                         {{-- Icon edit --}}
                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
@@ -162,8 +125,8 @@
                                                 d="M16.862 3.487a2.25 2.25 0 113.182 3.182L7.5 19.5H3v-4.5L16.862 3.487z" />
                                         </svg>
                                     </a>
-                                    <form action="{{ url('/employee-contract/' . $contract->id) }}" method="POST"
-                                        onsubmit="return confirm('Yakin ingin menghapus data ini?')">
+                                    <form action="{{ route('employes.destroy', $employe->id) }}" method="POST"
+                                        onsubmit="return confirm('Yakin ingin menghapus employe ini?')">
                                         @csrf
                                         @method('DELETE')
                                         <button type="submit" class="text-red-600 hover:text-red-800">
@@ -185,7 +148,7 @@
 
         {{-- pagination --}}
         <div class="px-4 py-4">
-            {{ $contracts->appends(request()->query())->links() }}
+            {{-- {{ $employes->appends(request()->query())->links() }} --}}
         </div>
 
     </div>

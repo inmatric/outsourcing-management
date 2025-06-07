@@ -145,6 +145,8 @@ class PermissionRequestController extends Controller
             'start_date' => $validated['start_date'],
             'end_date' => $validated['end_date'],
             'status' => 'pending', // status default
+            'approved_by' => null,
+            'approved_at' => null,
             'attachment' => $filePath,
         ]);
 

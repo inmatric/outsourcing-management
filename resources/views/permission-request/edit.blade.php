@@ -4,7 +4,7 @@
 @section('content')
     <div class="p-6 bg-white rounded-lg shadow">
         <h2 class="text-2xl font-semibold mb-4">Edit Permohonan Izin</h2>
-        <form action="{{ route('permissions-request.update', $permissionRequest->id) }}" method="POST"
+        <form action="{{ route('permission-request.update', $permissionRequest->id) }}" method="POST"
             enctype="multipart/form-data">
             @csrf
             @method('PUT')

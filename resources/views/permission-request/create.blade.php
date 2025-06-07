@@ -4,7 +4,7 @@
 @section('content')
     <div class="p-6 bg-white rounded-lg shadow">
         <h2 class="text-2xl font-semibold mb-4">Ajukan Izin</h2>
-        <form action="{{ route('permissions-request.store') }}" method="POST" enctype="multipart/form-data">
+        <form action="{{ route('permission-request.store') }}" method="POST" enctype="multipart/form-data">
             @csrf
             <div class="gap-6 mb-6 py-4">
                 <div class="mb-4">
