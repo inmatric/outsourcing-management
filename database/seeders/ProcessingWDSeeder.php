@@ -14,6 +14,7 @@ class ProcessingWDSeeder extends Seeder
         DB::table('processing_w_d_s')->insert([
             [
                 'employee_id' => 1,
+                'work_id' => 1, // pastikan work dengan id 1 ada
                 'start_time' => Carbon::now()->subHours(2),
                 'end_time' => Carbon::now(),
                 'duration_sec' => 7200,
@@ -26,6 +27,7 @@ class ProcessingWDSeeder extends Seeder
             ],
             [
                 'employee_id' => 2,
+                'work_id' => 2,
                 'start_time' => Carbon::now()->subHour(),
                 'end_time' => null,
                 'duration_sec' => null,
@@ -38,6 +40,7 @@ class ProcessingWDSeeder extends Seeder
             ],
             [
                 'employee_id' => 3,
+                'work_id' => 3,
                 'start_time' => null,
                 'end_time' => null,
                 'duration_sec' => null,

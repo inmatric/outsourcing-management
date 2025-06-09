@@ -22,4 +22,9 @@ class Employee extends Model
     {
         return $this->hasMany(LocationDivision::class);
     }
+
+    public function processingWDs()
+    {
+        return $this->hasMany(ProcessingWD::class);
+    }
 }

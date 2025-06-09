@@ -20,4 +20,14 @@ class Work extends Model
     {
         return $this->hasMany(LocationDivision::class);
     }
+
+    public function processingWDs()
+    {
+        return $this->hasMany(ProcessingWD::class);
+    }
+
+    public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
 }
