@@ -11,8 +11,8 @@
     <title>Page | @yield('title')</title>
 </head>
 
-<body class="bg-white">
-    <nav class="fixed top-0 z-50 w-full bg-white border-b border-gray-200 ">
+<body class="">
+    <nav class="fixed top-0 z-50 w-full  border-b border-gray-200 ">
         <div class="px-3 py-3 lg:px-5 lg:pl-3">
             <div class="flex items-center justify-between">
                 <div class="flex items-center justify-start rtl:justify-end">
@@ -46,7 +46,7 @@
                                     alt="user photo">
                             </button>
                         </div>
-                        <div class="z-50 hidden my-4 text-base list-none bg-white divide-y divide-gray-100 rounded-sm shadow-sm "
+                        <div class="z-50 hidden my-4 text-base list-none  divide-y divide-gray-100 rounded-sm shadow-sm "
                             id="dropdown-user">
                             <div class="px-4 py-3" role="none">
 
@@ -99,16 +99,16 @@
     </nav>
 
     <aside id="logo-sidebar"
-        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full bg-white border-r border-gray-200 sm:translate-x-0 "
+        class="fixed top-0 left-0 z-40 w-64 h-screen pt-20 transition-transform -translate-x-full  border-r border-gray-200 sm:translate-x-0 "
         aria-label="Sidebar">
-        <div class="h-full px-3 pb-4 overflow-y-auto bg-white ">
+        <div class="h-full px-3 pb-4 overflow-y-auto  ">
             <ul class="space-y-2 font-medium">
                 <x-sidebar-menus />
             </ul>
         </div>
     </aside>
 
-    <div class="p-4 sm:ml-64 bg-white">
+    <div class="p-4 sm:ml-64 ">
         <div class="p-4  mt-14">
 
             <div class="m-5">

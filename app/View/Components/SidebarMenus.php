@@ -89,7 +89,7 @@ class SidebarMenus extends Component
             ],            
             [
                 'name' => 'Fund',
-                'href' => '/fund',
+                'href' => '/funds',
             ],
             // Tambah menu lainnya di sini
         ];

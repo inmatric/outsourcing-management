@@ -19,6 +19,8 @@ return new class extends Migration {
             $table->text('detail_work')->nullable();
             $table->enum('status', ['completed', 'in_progress'])->default('in_progress');
             $table->timestamps();
+                $table->index(['location_id', 'employee_id']);
+
         });
 
     }
