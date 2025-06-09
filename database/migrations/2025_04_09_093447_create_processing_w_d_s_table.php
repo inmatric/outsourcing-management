@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('processing_w_d_s', function (Blueprint $table) {
             // ID dan Relasi
             $table->id();
-            $table->unsignedBigInteger('employee_id');
+            $table->string('task_name',255);
+            $table->string('employee_name',255);
 
             // Timer Tracking
             $table->timestamp('start_time')->nullable();
@@ -33,7 +34,7 @@ return new class extends Migration
             $table->timestamps();
 
             // Index untuk performa
-            $table->index('employee_id');
+            // $table->index('employee_id');
             $table->index('status');
             $table->index(['start_time', 'end_time']);
         });

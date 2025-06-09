@@ -76,3 +76,20 @@ Route::prefix('employee-contract')->controller(EmployeeContractController::class
     Route::put('/{id}', 'update');
     Route::delete('/{id}', 'destroy');
 });
+
+Route::prefix('processing_wd')->group(function () {
+    Route::get('/', [ProcessingWDController::class, 'index'])
+        ->name('processing_wd.index');
+    Route::get('/create', [ProcessingWDController::class, 'create'])
+        ->name('processing_wd.create');
+    Route::post('/', [ProcessingWDController::class, 'store'])
+        ->name('processing_wd.store');
+    Route::get('/{processing_wd}', [ProcessingWDController::class, 'show'])
+        ->name('processing_wd.show');
+    Route::get('/{processing_wd}/edit', [ProcessingWDController::class, 'edit'])
+        ->name('processing_wd.edit');
+    Route::put('/{processing_wd}', [ProcessingWDController::class, 'update'])
+        ->name('processing_wd.update');
+    Route::delete('/{processing_wd}', [ProcessingWDController::class, 'destroy'])
+        ->name('processing_wd.destroy');
+});
