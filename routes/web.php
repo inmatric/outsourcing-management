@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LocationTypeController;
-
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProcessingWDController;
@@ -10,7 +10,7 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FundController;
-
+use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\LocationDivisionController;
@@ -86,3 +86,17 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
 });
 
+
+
+Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
+Route::get('/attendances/create', [AttendanceController::class, 'create'])->name('attendances.create');
+Route::get('/attendances/creates', [AttendanceController::class, 'creates'])->name('attendances.creates');
+Route::delete('/attendances/{id}', [AttendanceController::class, 'destroy'])->name('attendances.destroy');
+
+Route::post('/attendances', [AttendanceController::class, 'store'])->name('attendances.store'); // This is the store route
+Route::get('/employees-attendances', [AttendanceController::class, 'indexs'])->name('employees_attendances.index');
+Route::patch('/attendances/{id}/status', [AttendanceController::class, 'updateStatus'])->name('attendances.update-status');
+
+Route::resource('complaints', ComplaintController::class);
+Route::get('/get-employee/{location}', [ComplaintController::class, 'getEmployeeByLocation']);
+Route::get('/get-employee-by-location/{locationId}', [ComplaintController::class, 'getEmployeeByLocation']);
