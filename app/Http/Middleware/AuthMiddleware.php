@@ -9,18 +9,13 @@ use Symfony\Component\HttpFoundation\Response;
 
 class AuthMiddleware
 {
-    /**
-     * Handle an incoming request.
-     *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
-     */
-    public function handle(Request $request, Closure $next): Response
+    public function handle(Request $request, Closure $next)
     {
-        // Jika user tidak login, redirect ke halaman login
+        // Cek apakah user sudah login
         if (!Auth::check()) {
             return redirect()->route('login');
         }
-
+        
         return $next($request);
     }
 }

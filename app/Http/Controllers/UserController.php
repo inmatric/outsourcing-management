@@ -45,39 +45,40 @@ public function store(Request $request)
 
     return redirect('/users')->with('success', 'User berhasil ditambahkan.');
 }
-
-public function edit($id)
-{
-    $user = User::findOrFail($id);
-    return view('users.edit', compact('user'));
-}
-
 public function update(Request $request, $id)
-{
-    $user = User::findOrFail($id);
+    {
+        $user = User::findOrFail($id);
 
-    $validated = $request->validate([
-        'email' => 'required|email|unique:users,email,' . $user->id,
-        'username' => 'required|string|unique:users,username,' . $user->id,
-        'address' => 'nullable|string',
-        'role_name' => 'required|in:admin,user,hrd',
-    ]);
+        $validated = $request->validate([
+            'email' => 'required|email|unique:users,email,' . $user->id,
+            'username' => 'required|string|unique:users,username,' . $user->id,
+            'address' => 'nullable|string',
+            'role_name' => 'required|in:admin,user,hrd',
+            'password' => 'nullable|min:8', // Add password validation
+        ]);
 
-    $data = [
-        'email' => $validated['email'],
-        'username' => $validated['username'],
-        'address' => $validated['address'],
-        'role_name' => $validated['role_name'],
-    ];
+        $data = [
+            'email' => $validated['email'],
+            'username' => $validated['username'],
+            'address' => $validated['address'],
+            'role_name' => $validated['role_name'],
+        ];
 
-    if ($request->filled('password')) {
-        $data['password'] = Hash::make($request->password);
+        // Only update password if provided
+        if ($request->filled('password')) {
+            $data['password'] = Hash::make($request->password);
+        }
+
+        $user->update($data);
+
+        return redirect()->route('users.index')->with('success', 'User berhasil diperbarui.');
     }
 
-    $user->update($data);
-
-    return redirect('/users')->with('success', 'User berhasil diperbarui.');
-}
+    public function edit($id)
+    {
+        $user = User::findOrFail($id);
+        return view('users.edit', compact('user'));
+    }
 
     public function destroy($id)
     {
