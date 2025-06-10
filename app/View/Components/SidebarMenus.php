@@ -61,11 +61,11 @@ class SidebarMenus extends Component
             ],
             [
                 'name' => 'Complaint',
-                'href' => '/complaint',
+                'href' => '/complaints',
             ],
             [
                 'name' => 'Complaint Resolutions',
-                'href' => '/complaintresolution',
+                'href' => '/complaint_resolution',
             ],            
             [
                 'name' => 'Employee Evaluations',

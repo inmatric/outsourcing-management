@@ -5,11 +5,12 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LocationTypeController;
 use App\Http\Controllers\AttendanceController;
-
+use App\Http\Controllers\OffenceController;
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProcessingWDController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\ComplaintResolutionController;
 // use Illuminate\Support\Facades\Route;
 // use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FundController;
@@ -157,15 +158,15 @@ Route::prefix('employee-contract')->controller(EmployeeContractController::class
 });
 
 Route::prefix('location-division')->controller(LocationDivisionController::class)->name('location-division.')->group(function () {
-    Route::get('/', 'index')->name('index');
-    Route::get('/create', 'create')->name('create');
-    Route::post('/', 'store')->name('store');
-    Route::get('/{id}/edit', 'edit')->name('edit');
-    Route::put('/{id}', 'update')->name('update');
-    Route::delete('/{id}', 'destroy')->name('destroy');
-    Route::get('/petugas', 'indexPetugas')->name('index-petugas');
-    Route::put('/update-status/{id}', 'updateStatus')->name('update-status');
-});
+        Route::get('/', 'index')->name('index');
+        Route::get('/create', 'create')->name('create');
+        Route::post('/', 'store')->name('store');
+        Route::get('/{id}/edit', 'edit')->name('edit');
+        Route::put('/{id}', 'update')->name('update');
+        Route::delete('/{id}', 'destroy')->name('destroy');
+        Route::get('/petugas', 'indexPetugas')->name('index-petugas');
+        Route::put('/update-status/{id}', 'updateStatus')->name('update-status'); 
+    });
 
 
 
@@ -181,3 +182,20 @@ Route::patch('/attendances/{id}/status', [AttendanceController::class, 'updateSt
 Route::resource('complaints', ComplaintController::class);
 Route::get('/get-employee/{location}', [ComplaintController::class, 'getEmployeeByLocation']);
 Route::get('/get-employee-by-location/{locationId}', [ComplaintController::class, 'getEmployeeByLocation']);
+
+Route::get('/test', [ProductController::class, 'test']);
+Route::get('/offence', [OffenceController::class, 'index'])->name('offence.index');
+Route::get('/offence/create', [OffenceController::class, 'create'])->name('offence.create');
+Route::post('/offence', [OffenceController::class, 'store'])->name('offence.store');
+Route::get('/offence/{id}/edit', [OffenceController::class, 'edit'])->name('offence.edit');
+Route::put('/offence/{id}', [OffenceController::class, 'update'])->name('offence.update');
+Route::delete('/offence/{id}', [OffenceController::class, 'destroy'])->name('offence.destroy');
+Route::get('/offence/search', [OffenceController::class, 'search'])->name('offence.search');
+Route::get('/offence/show/{id}', [OffenceController::class, 'show'])->name('offence.show');
+
+Route::get('/complaint_resolution', [ComplaintResolutionController::class, 'index'])->name('complaint_resolution.index');
+Route::get('/complaint_resolution/create', [ComplaintResolutionController::class, 'create'])->name('complaint_resolution.create');
+Route::post('/complaint_resolution', [ComplaintResolutionController::class, 'store'])->name('complaint_resolution.store');
+Route::get('/complaint_resolution/{id}/edit', [ComplaintResolutionController::class, 'edit'])->name('complaint_resolution.edit');
+Route::put('/complaint_resolution/{id}', [ComplaintResolutionController::class, 'update'])->name('complaint_resolution.update');
+Route::delete('/complaint_resolution/{id}', [ComplaintResolutionController::class, 'destroy'])->name('complaint_resolution.destroy');
