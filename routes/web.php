@@ -14,7 +14,11 @@ use App\Http\Controllers\ComplaintController;
 use App\Http\Controllers\WorkToolsController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CooperationController;
+use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\ItemFoundController;
 use App\Http\Controllers\LocationDivisionController;
+use App\Http\Controllers\LostItemController;
+use App\Http\Controllers\WorkReportController;
 use App\Http\Middleware\AuthMiddleware;
 use App\Http\Middleware\IsAdmin;
 use App\Http\Middleware\IsHrd;
@@ -47,18 +51,18 @@ Route::prefix('v1')->group(function () {
 
 // Protected routes (only accessible if logged in)
 Route::middleware([AuthMiddleware::class])->group(function () {
-    
+
     // Dashboard
     Route::get('/dashboard', [LoginController::class, 'dashboard']);
-    
+
     // Profile routes
     Route::get('/profile', fn() => view('profile'))->name('profile.edit');
     Route::get('/profile/{id}/edit', [ProfileController::class, 'show'])->name('profileform');
-    
+
     // Logout
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
-    
-    // 🛡️ Admin only routes
+
+    // 🛡 Admin only routes
     Route::middleware([IsAdmin::class])->group(function () {
         // User management
         Route::prefix('users')->controller(UserController::class)->name('users.')->group(function () {
@@ -75,7 +79,10 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::resource('funds', FundController::class);
     });
 
-    // 🛡️ HRD only routes
+
+
+
+    // 🛡 HRD only routes
     Route::middleware([IsHrd::class])->group(function () {
         // Worktools (except create and store which are public)
         Route::get('/worktools/{id}/edit', [WorkToolsController::class, 'edit'])->name('worktools.edit');
@@ -112,8 +119,8 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         // Processing WD
         Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
         Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
-       });
-         // 📋 Routes accessible by all logged-in users
+    });
+    // 📋 Routes accessible by all logged-in users
     // Attendances
     Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');
     Route::get('/attendances/create', [AttendanceController::class, 'create'])->name('attendances.create');
@@ -128,6 +135,27 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     Route::get('/get-employee/{location}', [ComplaintController::class, 'getEmployeeByLocation']);
     Route::get('/get-employee-by-location/{locationId}', [ComplaintController::class, 'getEmployeeByLocation']);
 
+    Route::prefix('workreports')->controller(WorkReportController::class)->group(function () {
+        Route::get('/', 'index')->name('workreports.index');
+        Route::get('/create', 'create')->name('workreports.create');
+        Route::post('/', 'store')->name('workreports.store');
+        Route::get('/{id}/edit', 'edit')->name('workreports.edit');
+        Route::put('/{id}', 'update')->name('workreports.update');
+        Route::delete('/{id}', 'destroy')->name('workreports.destroy');
+    });
 
-   
+    Route::get('/lostitems', [LostItemController::class, 'index'])->name('lostitem.index');
+    Route::get('/lostitems/create', [LostItemController::class, 'create'])->name('lostitem.create');
+    Route::post('/lostitems', [LostItemController::class, 'store'])->name('lostitem.store');
+    Route::get('/lostitems/{id}/edit', [LostItemController::class, 'edit'])->name('lostitem.edit');
+    Route::put('/lostitems/{id}', [LostItemController::class, 'update'])->name('lostitem.update');
+    Route::delete('/lostitems/{id}', [LostItemController::class, 'destroy'])->name('lostitem.destroy');
+
+    Route::get('/itemfounds/create', [ItemFoundController::class, 'create'])->name('itemfound.create');
+    Route::post('/itemfounds', [ItemFoundController::class, 'store'])->name('itemfound.store');
+    Route::get('/itemfounds/{id}/edit', [ItemFoundController::class, 'edit'])->name('itemfound.edit');
+    Route::put('/itemfounds/{id}', [ItemFoundController::class, 'update'])->name('itemfound.update');
+    Route::delete('/itemfounds/{id}', [ItemFoundController::class, 'destroy'])->name('itemfound.destroy');
+
+    Route::resource('employees', controller: EmployeeController::class);
 });
