@@ -81,7 +81,7 @@ class SidebarMenus extends Component
             ],
             [
                 'name' => 'Lost/Found',
-                'href' => '/lostfound',
+                'href' => '/lostitem',
             ],            
             [
                 'name' => 'Permission',
@@ -91,6 +91,10 @@ class SidebarMenus extends Component
                 'name' => 'Fund',
                 'href' => '/funds',
             ],
+            // [
+            //     'name' => 'Lost & Found Item',
+            //     'href' => '/lostitem',
+            // ],
             // Tambah menu lainnya di sini
         ];
     }
