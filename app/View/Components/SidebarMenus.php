@@ -95,7 +95,22 @@ class SidebarMenus extends Component
                 'name' => 'Fund',
                 'href' => '/funds',
             ],
-            // Tambah menu lainnya di sini
+            [
+                'name' => 'WorkTools',
+                'href' => '/worktools',
+            ],
+            [
+                'name' => 'Work',
+                'href' => '/work',
+            ],
+            [
+                'name' => 'Work Equipment',
+                'href' => '/workequipment',
+            ],
+            [
+                'name' => 'Work Report',
+                'href' => '/workreport',
+            ],
         ];
     }
 

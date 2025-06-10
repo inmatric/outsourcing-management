@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\LocationTypeController;
-
 use App\Http\Controllers\EmployeeContractController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\ProcessingWDController;
@@ -10,7 +9,6 @@ use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\FundController;
-
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\CooperationController;
 use App\Http\Controllers\EmployeeController;
@@ -18,6 +16,10 @@ use App\Http\Controllers\EmployeeEvaluationController;
 use App\Http\Controllers\LocationDivisionController;
 use App\Http\Controllers\PermissionRequestController;
 use App\Http\Middleware\AuthMiddleware;
+use App\Http\Controllers\WorkToolsController; 
+use App\Http\Controllers\WorkController;
+use App\Http\Controllers\WorkEquipmentController; 
+use App\Http\Controllers\WorkReportController;
 
 Route::get('/', function () {
     return redirect()->route('login');
@@ -26,7 +28,6 @@ Route::get('/', function () {
 Route::get('/test', [ProductController::class, 'test']);
 Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
 Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
-
 
 Route::get('/location/pdf', [LocationController::class, 'downloadPDF'])->name('location.pdf');
 Route::resource('location', LocationController::class);
@@ -42,10 +43,8 @@ Route::prefix('v1')->group(function () {
     });
 });
 
-
 Route::get('/login', [LoginController::class, 'showLoginForm'])->name('login');
 Route::post('/login', [LoginController::class, 'login']);
-
 
 Route::middleware([AuthMiddleware::class])->group(function () {
     Route::resource('employes', controller: EmployeeController::class);
@@ -67,7 +66,6 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
     Route::resource('cooperations', CooperationController::class);
     Route::resource('funds', FundController::class);
-
 
     Route::prefix('employee-contract')->controller(EmployeeContractController::class)->group(function () {
         Route::get('/', 'index')->name('employee-contract.index');
@@ -103,11 +101,55 @@ Route::middleware([AuthMiddleware::class])->group(function () {
     });
 
     Route::prefix('permission-request')->controller(PermissionRequestController::class)->group(function () {
-        Route::get('/', 'index')->name('permission-request.index');;
-        Route::get('/create', 'create')->name('permission-request.create');;
-        Route::post('/', 'store')->name('permission-request.store');;
-        Route::get('/{id}/edit', 'edit')->name('permission-request.edit');;
-        Route::put('/{id}', 'update')->name('permission-request.update');;
-        Route::delete('/{id}', 'destroy')->name('permission-request.destroy');;
+        Route::get('/', 'index')->name('permission-request.index');
+        Route::get('/create', 'create')->name('permission-request.create');
+        Route::post('/', 'store')->name('permission-request.store');
+        Route::get('/{id}/edit', 'edit')->name('permission-request.edit');
+        Route::put('/{id}', 'update')->name('permission-request.update');
+        Route::delete('/{id}', 'destroy')->name('permission-request.destroy');
     });
+
+    // Tambahkan route worktools disini
+    Route::prefix('worktools')->controller(WorkToolsController::class)->group(function () {
+        Route::get('/', 'index')->name('worktools.index');
+        Route::get('/create', 'create')->name('worktools.create');
+        Route::post('/', 'store')->name('worktools.store');
+        Route::get('/{id}/edit', 'edit')->name('worktools.edit');
+        Route::put('/{id}', 'update')->name('worktools.update');
+        Route::delete('/{id}', 'destroy')->name('worktools.destroy');
+    });
+
+    Route::prefix('work')->controller(WorkController::class)->group(function () {
+    Route::get('/', 'index')->name('work.index');
+    Route::get('/create', 'create')->name('work.create');
+    Route::post('/', 'store')->name('work.store');
+    Route::get('/{id}/edit', 'edit')->name('work.edit');
+    Route::put('/{id}', 'update')->name('work.update');
+    Route::delete('/{id}', 'destroy')->name('work.destroy');
+
+    // Jika ada fitur pencarian
+    Route::get('/search', 'search')->name('work.search');
+
+      });
+
+
+      Route::prefix('workequipment')->controller(WorkEquipmentController::class)->group(function () {
+    Route::get('/', 'index')->name('workequipment.index');
+    Route::get('/create', 'create')->name('workequipment.create');
+    Route::post('/', 'store')->name('workequipment.store');
+    Route::get('/{id}/edit', 'edit')->name('workequipment.edit');
+    Route::put('/{id}', 'update')->name('workequipment.update');
+    Route::delete('/{id}', 'destroy')->name('workequipment.destroy');
+});
+
+
+Route::prefix('workreport')->controller(WorkReportController::class)->group(function () {
+    Route::get('/', 'index')->name('workreport.index');
+    Route::get('/create', 'create')->name('workreport.create');
+    Route::post('/', 'store')->name('workreport.store');
+    Route::get('/{id}/edit', 'edit')->name('workreport.edit');
+    Route::put('/{id}', 'update')->name('workreport.update');
+    Route::delete('/{id}', 'destroy')->name('workreport.destroy');
+});
+
 });
