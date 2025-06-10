@@ -74,15 +74,12 @@ Route::middleware([AuthMiddleware::class])->group(function () {
             Route::delete('/{id}', 'destroy')->name('destroy');
         });
 
-        // Admin resources
+        // Admin resourcesF
         Route::resource('cooperations', CooperationController::class);
         Route::resource('funds', FundController::class);
-    });
+ });
 
-
-
-
-    // 🛡 HRD only routes
+        // 🛡 HRD only routes
     Route::middleware([IsHrd::class])->group(function () {
         // Worktools (except create and store which are public)
         Route::get('/worktools/{id}/edit', [WorkToolsController::class, 'edit'])->name('worktools.edit');
@@ -95,7 +92,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
 
         // API routes
         // Location Division
-        Route::prefix('location-division')->controller(LocationDivisionController::class)->name('location-division.')->group(function () {
+        Route::prefix('location-divisions')->controller(LocationDivisionController::class)->name('location-division.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
@@ -107,7 +104,7 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         });
 
         // Employee Contract
-        Route::prefix('employee-contract')->controller(EmployeeContractController::class)->name('employee-contract.')->group(function () {
+        Route::prefix('employee-contracts')->controller(EmployeeContractController::class)->name('employee-contract.')->group(function () {
             Route::get('/', 'index')->name('index');
             Route::get('/create', 'create')->name('create');
             Route::post('/', 'store')->name('store');
@@ -120,6 +117,12 @@ Route::middleware([AuthMiddleware::class])->group(function () {
         Route::get('/processing_wd', [ProcessingWDController::class, 'index']);
         Route::get('/processing_wd/create', [ProcessingWDController::class, 'create'])->name('processing_wd.create');
     });
+   
+
+
+
+
+    
     // 📋 Routes accessible by all logged-in users
     // Attendances
     Route::get('/attendances', [AttendanceController::class, 'index'])->name('attendances.index');

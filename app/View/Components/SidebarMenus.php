@@ -13,11 +13,11 @@ class SidebarMenus extends Component
     {
 $role = Auth::check() ? Auth::user()->role_name : null;
         $allMenus = [
-            ['name' => 'Dashboard', 'href' => '/dashboard', 'roles' => ['admin', 'hrd', 'user']],
-            ['name' => 'Users', 'href' => '/users', 'roles' => ['admin']],
-            ['name' => 'Cooperations', 'href' => '/cooperations', 'roles' => ['admin']],
+            ['name' => 'Dashboard', 'href' => '/dashboard', 'roles' => ['admin', 'hrd', 'user']], //
+            ['name' => 'Users', 'href' => '/users', 'roles' => ['admin']], //
+            ['name' => 'Cooperations', 'href' => '/cooperations', 'roles' => ['admin']],//
             ['name' => 'Employee', 'href' => '/employees', 'roles' => ['hrd','admin']],
-            ['name' => 'Employee Contract', 'href' => '/employee-contract', 'roles' => ['hrd','admin']],
+            ['name' => 'Employee Contract', 'href' => '/employee-contracts', 'roles' => ['hrd','admin']],
             ['name' => 'Work Table', 'href' => '/works', 'roles' => ['hrd','admin']],
             ['name' => 'Work Equipment', 'href' => '/work_equipments', 'roles' => ['user','admin']],
             ['name' => 'SOP', 'href' => '/worktools', 'roles' => ['hrd','admin','user']],
@@ -29,10 +29,10 @@ $role = Auth::check() ? Auth::user()->role_name : null;
             ['name' => 'Complaint Resolutions', 'href' => '/complaint_resolutions', 'roles' => ['admin','user']],
             ['name' => 'Employee Evaluations', 'href' => '/employeeevaluations', 'roles' => ['hrd','admin','user']],
             ['name' => 'Offence', 'href' => '/offences', 'roles' => ['hrd','admin','user']],
-            ['name' => 'Report', 'href' => '/workreports', 'roles' => ['admin']],
-            ['name' => 'Lost/Found', 'href' => '/lostitems', 'roles' => ['admin', 'hrd', 'user']],
-            ['name' => 'Permission', 'href' => '/permissions', 'roles' => ['admin', 'hrd']],
-            ['name' => 'Fund', 'href' => '/funds', 'roles' => ['admin']],
+            ['name' => 'Report', 'href' => '/workreports', 'roles' => ['admin', 'hrd', 'user']],
+            ['name' => 'Lost/Found', 'href' => '/lostitems', 'roles' => ['admin','user']],
+            ['name' => 'Permission', 'href' => '/permission-requests', 'roles' => ['admin', 'hrd', 'user']],
+            ['name' => 'Fund', 'href' => '/funds', 'roles' => ['admin', 'hrd']],
         ];
 
         $this->menus = collect($allMenus)->filter(function ($menu) use ($role) {
