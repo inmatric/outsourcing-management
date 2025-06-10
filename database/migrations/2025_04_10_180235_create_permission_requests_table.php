@@ -17,7 +17,9 @@ return new class extends Migration
             $table->enum('izin_type', ['cuti', 'sakit', 'pribadi', 'dinas', 'lainnya']);
             $table->text('description');
             $table->date('start_date');
+            $table->date('end_date');
             $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
+            $table->string('attachment')->nullable();
             $table->timestamp('submitted_at')->useCurrent();
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');
             $table->timestamp('approved_at')->nullable();

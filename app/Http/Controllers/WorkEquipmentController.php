@@ -7,59 +7,82 @@ use Illuminate\Http\Request;
 
 class WorkEquipmentController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
-    public function index()
+    public function index(Request $request)
     {
-        //
+        $search = $request->input('search');
+
+        $workequipments = WorkEquipment::when($search, function ($query, $search) {
+            return $query->where('employee_name', 'like', "%{$search}%")
+                ->orWhere('position', 'like', "%{$search}%")
+                ->orWhere('location', 'like', "%{$search}%")
+                ->orWhere('equipment', 'like', "%{$search}%")
+                ->orWhere('condition', 'like', "%{$search}%");
+        })->get();
+
+        return view('workequipment.index', compact('workequipments'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
+
     public function create()
     {
-        //
+
+        return view('workequipment.create');
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
     public function store(Request $request)
     {
-        //
+        $request->validate([
+            'employee_id' => 'required|string|max:50',
+            'employee_name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'equipment' => 'required|string|max:255',
+            'condition' => 'required|string|max:255',
+        ]);
+
+        WorkEquipment::create($request->only([
+            'employee_id',
+            'employee_name',
+            'position',
+            'location',
+            'equipment',
+            'condition'
+        ]));
+
+        return redirect()->route('workequipment.index')->with('success', 'Data berhasil disimpan.');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(WorkEquipment $workEquipment)
+    public function edit($id)
     {
-        //
+        $workequipment = WorkEquipment::findOrFail($id);
+        return view('workequipment.edit', compact('workequipment'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit(WorkEquipment $workEquipment)
+    public function update(Request $request, $id)
     {
-        //
+        $product = WorkEquipment::findOrFail($id);
+
+        $validated = $request->validate([
+            'employee_id' => 'required|string|max:50',
+            'employee_name' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'location' => 'required|string|max:255',
+            'equipment' => 'required|string|max:255',
+            'condition' => 'required|string|max:255',
+        ]);
+
+        $product->update($validated);
+
+        return redirect()->route('workequipment.index')
+            ->with('success', 'Produk berhasil diperbarui');
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, WorkEquipment $workEquipment)
+    public function destroy($id)
     {
-        //
-    }
+        $product = WorkEquipment::findOrFail($id);
+        $product->delete();
 
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(WorkEquipment $workEquipment)
-    {
-        //
+        return redirect()->route('workequipment.index')
+            ->with('success', 'Produk berhasil dihapus');
     }
 }
