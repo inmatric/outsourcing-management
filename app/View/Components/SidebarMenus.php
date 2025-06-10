@@ -46,15 +46,15 @@ class SidebarMenus extends Component
             [
                 'name' => 'Location',
                 'href' => '/location',
-            ],         
+            ],
             [
                 'name' => 'Location Division',
                 'href' => '/location-division',
-            ],            
+            ],
             [
                 'name' => 'Attendance',
                 'href' => '/attendance',
-            ],            
+            ],
             [
                 'name' => 'Work Tracking',
                 'href' => '/processing_wd',
@@ -65,36 +65,36 @@ class SidebarMenus extends Component
             ],
             [
                 'name' => 'Complaint Resolutions',
-                'href' => '/complaint_resolution',
+                'href' => '/complaintresolution',
             ],            
             [
                 'name' => 'Employee Evaluations',
-                'href' => '/employeeevaluation',
+                'href' => '/employee-evaluation',
             ],
             [
                 'name' => 'Offence',
                 'href' => '/offence',
-            ],            
+            ],
             [
                 'name' => 'Report',
                 'href' => '/workreport',
             ],
             [
                 'name' => 'Lost/Found',
-                'href' => '/lostitem',
+                'href' => '/lostfound',
             ],            
             [
                 'name' => 'Permission',
                 'href' => '/permission',
-            ],            
+            ],
+            [
+                'name' => 'Permission Request',
+                'href' => '/permission-request',
+            ],
             [
                 'name' => 'Fund',
                 'href' => '/funds',
             ],
-            // [
-            //     'name' => 'Lost & Found Item',
-            //     'href' => '/lostitem',
-            // ],
             // Tambah menu lainnya di sini
         ];
     }

@@ -7,17 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Work extends Model
 {
+    /** @use HasFactory<\Database\Factories\WorkFactory> */
     use HasFactory;
+    protected $table = 'works';
 
     protected $fillable = [
-        'employee_id',
-        'work_type',
-        'task',
-        'work_detail',
+       'job_name',
+        'task_type',
+        'task_details',
+        'salary_per_person',
     ];
-
-    public function locationDivision()
-    {
-        return $this->hasMany(LocationDivision::class);
-    }
+    
 }

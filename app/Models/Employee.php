@@ -7,19 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Employee extends Model
 {
+    /** @use HasFactory<\Database\Factories\EmployeFactory> */
     use HasFactory;
-    protected $table = 'employees';
+
     protected $fillable = [
         'user_id',
         'name',
         'address',
         'age',
         'phone_number',
-        'card_id',
+        'skill',
+        'photo',
     ];
 
-    public function locationDivision()
+    public function user()
     {
-        return $this->hasMany(LocationDivision::class);
+        return $this->belongsTo(User::class);
     }
 }

@@ -1,10 +1,8 @@
 <?php
 
-
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
-
 
 return new class extends Migration
 {
@@ -13,23 +11,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('work_equipment', function (Blueprint $table) {
+        Schema::create('works', function (Blueprint $table) {
             $table->id();
-            $table->string('employee_id', 50);
-            $table->string('position', 255);
-            $table->string('location', 255);
-            $table->string('equipment', 255);
-            $table->enum('condition', ['good', 'fair', 'damaged']);
+            $table->string('job_name');
+            $table->string('task_type');
+            $table->text('task_details');
+            $table->string('salary_per_person'); // gunakan string supaya bisa simpan "1-3 Juta"
+            // $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
             $table->timestamps();
         });
     }
-
 
     /**
      * Reverse the migrations.
      */
     public function down(): void
     {
-        Schema::dropIfExists('work_equipment');
+        Schema::dropIfExists('works');
     }
 };

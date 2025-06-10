@@ -12,21 +12,20 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('employees', function (Blueprint $table) {
-            $table->id(); // primary key
-            $table->unsignedBigInteger('user_id'); // tidak ada foreign key
-            $table->string('name', 200);
+            $table->id();
+            $table->unsignedBigInteger('user_id')->nullable();
+            $table->string('name');
             $table->text('address');
-            $table->string('age'); // atau bisa pakai integer
-            $table->string('phone_number', 15);
-            $table->string('card_id', 255);
+            $table->integer('age');
+            $table->string('phone_number');
+            $table->string('skill');
+            $table->string('photo')->nullable();
             $table->timestamps();
-        });
 
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+        });
     }
 
-    /**
-     * Reverse the migrations.
-     */
     public function down(): void
     {
         Schema::dropIfExists('employees');
