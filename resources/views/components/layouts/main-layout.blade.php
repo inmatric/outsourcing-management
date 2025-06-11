@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <title>Page | @yield('title')</title>
 </head>
@@ -29,8 +30,9 @@
                     </button>
                     <a href="https://flowbite.com" class="flex ms-2 md:me-24">
                         <img src="https://flowbite.com/docs/images/logo.svg" class="h-8 me-3" alt="FlowBite Logo" />
-                        <span
-                            class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap">Management Outsourcing</span>
+                        <span class="self-center text-xl font-semibold sm:text-2xl whitespace-nowrap ">Management
+                            Outsourcing</span>
+
                     </a>
                 </div>
                 <div class="flex items-center">
@@ -47,55 +49,47 @@
                         </div>
                         <div class=" hidden my-4 text-base list-none divide-y divide-gray-100 rounded-sm shadow-sm"
                             id="dropdown-user">
-                            @auth
-                                <div class="px-4 py-3" role="none">
-                                    <p class="text-sm font-medium text-gray-900 truncate" role="none">
-                                        {{ Auth::user()->email ?? '-' }}
-                                    </p>
-                                    <p class="text-sm text-gray-900" role="none">
-                                        {{ Auth::user()->role_name ?? '-' }}
-                                    </p>
-                                </div>
-                                <ul class="py-1" role="none">
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem">Dashboard</a>
-                                    </li>
-                                   <li>
-                                        <a href="{{ url('/profile/' . Auth::user()->id . '/edit') }}" 
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
-                                            Update Profile
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="#"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem">Earnings</a>
-                                    </li>
-                                    <li>
-                                        <form action="{{ route('logout') }}" method="POST">
-                                            @csrf
-                                            <button type="submit"
-                                                class="block w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100">Logout</button>
-                                        </form>
-                                    </li>
-                                </ul>
-                            @else
-                                <div class="px-4 py-3" role="none">
-                                    <p class="text-sm text-gray-900" role="none">
-                                        Not logged in
-                                    </p>
-                                </div>
-                                <ul class="py-1" role="none">
-                                    <li>
-                                        <a href="{{ route('login') }}"
-                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
-                                            role="menuitem">Login</a>
-                                    </li>
-                                    
-                                </ul>
-                            @endauth
+                            <div class="px-4 py-3" role="none">
+
+                                <p class="text-sm font-medium text-gray-900 truncate " role="none">
+                                    {{ Auth::user()->email ?? '-' }}
+                                </p>
+                                <p class="text-sm text-gray-900 " role="none">
+                                    {{ Auth::user()->role_name ?? '-' }}
+                                </p>
+                            </div>
+                            <ul class="py-1" role="none">
+                                <li>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100"
+                                        role="menuitem">Dashboard</a>
+                                </li>
+
+                                <li>
+                                <a href="{{ url('/profile/edit') }}" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:text-gray-300 dark:hover:bg-gray-600 dark:hover:text-white">
+    Update
+</a>
+
+                                </li>
+
+                                    <a href="{{ url('/profile/' . Auth::user()->id . '/edit') }}"
+                                        class="block px-4 py-2 text-sm text-gray-700 ">
+                                        {{-- Icon edit --}}
+                                        Update
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 "
+                                        role="menuitem">Earnings</a>
+                                </li>
+                                <li>
+                                    <form action="{{ route('logout') }}" method="POST">
+                                        @csrf
+                                        <button type="submit"
+                                            class="block px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 ">Logout</button>
+                                    </form>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
