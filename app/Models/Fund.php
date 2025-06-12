@@ -20,4 +20,9 @@ class Fund extends Model
         'receipt',
         'description',
     ];
+
+    public function cooperation()
+    {
+        return $this->belongsTo(Cooperation::class);
+    }
 }

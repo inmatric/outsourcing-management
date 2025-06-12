@@ -30,7 +30,7 @@ class LocationDivisionController extends Controller
                         $q->where('location', 'like', "%{$search}%");
                     })
                     ->orWhereHas('work', function ($q) use ($search) {
-                        $q->where('work_type', 'like', "%{$search}%");
+                        $q->where('task_type', 'like', "%{$search}%");
                     });
             })
             ->paginate(10);

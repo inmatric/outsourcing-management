@@ -7,6 +7,21 @@ use Illuminate\Database\Eloquent\Model;
 
 class Location extends Model
 {
+    /** @use HasFactory<\Database\Factories\LocationFactory> */
+    use HasFactory;
+    protected $table = 'locations';
+
+    // Kolom yang boleh diisi
+    protected $fillable = [
+        'company_id',
+        'company',
+        'location',
+        'location_code',
+        'location_type',
+        'information',
+        'status',
+
+    ];
     public function locationDivisions()
     {
         return $this->hasMany(LocationDivision::class);

@@ -10,10 +10,21 @@
     <form action="{{ route('funds.update', $fund->id)}}" method="POST" enctype="multipart/form-data">
         @csrf
         @method('PUT')
-        <div class="mb-4">
-            <label class="block text-gray-700">Nama Perusahaan</label>
-            <input type="text" name="cooperation_id" value="{{ $fund->cooperation_id }}" class="w-full px-3 py-2 border rounded" required>
-        </div>
+<div class="mb-4">
+    <label for="cooperation_id" class="block mb-2 text-sm font-medium text-gray-700">Nama Perusahaan</label>
+    <select id="cooperation_id" name="cooperation_id"
+        class="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5"
+        required>
+        <option value="">-- Pilih Perusahaan --</option>
+        @foreach($cooperations as $cooperation)
+            <option value="{{ $cooperation->id }}"
+                {{ old('cooperation_id', $fund->cooperation_id) == $cooperation->id ? 'selected' : '' }}>
+                {{ $cooperation->company_name }}
+            </option>
+        @endforeach
+    </select>
+</div>
+
         <div class="mb-4">
             <label class="block text-gray-700">Tanggal</label>
             <input type="date" name="date" value="{{ $fund->date }}" class="w-full px-3 py-2 border rounded" required>

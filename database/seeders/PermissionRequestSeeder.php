@@ -17,7 +17,7 @@ class PermissionRequestSeeder extends Seeder
         DB::table('permission_requests')->insert([
             [
                 'employee_id' => 1,
-                'izin_type' => 'cuti',
+                'izin_type' => 'leave',
                 'description' => 'Mengambil cuti tahunan',
                 'start_date' => '2025-04-15',
                 'end_date' => '2025-04-15',
@@ -30,11 +30,11 @@ class PermissionRequestSeeder extends Seeder
             ],
             [
                 'employee_id' => 2,
-                'izin_type' => 'sakit',
+                'izin_type' => 'sick',
                 'description' => 'Demam dan butuh istirahat',
                 'start_date' => '2025-04-10',
                 'end_date' => '2025-04-15',
-                'status' => 'disetujui',
+                'status' => 'approved',
                 'submitted_at' => Carbon::now()->subDays(2),
                 'approved_by' => 1,
                 'approved_at' => Carbon::now()->subDay(),
@@ -43,11 +43,11 @@ class PermissionRequestSeeder extends Seeder
             ],
             [
                 'employee_id' => 3,
-                'izin_type' => 'dinas',
+                'izin_type' => 'service',
                 'description' => 'Perjalanan dinas ke luar kota',
                 'start_date' => '2025-04-12',
                 'end_date' => '2025-04-15',
-                'status' => 'ditolak',
+                'status' => 'rejected',
                 'submitted_at' => Carbon::now()->subDays(3),
                 'approved_by' => 2,
                 'approved_at' => Carbon::now()->subDays(2),

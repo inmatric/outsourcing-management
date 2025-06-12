@@ -15,10 +15,11 @@ class WorkController extends Controller
      * Show the form for creating a new resource.
      */
     public function create()
-    {
-        return view('work.create');
-        // return view(view: 'work.create');
-    }
+{
+    $work = null;
+    return view('work.create', compact('work'));
+}
+
 
     /**
      * Store a newly created resource in storage.
@@ -109,19 +110,19 @@ class WorkController extends Controller
 
     public function index(Request $request)
 {
-    $search = $request->input('search');
+    $query = Work::query();
 
-    $work = Work::when($search, function ($query, $search) {
-        $query->where('job_name', 'like', "%{$search}%")
-              ->orWhere('task_type', 'like', "%{$search}%")
-              ->orWhere('task_details', 'like', "%{$search}%")
-              ->orWhere('salary_per_person', 'like', "%{$search}%");
-    })->latest()->get();
+    if ($request->has('search')) {
+        $query->where('job_name', 'like', '%' . $request->search . '%')
+              ->orWhere('task_type', 'like', '%' . $request->search . '%')
+              ->orWhere('task_details', 'like', '%' . $request->search . '%');
+    }
 
-    // (opsional) Tambahkan salary_range seperti yang sudah kamu lakukan
+    $work = $query->get();
 
     return view('work.index', compact('work'));
 }
+
 
 public function search(Request $request)
 {
@@ -137,23 +138,6 @@ public function search(Request $request)
     return view('work.index', compact('work'));
 }
 
-//     public function search(Request $request)
-// {
-//     $search = $request->input('search');
 
-//     $work = Work::where('employee_name', 'like', "%{$search}%")
-//         ->orWhere('work_type', 'like', "%{$search}%")
-//         ->orWhere('taks', 'like', "%{$search}%")
-//         ->orWhere('work_detail', 'like', "%{$search}%")
-//         ->latest()
-//         ->get();
-
-//     if ($work->isEmpty()) {
-//         return redirect()->route('work.index')
-//             ->with('info', 'Tidak ada data yang ditemukan untuk pencarian tersebut.');
-//     }
-
-//     return view('work.index', compact('work'));
-// }
 
 }

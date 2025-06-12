@@ -3,10 +3,14 @@
 namespace App\Http\Controllers;
 
 use App\Models\Fund;
+use App\Models\Cooperation;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\FacadesLog;
+use Illuminate\Support\FacadesStorage;
+
 
 class FundController extends Controller
 {
@@ -15,7 +19,7 @@ class FundController extends Controller
      */
     public function index()
     {
-        $funds = Fund::all();
+        $funds = Fund::with('cooperation')->get();
         return view('funds.index', compact('funds'));
     }
 
@@ -24,7 +28,9 @@ class FundController extends Controller
      */
     public function create()
     {
-        return view('funds.create');
+        $cooperations = Cooperation::all();
+        return view('funds.create', compact('cooperations'));
+
     }
 
     /**
@@ -67,7 +73,8 @@ class FundController extends Controller
      */
     public function edit(Fund $fund)
     {
-        return view('funds.edit', compact('fund'));
+        $cooperations = Cooperation::all();
+        return view('funds.edit', compact('fund', 'cooperations'));
     }
 
     /**
@@ -84,8 +91,8 @@ class FundController extends Controller
             'receipt' => 'nullable|image|mimes:jpeg,png,jpg,gif',
         ]);
     
-        \Log::info('Update Fund - Validated data:', $validated);
-        \Log::info('File received:', ['receipt' => $request->file('receipt')]);
+        Log::info('Update Fund - Validated data:', $validated);
+        Log::info('File received:', ['receipt' => $request->file('receipt')]);
     
         if ($request->hasFile('receipt')) {
             if ($fund->receipt && Storage::disk('public')->exists($fund->receipt)) {
@@ -96,7 +103,7 @@ class FundController extends Controller
             $extension = $request->file('receipt')->getClientOriginalExtension();
             $fileName = 'receipt_' . $randomNumber . '.' . $extension;
             $imagePath = $request->file('receipt')->storeAs('receipts', $fileName, 'public');
-            \Log::info('New image path:', ['path' => $imagePath]);
+            Log::info('New image path:', ['path' => $imagePath]);
             $validated['receipt'] = $imagePath;
         }
     
@@ -113,8 +120,8 @@ class FundController extends Controller
     public function destroy(Fund $fund)
     {
         // Hapus file gambar jika ada
-        if ($fund->receipt && \Storage::disk('public')->exists($fund->receipt)) {
-            \Storage::disk('public')->delete($fund->receipt);
+        if ($fund->receipt && Storage::disk('public')->exists($fund->receipt)) {
+            Storage::disk('public')->delete($fund->receipt);
         }
     
         // Hapus data dari database

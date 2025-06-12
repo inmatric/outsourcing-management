@@ -17,7 +17,7 @@
                         <div class="space-y-2">
                             <div>
                                 <span class="text-sm font-medium text-gray-500">Task Name:</span>
-                                <span class="text-sm text-gray-900 ml-2">{{ $processing_wd->work->task ?? 'N/A' }}</span>
+                                <span class="text-sm text-gray-900 ml-2">{{ $processing_wd->work->job_name ?? 'N/A' }}</span>
                             </div>
                             <div>
                                 <span class="text-sm font-medium text-gray-500">Employee:</span>

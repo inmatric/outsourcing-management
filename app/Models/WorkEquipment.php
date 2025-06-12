@@ -12,10 +12,25 @@ class WorkEquipment extends Model
     protected $table = 'work_equipment'; // pastikan ini sesuai dengan nama tabel
     protected $fillable = [
         'employee_id',
-        'employee_name',
-        'position',
-        'location',
+        'work_id',
+        'location_id',
         'equipment',
         'condition',
     ];
+
+     public function employee()
+    {
+        return $this->belongsTo(Employee::class);
+    }
+
+     public function location()
+    {
+        return $this->belongsTo(Location::class);
+    }
+
+     public function work()
+    {
+        return $this->belongsTo(Work::class);
+    }
+
 }

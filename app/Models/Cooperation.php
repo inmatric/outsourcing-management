@@ -18,4 +18,9 @@ class Cooperation extends Model
     {
         return $this->hasMany(LocationDivision::class);
     }
+
+    public function fund()
+    {
+        return $this->hasMany(Fund::class);
+    }
 }

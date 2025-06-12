@@ -12,31 +12,31 @@ class WorkSeeder extends Seeder
         DB::table('works')->insert([
             [
                 'id' => 1,
-                'employee_id' => 1,
-                'work_type' => 'Development',
-                'task' => 'Create API endpoint',
-                'work_detail' => 'Develop new REST API endpoints for user management',
+                'job_name' => 'Cleaning Service',
+                'task_type' => 'OB Taman',
+                'task_details' => 'Mengelola kebersihan taman',
+                'salary_per_person' => '1-3 juta'
             ],
             [
                 'id' => 2,
-                'employee_id' => 2,
-                'work_type' => 'Design',
-                'task' => 'UI redesign',
-                'work_detail' => 'Redesign dashboard interface for better user experience',
+                'job_name' => 'Cleaning Service',
+                'task_type' => 'OB Ruangan Gedung A',
+                'task_details' => 'Membersihkan ruangan gedung A lantai 1',
+                'salary_per_person' => '500-900 ribu'
             ],
             [
                 'id' => 3,
-                'employee_id' => 3,
-                'work_type' => 'Testing',
-                'task' => 'Bug fixing',
-                'work_detail' => 'Identify and fix critical bugs in payment module',
+                'job_name' => 'Security',
+                'task_type' => 'Keamanan',
+                'task_details' => 'Patroli area malam',
+                'salary_per_person' => '4-7 juta'
             ],
             [
                 'id' => 4,
-                'employee_id' => 1,
-                'work_type' => 'Documentation',
-                'task' => 'API documentation',
-                'work_detail' => 'Create comprehensive documentation for new API features',
+                'job_name' => 'Security',
+                'task_type' => 'Petugas Parkir',
+                'task_details' => 'Menjaga keamanan parkir',
+                'salary_per_person' => '1-3 juta'
             ],
         ]);
     }

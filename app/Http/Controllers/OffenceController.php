@@ -32,7 +32,7 @@ class OffenceController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
+      public function store(Request $request)
     {
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
@@ -42,16 +42,33 @@ class OffenceController extends Controller
             'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048', // max 2MB
         ]);
 
-        // Simpan gambar
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('offence_images', 'public');
-            $validated['image'] = $imagePath;
+            try {
+                $imagePath = $request->file('image')->store('offence_images', 'public');
+                $validated['image'] = $imagePath;
+            } catch (\Exception $e) {
+                // Ini akan menangkap error upload gambar, jika ada
+                return redirect()->back()->withErrors(['image_upload_error' => 'Gagal menyimpan gambar: ' . $e->getMessage()]);
+            }
         }
 
-        Offence::create($validated); // Ganti dengan model yang sesuai
-        return redirect()->route('offence.index')
-            ->with('success', 'Offence berhasil ditambahkan');
+        // --- HAPUS dd($validated); DI SINI SEKARANG ---
+        // dd($validated); // Ini yang terakhir kali Anda lihat dan sudah menunjukkan data benar
+
+        try {
+            // Ini adalah bagian yang paling mungkin menjadi penyebab masalah sekarang
+            Offence::create($validated);
+
+            return redirect()->route('offence.index')
+                ->with('success', 'Offence berhasil ditambahkan');
+
+        } catch (\Exception $e) {
+            // Jika terjadi error saat menyimpan ke database, kita akan menangkapnya di sini
+            // DAN menampilkan pesan errornya
+            return redirect()->back()->withErrors(['database_error' => 'Gagal menyimpan data ke database: ' . $e->getMessage()])->withInput();
+        }
     }
+
 
 
     /**

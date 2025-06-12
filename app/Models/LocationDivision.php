@@ -24,17 +24,17 @@ class LocationDivision extends Model
     {
         return $this->belongsTo(Employee::class);
     }
-    
+
     public function cooperation()
     {
         return $this->belongsTo(Cooperation::class);
     }
-    
+
     public function location()
     {
         return $this->belongsTo(Location::class);
     }
-    
+
     public function work()
     {
         return $this->belongsTo(Work::class);

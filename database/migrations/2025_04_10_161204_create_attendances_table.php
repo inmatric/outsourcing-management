@@ -12,7 +12,6 @@ return new class extends Migration {
     {
         Schema::create('attendances', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->date('date');
             $table->timestamp('start_time')->nullable();
             $table->timestamp('end_time')->nullable();

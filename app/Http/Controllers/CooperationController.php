@@ -41,7 +41,7 @@ class CooperationController extends Controller
             'status' => 'required|in:active,inactive',
             'cooperation_type' => 'required|array',
             'cooperation_type.*' => 'in:Cleaning Service,Security',
-            'contract_file' => 'required|file|mimes:pdf,doc,docx,jpg,png,jpeg|max:2048',
+            'contract_file' => 'required|file|mimes:pdf,doc,docx',
         ]);
 
         // Simpan file
@@ -76,7 +76,7 @@ class CooperationController extends Controller
             'status' => 'required|in:active,inactive',
             'cooperation_type' => 'required|array',
             'cooperation_type.*' => 'in:Cleaning Service,Security',
-            'contract_file' => 'nullable|file|mimes:pdf,doc,docx,jpg,png,jpeg|max:2048',
+            'contract_file' => 'nullable|file|mimes:pdf,doc,docx',
         ]);
     
         // Hapus file lama & simpan baru

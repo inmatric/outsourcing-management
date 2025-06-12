@@ -19,21 +19,26 @@ class ProfileController extends Controller
         $user = User::findOrFail($id);
 
         $validated = $request->validate([
+            'username' => 'required|string|max:255|unique:users,username,' . $user->id,
             'email' => 'required|email|unique:users,email,' . $user->id,
-            'role_name' => 'required|in:admin,user,hrd',
+            'address' => 'nullable|string|max:255',
+            'password' => 'nullable|min:6',
         ]);
 
         $data = [
+            'username' => $validated['username'],
             'email' => $validated['email'],
-            'role_name' => $validated['role_name'],
+            'address' => $validated['address'] ?? $user->address, // pakai yang lama jika kosong
         ];
 
-        if ($request->filled('password')) {
-            $data['password'] = Hash::make($request->password);
+        if (!empty($validated['password'])) {
+            $data['password'] = Hash::make($validated['password']);
         }
+        // dd($data);
 
         $user->update($data);
 
-        return redirect('/users')->with('success', 'User berhasil diperbarui.');
+return redirect()->route('profileform', ['id' => $user->id])
+                 ->with('success', 'Profile berhasil diperbarui.');
     }
 }

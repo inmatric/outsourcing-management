@@ -66,14 +66,14 @@
 
             <!-- Jenis Pekerjaan -->
             <div class="mb-4">
-                <label for="work_id" class="block text-sm font-medium text-gray-700">Work Type</label>
+                <label for="work_id" class="block text-sm font-medium text-gray-700">Task Type</label>
                 <select name="work_id" id="work_id"
                     class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500"
                     required>
                     <option value="">-- Select Work Type --</option>
                     @foreach ($works as $work)
                         <option value="{{ $work->id }}" {{ old('work_id') == $work->id ? 'selected' : '' }}>
-                            {{ $work->work_type }}
+                            {{ $work->task_type }}
                         </option>
                     @endforeach
                 </select>

@@ -44,7 +44,7 @@
                         @forelse ($tasks as $task)
                             <tr>
                                 <td class="px-6 py-4 whitespace-nowrap">
-                                    <div class="text-sm font-medium text-gray-900">{{ $task->work->task ?? 'N/A' }}</div>
+                                    <div class="text-sm font-medium text-gray-900">{{ $task->work->job_name ?? 'N/A' }}</div>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap">
                                     <div class="text-sm text-gray-500">{{ $task->employee->name ?? 'N/A' }}</div>
@@ -63,7 +63,7 @@
                                     </span>
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm text-gray-500">
-                                    {{ $task->duration ?? 'N/A' }}
+                                    {{ $task->duration_sec ?? 'N/A' }}
                                 </td>
                                 <td class="px-6 py-4 whitespace-nowrap text-sm font-medium">
                                     <a href="{{ route('processing_wd.show', $task->id) }}"

@@ -13,12 +13,11 @@ return new class extends Migration
     {
         Schema::create('work_equipment', function (Blueprint $table) {
             $table->id();
-            $table->string('job_name');
-            $table->string('task_type');
-            $table->text('task_details');
-            $table->string('salary_per_person'); // gunakan string supaya bisa simpan "1-3 Juta"
-            $table->string('employee_name')->nullable(); // <-- Tambahan kolom employee_name
-            // $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
+            $table->foreignId('location_id')->constrained('locations')->onDelete('cascade');
+            $table->foreignId('work_id')->constrained('works')->onDelete('cascade');
+            $table->string('equipment'); 
+            $table->string('condition');
             $table->timestamps();
         });
     }
@@ -28,6 +27,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('works');
+        Schema::dropIfExists('work_equipment');
     }
 };

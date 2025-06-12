@@ -14,12 +14,11 @@ return new class extends Migration
         Schema::create('work_report', function (Blueprint $table) {
             $table->id();
             $table->integer('employee_id');
-            $table->string('employee_name', 200);
             $table->date('date');
             $table->text('work_description');
-            $table->text('problem_found');
-            $table->text('action');
-            $table->string('image', 255);
+            $table->text('problem_found')->nullable();
+            $table->text('action')->nullable();
+            $table->string('image', 255)->nullable();
             $table->timestamps();
         });
     }

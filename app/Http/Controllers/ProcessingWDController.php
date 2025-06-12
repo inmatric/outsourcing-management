@@ -19,7 +19,7 @@ class ProcessingWDController extends Controller
 
             $query->where(function ($q) use ($search) {
                 $q->whereHas('work', function ($q2) use ($search) {
-                    $q2->where('task', 'like', "%{$search}%");
+                    $q2->where('job_name', 'like', "%{$search}%");
                 })
                     ->orWhereHas('employee', function ($q2) use ($search) {
                         $q2->where('name', 'like', "%{$search}%");

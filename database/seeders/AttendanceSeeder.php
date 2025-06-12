@@ -34,7 +34,6 @@ class AttendanceSeeder extends Seeder
         DB::table('attendances')->insert([
             [
                 'id' => 1,
-                "name"=>"name",
                 'employee_id' => 1,
                 'date' => Carbon::now()->toDateString(),
                 'start_time' => Carbon::now()->subHours(8),
@@ -48,7 +47,6 @@ class AttendanceSeeder extends Seeder
             ],
             [
                 'id' => 2,
-                "name"=>"name",
                 'employee_id' => 2,
                 'date' => Carbon::now()->toDateString(),
                 'start_time' => Carbon::now()->subHours(6),
@@ -61,8 +59,7 @@ class AttendanceSeeder extends Seeder
                 'updated_at' => now(),
             ],
             [
-                                'id' => 3,
-                                                "name"=>"name",
+                'id' => 3,
                 'employee_id' => 2,
                 'date' => Carbon::now()->subDay()->toDateString(),
                 'start_time' => Carbon::now()->subDay()->setTime(8, 0, 0),

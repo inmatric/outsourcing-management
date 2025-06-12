@@ -39,7 +39,7 @@ class ComplaintController extends Controller
             'description' => 'required',
             'location_id' => 'required|exists:locations,id',
             'employee_id' => 'required|exists:employees,id',
-            'proof_image' => 'nullable|file|mimes:jpg,png,jpeg,mp4|max:2048'
+            'proof_image' => 'nullable|file'
         ]);
 
         // Upload file jika ada
@@ -122,5 +122,15 @@ class ComplaintController extends Controller
         $complaint->delete();
 
         return redirect()->route('complaints.index')->with('success', 'Complaint deleted successfully.');
+    }
+
+    public function getDetail($id)
+    {
+        $complaint = Complaint::with('location', 'employee')->find($id);
+
+        return response()->json([
+            'location_id' => $complaint->location_id,
+            'employee_id' => $complaint->employee_id
+        ]);
     }
 }

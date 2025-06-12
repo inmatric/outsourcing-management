@@ -49,7 +49,7 @@ class PermissionRequestController extends Controller
         // Validasi input
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'izin_type' => 'required|in:sakit,cuti,pribadi',
+            'izin_type' => 'required|in:sick,leave,personal',
             'description' => 'nullable|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',
@@ -107,10 +107,10 @@ class PermissionRequestController extends Controller
 
         // Cek jika update ini datang dari hrd untuk approve/reject
         if (Auth::user()->role_name === 'hrd' && $request->has('approve_action')) {
-            if ($request->approve_action === 'approve') {
-                $permissionRequest->status = 'disetujui';
-            } elseif ($request->approve_action === 'reject') {
-                $permissionRequest->status = 'ditolak';
+            if ($request->approve_action === 'approved') {
+                $permissionRequest->status = 'approved';
+            } elseif ($request->approve_action === 'rejected') {
+                $permissionRequest->status = 'rejected';
             }
 
             $permissionRequest->approved_by = Auth::id();
@@ -123,7 +123,7 @@ class PermissionRequestController extends Controller
         // Validasi input update normal (dari employee/user biasa)
         $validated = $request->validate([
             'employee_id' => 'required|exists:employees,id',
-            'izin_type' => 'required|in:sakit,cuti,pribadi',
+            'izin_type' => 'required|in:sick,leave,personal',
             'description' => 'nullable|string',
             'start_date' => 'required|date',
             'end_date' => 'required|date|after_or_equal:start_date',

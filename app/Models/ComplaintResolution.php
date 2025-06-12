@@ -19,6 +19,7 @@ class ComplaintResolution extends Model
         'photo_evidence',
         'location_id',
         'notes',
+        'status'
     ];
 
     // Relasi ke Employee

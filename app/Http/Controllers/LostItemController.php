@@ -6,6 +6,7 @@ use App\Models\LostItem;
 use App\Models\ItemFound;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Location;
 
 class LostItemController extends Controller
 {
@@ -28,6 +29,8 @@ class LostItemController extends Controller
             return $query->where('item_name', 'like', '%' . $searchFound . '%');
         })->paginate(5)->withQueryString();
 
+
+        
         return view('lostitem.index', compact('lostItems', 'foundItems'));
     }
     //public function index()
@@ -41,7 +44,8 @@ class LostItemController extends Controller
      */
     public function create()
     {
-        return view('lostitem.create');
+        $locations = Location::all();
+        return view('lostitem.create', compact('locations'));
     }
 
     /**
@@ -54,7 +58,7 @@ class LostItemController extends Controller
             'item_name' => 'required|max:100',
             'lost_location' => 'required|max:50',
             'lost_date' => 'nullable|date',
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'required|image',
             'status' => 'required|in:hilang,ditemukan',
             'description' => 'required',
         ]);
@@ -79,8 +83,9 @@ class LostItemController extends Controller
      */
     public function edit($id)
     {
+         $locations = Location::all();
         $lostItem = LostItem::findOrFail($id);
-        return view('lostitem.edit', compact('lostItem'));
+        return view('lostitem.edit', compact('lostItem','locations'));
     }
 
     /**

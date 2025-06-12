@@ -18,12 +18,15 @@
                 <label class="block text-gray-700 font-medium mb-1">Nama Barang</label>
                 <input type="text" name="item_name" value="{{ old('item_name', $lostItem->item_name) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
             </div>
-
             <div>
-                <label class="block text-gray-700 font-medium mb-1">Lokasi Hilang</label>
-                <input type="text" name="lost_location" value="{{ old('lost_location', $lostItem->lost_location) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
-            </div>
-
+            <label class="block text-gray-700 font-medium mb-1">Lokasi Hilang</label>
+            <select name="lost_location" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none" required>
+                <option value="">-- Pilih Lokasi --</option>
+                @foreach($locations as $location)
+                    <option value="{{ $location->location }}">{{ $location->location }}</option>
+                @endforeach
+            </select>
+        </div>
             <div>
                 <label class="block text-gray-700 font-medium mb-1">Tanggal Hilang</label>
                 <input type="date" name="lost_date" value="{{ old('lost_date', $lostItem->lost_date) }}" class="w-full border border-gray-300 rounded-xl px-4 py-2 focus:ring-2 focus:ring-blue-500 focus:outline-none">

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorkReport;
+use App\Models\Employee; // Pastikan model Employee di-import
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
@@ -12,30 +13,29 @@ class WorkReportController extends Controller
     /**
      * Menampilkan daftar laporan pekerjaan.
      */
+    
     public function index(Request $request)
-{
-    $query = WorkReport::query();
-
-    if ($request->has('search') && $request->search != '') {
+    {
         $search = $request->search;
-        $query->where(function ($q) use ($search) {
-            $q->where('employee_id', 'like', '%' . $search . '%')
-              ->orWhere('employee_name', 'like', '%' . $search . '%');
-        });
+
+        $workreport = WorkReport::with(['employee'])
+            ->when($search, function ($query) use ($search) {
+                return $query->whereHas('employee', function ($q) use ($search) {
+                    $q->where('name', 'like', "%{$search}%");
+                });
+            })
+            ->paginate(5);
+
+        return view('workreport.index', compact('workreport', 'search'));
     }
-
-    $workreport = $query->latest()->get();
-
-    return view('workreport.index', compact('workreport'));
-}
-
 
     /**
      * Menampilkan form tambah laporan.
      */
     public function create()
     {
-        return view('workreport.create');
+        $employees = Employee::all(); // Mengambil semua data pegawai
+        return view('workreport.create', compact('employees'));
     }
 
     /**
@@ -44,21 +44,28 @@ class WorkReportController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'employee_id' => 'required|integer',
-            'employee_name' => 'required|string|max:200',
+            'employee_id' => 'required|exists:employees,id',
             'date' => 'required|date',
             'work_description' => 'required|string',
             'problem_found' => 'nullable|string',
             'action' => 'nullable|string',
-            'image' => 'nullable|image|max:2048',
+            'image' => 'nullable|image|max:2048', // Validasi untuk gambar
         ]);
 
+        // Mengambil nama pegawai berdasarkan employee_id untuk disimpan di kolom employee_name
+        // Ini opsional, Anda bisa menghapus kolom employee_name di database jika selalu ingin
+        // mengandalkan relasi `employee()` untuk mendapatkan nama.
+        $employee = Employee::findOrFail($validated['employee_id']);
+        $validated['employee_name'] = $employee->name;
+
+        // Penanganan upload gambar
         if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('workreport', 'public');
+            $imagePath = $request->file('image')->store('workreport_images', 'public'); // Simpan di folder 'workreport_images'
             $validated['image'] = $imagePath;
         }
 
-        DB::table('work_report')->insert($validated);
+        // Menggunakan model Eloquent untuk membuat record baru
+        WorkReport::create($validated);
 
         return redirect()->route('workreport.index')->with('success', 'Laporan berhasil ditambahkan!');
     }
@@ -68,8 +75,9 @@ class WorkReportController extends Controller
      */
     public function edit($id)
     {
-        $report = WorkReport::findOrFail($id);
-        return view('workreport.edit', compact('report'));
+        $report = WorkReport::with('employee')->findOrFail($id); // Muat relasi employee
+        $employees = Employee::all();
+        return view('workreport.edit', compact('report', 'employees'));
     }
 
     /**
@@ -77,27 +85,32 @@ class WorkReportController extends Controller
      */
     public function update(Request $request, $id)
     {
-        $report = WorkReport::findOrFail($id);
-
         $validated = $request->validate([
+            'employee_id' => 'required|exists:employees,id',
             'date' => 'required|date',
             'work_description' => 'required|string',
             'problem_found' => 'nullable|string',
             'action' => 'nullable|string',
-            'image' => 'nullable|image|mimes:jpg,jpeg,png|max:2048',
+            'image' => 'nullable|image|max:2048',
         ]);
 
-        if ($request->hasFile('image')) {
-            if ($report->image && Storage::exists('public/' . $report->image)) {
-                Storage::delete('public/' . $report->image);
-            }
+        $report = WorkReport::findOrFail($id);
 
-            $validated['image'] = $request->file('image')->store('workreport', 'public');
+        $employee = Employee::findOrFail($validated['employee_id']);
+        $validated['employee_name'] = $employee->name; // Sesuaikan jika tidak diperlukan lagi
+
+        if ($request->hasFile('image')) {
+            // Hapus gambar lama jika ada
+            if ($report->image && Storage::disk('public')->exists($report->image)) {
+                Storage::disk('public')->delete($report->image);
+            }
+            $imagePath = $request->file('image')->store('workreport_images', 'public');
+            $validated['image'] = $imagePath;
         }
 
-        $report->update($validated);
+        $report->update($validated); // Gunakan update pada model Eloquent
 
-        return redirect()->route('workreport.index')->with('success', 'Laporan berhasil diperbarui.');
+        return redirect()->route('workreport.index')->with('success', 'Laporan berhasil diperbarui!');
     }
 
     /**
@@ -107,7 +120,7 @@ class WorkReportController extends Controller
     {
         $report = WorkReport::findOrFail($id);
 
-        if ($report->image && Storage::exists('public/' . $report->image)) {
+        if ($report->image && Storage::disk('public')->exists($report->image)) {
             Storage::delete('public/' . $report->image);
         }
 

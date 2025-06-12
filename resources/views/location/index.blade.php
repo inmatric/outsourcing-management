@@ -24,7 +24,7 @@
         <div class="flex items-center gap-2">
             <label for="perPage" class="text-sm text-gray-700">Tampilkan</label>
             <select name="perPage" id="perPage" onchange="this.form.submit()"
-                class="border border-gray-300 rounded-lg text-sm py-2 focus:ring-blue-500 focus:border-blue-500">
+                class="border border-gray-300 rounded-lg text-sm py-2 px-3 focus:ring-blue-500 focus:border-blue-500">
                 @foreach([5,10, 25, 50, 100] as $size)
                 <option value="{{ $size }}" {{ request('perPage') == $size ? 'selected' : '' }}>
                     {{ $size }}
@@ -35,15 +35,7 @@
         </div>
 
         <!-- Pencarian -->
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-            <input type="text" name="search" placeholder="Cari lokasi atau perusahaan..."
-                value="{{ request('search') }}"
-                class="w-full sm:w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-            <button type="submit"
-                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
-                Cari
-            </button>
-        </div>
+        
     </form>
 
 
@@ -103,10 +95,7 @@
 <div class="container mx-auto px-4 py-6">
     <div class="flex items-center justify-between mb-4">
         <h1 class="text-xl font-semibold text-gray-800">Daftar Tipe Lokasi</h1>
-        <a href="{{ route('location-type.create') }}"
-            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300">
-            <i class="fas fa-plus mr-2"></i>Tambah
-        </a>
+        
     </div>
     {{-- Filter & PerPage --}}
     <form method="GET" action="{{ route('location.index') }}"
@@ -116,7 +105,7 @@
         <div class="flex items-center gap-2">
             <label for="typePerPage" class="text-sm text-gray-700">Tampilkan</label>
             <select name="typePerPage" id="typePerPage" onchange="this.form.submit()"
-                class="border border-gray-300 rounded-lg text-sm py-2  focus:ring-blue-500 focus:border-blue-500">
+                class="border border-gray-300 rounded-lg text-sm py-2 px-3  focus:ring-blue-500 focus:border-blue-500">
                 @foreach([5,10, 25, 50, 100] as $size)
                 <option value="{{ $size }}" {{ request('typePerPage') == $size ? 'selected' : '' }}>
                     {{ $size }}
@@ -125,15 +114,10 @@
             </select>
             <span class="text-sm text-gray-700">entri</span>
         </div>
-        <div class="flex items-center gap-2 w-full sm:w-auto">
-            <input type="text" name="search" placeholder="Cari lokasi atau perusahaan..."
-                value="{{ request('search') }}"
-                class="w-full sm:w-64 px-4 py-2 text-sm border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500">
-            <button type="submit"
-                class="px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 focus:outline-none">
-                Cari
-            </button>
-        </div>
+        <a href="{{ route('location-type.create') }}"
+            class="inline-flex items-center px-4 py-2 text-sm font-medium text-white bg-blue-600 rounded-lg hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300">
+            <i class="fas fa-plus mr-2"></i>Tambah
+        </a>
     </form>
 
     </form>

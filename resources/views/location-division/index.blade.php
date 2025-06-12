@@ -5,32 +5,35 @@
 @section('content')
     <div class="container mx-auto p-4">
         <h2 class="text-2xl font-bold mb-6 text-gray-800">Location Division</h2>
-
         <div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 mb-6">
-            <!-- Search form + Back Button -->
-            <div class="flex w-full md:w-auto gap-2">
-                <form method="GET" action="{{ route('location-division.index') }}" class="flex">
-                    <input type="text" name="search" value="{{ request('search') }}" placeholder="Search..."
-                        class="w-[400px] border rounded-l-md px-4 py-2 focus:outline-none focus:ring-2 focus:ring-blue-500" />
-                    <button type="submit"
-                        class="bg-blue-600 text-white px-4 rounded-r-md hover:bg-blue-700">Search</button>
-                </form>
-
+            <form action="{{ route('location-division.index') }}" method="GET" class="w-full md:w-2/3 flex">
+                <div class="relative w-90">
+                    <div class="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                        <svg class="w-5 h-5 text-gray-500" fill="currentColor" viewBox="0 0 20 20">
+                            <path fill-rule="evenodd"
+                                d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z"
+                                clip-rule="evenodd" />
+                        </svg>
+                    </div>
+                    <input type="text" id="search" name="search" value="{{ request('search') }}" placeholder="Search"
+                        autocomplete="off"
+                        class="block w-full p-2 pl-10 text-sm text-gray-900 bg-white border border-gray-300 rounded-l-lg focus:ring-blue-500 focus:border-blue-500">
+                </div>
+                <button type="submit" class="px-4 py-2 text-sm text-white bg-blue-600 hover:bg-blue-700 rounded-r-lg">
+                    Search
+                </button>
                 @if (request('search'))
                     <a href="{{ route('location-division.index') }}"
-                        class="px-4 py-2 bg-gray-400 hover:bg-gray-500 text-white rounded-lg text-sm font-semibold text-center">
-                        Kembali
+                        class="ml-2 px-4 py-2 text-sm text-gray-700 bg-gray-200 hover:bg-gray-300 rounded-lg">
+                        Back
                     </a>
                 @endif
-            </div>
+            </form>
 
-            <div class="flex flex-col md:flex-row gap-2 w-full md:w-auto">
-                <!-- Add Button -->
-                <a href="{{ route('location-division.create') }}"
-                    class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold text-center">
-                    + Add Data
-                </a>
-            </div>
+            <a href="{{ route('location-division.create') }}"
+                class="px-4 py-2 bg-blue-500 hover:bg-blue-600 text-white rounded-lg text-sm font-semibold w-full md:w-auto text-center">
+                + Add Data
+            </a>
         </div>
 
         <div class="overflow-x-auto rounded-lg shadow-lg border border-gray-200 mb-4">
@@ -40,7 +43,7 @@
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Employee Name</th>
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Company</th>
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Location</th>
-                        <th class="px-4 py-3 font-bold whitespace-nowrap">Work Type</th>
+                        <th class="px-4 py-3 font-bold whitespace-nowrap">Task Type</th>
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Detail Work</th>
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Status</th>
                         <th class="px-4 py-3 font-bold whitespace-nowrap">Action</th>
@@ -52,7 +55,7 @@
                             <td class="px-4 py-2 font-medium text-gray-900">{{ $data->employee->name }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->cooperation->company_name }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->location->location }}</td>
-                            <td class="px-4 py-2">{{ $data->work->work_type }}</td>
+                            <td class="px-4 py-2">{{ $data->work->task_type }}</td>
                             <td class="px-4 py-2 text-left">{{ $data->detail_work }}</td>
                             <td class="px-6 py-4">
                                 <span
@@ -93,7 +96,7 @@
                     @empty
                         <tr>
                             <td colspan="7" class="px-6 py-4 text-center text-gray-500 text-sm">
-                                Tidak ada data ditemukan.
+                                Tidak ada data yang ditemukan.
                             </td>
                         </tr>
                     @endforelse

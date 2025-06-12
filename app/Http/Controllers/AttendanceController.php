@@ -53,25 +53,28 @@ class AttendanceController extends Controller
         $currentMinutes = $now->hour * 60 + $now->minute;
 
 
+$photoPath = null;
+if ($request->filled('photo')) {
+    $base64Image = $request->input('photo');
+    // Pisahkan header dari data base64
+    $image_parts = explode(";base64,", $base64Image);
+    $image_type_aux = explode("image/", $image_parts[0]);
+    $image_type = $image_type_aux[1];
+    $image_base64 = base64_decode($image_parts[1]);
 
-        // Lanjutkan proses penyimpanan seperti sebelumnya...
-        $base64Image = $request->input('photo');
-        $photoPath = null;
-        if (preg_match('/^data:image\/(\w+);base64,/', $base64Image, $type)) {
-            $image = substr($base64Image, strpos($base64Image, ',') + 1);
-            $type = strtolower($type[1]);
+    // Buat nama file yang unik
+    $filename = 'attendance_' . time() . '.' . $image_type;
+    
+    // Simpan menggunakan Storage Facade
+    // Ini akan menyimpan ke storage/app/public/photos/
+    Storage::disk('public')->put('photos/' . $filename, $image_base64);
 
-            if (in_array($type, ['jpg', 'jpeg', 'png'])) {
-                $image = str_replace(' ', '+', $image);
-                $image = base64_decode($image);
+    // Path yang disimpan di database
+    $photoPath = 'photos/' . $filename;
+}
+        
 
-                if ($image !== false) {
-                    $filename = 'attendance_' . time() . '.' . $type;
-                    Storage::disk('public')->put('photos/' . $filename, $image);
-                    $photoPath = 'photos/' . $filename;
-                }
-            }
-        }
+        
 
         if ($attendanceType === 'end') {
             $existingAttendance = Attendance::where('employee_id', $employeeId)

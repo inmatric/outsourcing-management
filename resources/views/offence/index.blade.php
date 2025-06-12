@@ -33,9 +33,9 @@
     </div>
 </div>
 
-<div class="relative overflow-x-auto shadow-md sm:rounded-lg">
-    <table class="w-full text-sm text-left rtl:text-right text-gray-500 dark:text-gray-400">
-        <thead class="text-xs uppercase bg-cyan-500 text-white dark:bg-cyan-700 dark:text-white">
+<div class="relative overflow-x-auto shadow-lg sm:rounded-xl border border-gray-200">
+    <table class="w-full text-sm text-left rtl:text-right text-gray-700 dark:text-gray-300">
+        <thead class="text-xs text-gray-600 uppercase bg-gray-100 dark:bg-gray-700 dark:text-gray-400">
             <tr>
                 <th scope="col" class="px-6 py-3">No</th>
                 <th scope="col" class="px-6 py-3">Employee Name</th>

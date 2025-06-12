@@ -6,31 +6,34 @@ use App\Models\ItemFound;
 use App\Models\LostItem;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use App\Models\Location;
+
 
 class ItemFoundController extends Controller
 {
     /**
      * Display a listing of the found items.
      */
-    public function index(Request $request)
+public function index(Request $request)
 {
     $search = $request->input('search');
 
-    $foundItems = ItemFound::when($search, function ($query, $search) {
-        return $query->where('item_name', 'like', '%' . $search . '%');
-    })->get();
+    $foundItems = ItemFound::with('location') // <--- penting!
+        ->when($search, function ($query, $search) {
+            return $query->where('item_name', 'like', '%' . $search . '%');
+        })
+        ->get();
 
     return view('itemfound.index', compact('foundItems'));
 }
-
-    
 
     /**
      * Show the form for creating a new found item.
      */
     public function create()
     {
-        return view('itemfound.create');
+        $locations = Location::all();
+        return view('itemfound.create', compact('locations'));
     }
 
     /**
@@ -38,13 +41,14 @@ class ItemFoundController extends Controller
      */
     public function store(Request $request)
     {
+        
         $request->validate([
             'find_name' => 'required|max:50',
             'item_name' => 'required|max:100',
             'find_location' => 'required|max:50',
             'find_date' => 'nullable|date',
             'telephone' => 'required|max:15',
-            'photo' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+            'photo' => 'required|image|max:2048',
             'status' => 'required|in:diambil,belum_diambil',
             'description' => 'required',
         ]);
@@ -62,16 +66,18 @@ class ItemFoundController extends Controller
             'description' => $request->description,
         ]);
 
-return redirect()->route('lostitem.index')->with('success', 'Data penemuan berhasil ditambahkan.');    }
+        return redirect()->route('lostitem.index')->with('success', 'Data penemuan berhasil ditambahkan.');
+    }
 
     /**
      * Show the form for editing the specified found item.
      */
     public function edit($id)
-{
-    $itemFound = ItemFound::findOrFail($id);
-    return view('itemfound.edit', compact('itemFound'));
-}
+    {
+         $locations = Location::all();
+        $itemFound = ItemFound::findOrFail($id);
+        return view('itemfound.edit', compact('itemFound','locations'));
+    }
 
     /**
      * Update the specified found item in storage.

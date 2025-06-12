@@ -34,13 +34,13 @@
     
 
     <!-- Tombol Tambah -->
-    <a href="{{ route('work.create') }}" class="ml-6 mt-2"> {{-- <-- tambahkan jarak di sini --}}
-    <button type="button"
-        class="text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium
-        rounded-lg text-sm px-2 py-1.5 dark:bg-blue-600 dark:hover:bg-blue-700
-        focus:outline-none dark:focus:ring-blue-800">
+  <div class="ml-6 mt-2">
+    <a href="{{ route('work.create') }}"
+       class="inline-block text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:ring-blue-300 font-medium
+              rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800">
         + Add Work
-    </button>
+    </a>
+</div>
 </div>
 
     
@@ -85,7 +85,7 @@
                     {{ $work->task_details }}
                 </td>
                 <td class="px-6 py-4">
-                    {{ $work->salary_range }}
+                    {{ $work->salary_per_person }}
                 </td>
                 <td class="px-6 py-4">
                     <div class="flex space-x-2">

@@ -14,11 +14,11 @@ return new class extends Migration
         Schema::create('permission_requests', function (Blueprint $table) {
             $table->id();
             $table->foreignId('employee_id')->constrained('employees')->onDelete('cascade');
-            $table->enum('izin_type', ['cuti', 'sakit', 'pribadi', 'dinas', 'lainnya']);
+            $table->enum('izin_type', ['leave', 'sick', 'personal', 'service', 'other']);
             $table->text('description');
             $table->date('start_date');
             $table->date('end_date');
-            $table->enum('status', ['pending', 'disetujui', 'ditolak'])->default('pending');
+            $table->enum('status', ['pending', 'approved', 'rejected'])->default('pending');
             $table->string('attachment')->nullable();
             $table->timestamp('submitted_at')->useCurrent();
             $table->foreignId('approved_by')->nullable()->constrained('users')->onDelete('set null');

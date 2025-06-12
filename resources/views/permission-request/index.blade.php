@@ -98,7 +98,7 @@
                         <tr>
                             <th class="px-4 py-3">NO</th>
                             <th class="px-4 py-3">Employee Name</th>
-                            <th class="px-4 py-3">Izin Type</th>
+                            <th class="px-4 py-3">Permission Type</th>
                             <th class="px-4 py-3">Description</th>
                             <th class="px-4 py-3">Start Date</th>
                             <th class="px-4 py-3">End Date</th>
@@ -130,15 +130,15 @@
                                             class="inline">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="approve_action" value="approve">
-                                            <button type="submit" class="text-green-600 hover:underline">Terima</button>
+                                            <input type="hidden" name="approve_action" value="approved">
+                                            <button type="submit" class="text-green-600 hover:underline">Approve</button>
                                         </form>
                                         <form action="{{ url('/permission-request/' . $item->id) }}" method="POST"
                                             class="inline ml-2">
                                             @csrf
                                             @method('PUT')
-                                            <input type="hidden" name="approve_action" value="reject">
-                                            <button type="submit" class="text-red-600 hover:underline">Tolak</button>
+                                            <input type="hidden" name="approve_action" value="rejected">
+                                            <button type="submit" class="text-red-600 hover:underline">Reject</button>
                                         </form>
                                     @else
                                         {{ $item->approved_at ?? '-' }}
@@ -147,15 +147,15 @@
                                 <td class="px-4 py-3">
                                     @if ($item->attachment)
                                         <a href="{{ asset('storage/' . $item->attachment) }}" target="_blank"
-                                            class="text-blue-500 underline">Lihat File</a>
+                                            class="text-blue-500 underline">Show File</a>
                                     @else
-                                        Tidak ada file
+                                        Empty File
                                     @endif
                                 </td>
 
                                 @if ($role != 'hrd')
                                     <td class="px-6 py-4 flex items-center gap-3">
-                                        @if ($item->status != 'disetujui')
+                                        @if ($item->status != 'approved')
                                             <a href="{{ url('/permission-request/' . $item->id . '/edit') }}"
                                                 class="text-blue-600 hover:text-blue-800">
                                                 {{-- Icon edit --}}

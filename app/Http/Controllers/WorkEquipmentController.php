@@ -3,86 +3,133 @@
 namespace App\Http\Controllers;
 
 use App\Models\WorkEquipment;
+use App\Models\Employee; // Import model Employee
+use App\Models\Location; // Import model Location
+use App\Models\Work;
 use Illuminate\Http\Request;
 
 class WorkEquipmentController extends Controller
 {
+    /**
+     * Display a listing of the resource.
+     */
     public function index(Request $request)
     {
         $search = $request->input('search');
 
-        $workequipments = WorkEquipment::when($search, function ($query, $search) {
-            return $query->where('employee_name', 'like', "%{$search}%")
-                ->orWhere('position', 'like', "%{$search}%")
-                ->orWhere('location', 'like', "%{$search}%")
-                ->orWhere('equipment', 'like', "%{$search}%")
-                ->orWhere('condition', 'like', "%{$search}%");
-        })->get();
+        // Eager load 'employee' dan 'location' untuk mengambil data terkait
+        $workequipments = WorkEquipment::with(['employee', 'location'])
+            ->when($search, function ($query, $search) {
+                return $query->where('equipment', 'like', "%{$search}%")
+                    ->orWhere('condition', 'like', "%{$search}%")
+                    // Cari berdasarkan nama karyawan melalui relasi
+                    ->orWhereHas('employee', function ($q) use ($search) {
+                        $q->where('employee_id', 'like', "%{$search}%");
+                    })
+                    // Cari berdasarkan nama lokasi melalui relasi
+                    ->orWhereHas('location', function ($q) use ($search) {
+                        $q->where('location_id', 'like', "%{$search}%");
+                    })
+                    // Cari berdasarkan nama lokasi melalui relasi
+                    ->orWhereHas('work', function ($q) use ($search) {
+                        $q->where('work_id', 'like', "%{$search}%");
+                    });
+                    
+            })
+            ->get(); // Anda mungkin ingin menggunakan paginate() di sini untuk data yang banyak
 
         return view('workequipment.index', compact('workequipments'));
     }
 
-
+    /**
+     * Show the form for creating a new resource.
+     */
     public function create()
     {
-
-        return view('workequipment.create');
+        // Ambil semua karyawan dan lokasi untuk dropdown di form
+        $employees = Employee::all();
+        $locations = Location::all();
+        $works = Work::all();
+        return view('workequipment.create', compact('employees', 'locations','works'));
     }
 
+    /**
+     * Store a newly created resource in storage.
+     */
     public function store(Request $request)
     {
         $request->validate([
-            'employee_id' => 'required|string|max:50',
-            'employee_name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
+            'employee_id' => 'required|exists:employees,id', // Validasi foreign key employee
+            'location_id' => 'required|exists:locations,id', // Validasi foreign key location
+            'work_id' => 'required|exists:works,id', // Validasi foreign key location
             'equipment' => 'required|string|max:255',
             'condition' => 'required|string|max:255',
         ]);
 
         WorkEquipment::create($request->only([
             'employee_id',
-            'employee_name',
-            'position',
-            'location',
+            'location_id',
+            'work_id',
             'equipment',
             'condition'
         ]));
 
-        return redirect()->route('workequipment.index')->with('success', 'Data berhasil disimpan.');
+        return redirect()->route('workequipment.index')->with('success', 'Data peralatan kerja berhasil disimpan.');
     }
 
+    /**
+     * Display the specified resource.
+     */
+    public function show($id)
+    {
+        // Load relasi employee dan location saat menampilkan detail
+        $workequipment = WorkEquipment::with(['employee', 'location'])->findOrFail($id);
+        return view('workequipment.show', compact('workequipment'));
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
     public function edit($id)
     {
         $workequipment = WorkEquipment::findOrFail($id);
-        return view('workequipment.edit', compact('workequipment'));
+        // Ambil semua karyawan dan lokasi untuk dropdown di form edit
+        $employees = Employee::all();
+        $locations = Location::all();
+        $works = Work::all();
+        return view('workequipment.edit', compact('workequipment', 'employees', 'locations', 'works'));
     }
 
+    /**
+     * Update the specified resource in storage.
+     */
     public function update(Request $request, $id)
     {
-        $product = WorkEquipment::findOrFail($id);
+        $workequipment = WorkEquipment::findOrFail($id);
 
         $validated = $request->validate([
-            'employee_id' => 'required|string|max:50',
-            'employee_name' => 'required|string|max:255',
-            'position' => 'required|string|max:255',
-            'location' => 'required|string|max:255',
+            'employee_id' => 'required|exists:employees,id', // Validasi foreign key employee
+            'location_id' => 'required|exists:locations,id', // Validasi foreign key location
+            'work_id' => 'required|exists:works,id', // Validasi foreign key location
             'equipment' => 'required|string|max:255',
             'condition' => 'required|string|max:255',
         ]);
 
-        $product->update($validated);
+        $workequipment->update($validated);
 
         return redirect()->route('workequipment.index')
-            ->with('success', 'Produk berhasil diperbarui');
+            ->with('success', 'Data peralatan kerja berhasil diperbarui.');
     }
 
+    /**
+     * Remove the specified resource from storage.
+     */
     public function destroy($id)
     {
-        $product = WorkEquipment::findOrFail($id);
-        $product->delete();
+        $workequipment = WorkEquipment::findOrFail($id);
+        $workequipment->delete();
 
         return redirect()->route('workequipment.index')
-            ->with('success', 'Produk berhasil dihapus');
+            ->with('success', 'Data peralatan kerja berhasil dihapus.');
     }
 }

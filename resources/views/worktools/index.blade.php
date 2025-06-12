@@ -1,4 +1,3 @@
-
 @extends('components.layouts.main-layout')
 
 @section('title', 'WorkTools')
@@ -56,10 +55,15 @@
                 {{-- Nama --}}
                 <h2 class="text-2xl font-bold text-gray-800 text-center mb-4">{{ $tool->name }}</h2>
 
-                {{-- Deskripsi --}}
-                <p class="text-base text-gray-600 mb-4">
-                    <strong>SOP:</strong> {{ $tool->description }}
-                </p>
+                {{-- Deskripsi SOP --}}
+                <div class="text-base text-gray-600 mb-4">
+                    <strong class="block mb-1">SOP:</strong>
+                    <ul class="list-decimal list-inside space-y-1">
+                        @foreach (explode("\n", $tool->description) as $step)
+                            <li>{{ $step }}</li>
+                        @endforeach
+                    </ul>
+                </div>
 
                 {{-- Tujuan --}}
                 <p class="text-base text-gray-600 mb-4">

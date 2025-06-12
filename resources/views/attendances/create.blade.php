@@ -41,7 +41,7 @@
       <canvas id="canvas" style="display: none;"></canvas>
       <div class="mt-3">
       <button type="button" onclick="takePicture()"
-        class="bg-cyan-500 hover:bg-cyan-500 text-white py-2 px-4 rounded-lg transition duration-200">Take
+        class="bg-blue-700 hover:bg-blue-700 text-white py-2 px-4 rounded-lg transition duration-200">Take
         Picture</button>
       <button type="button" id="retryButton" onclick="retryCapture()"
         class="bg-red-700 hover:bg-red-800 text-white py-2 px-4 rounded-lg transition duration-200 hidden">Retry</button>
@@ -56,15 +56,59 @@
 
     <div class="flex justify-between">
     <button type="submit"
-      class="text-white bg-cyan-500 hover:bg-cyan-500 focus:ring-4 focus:outline-none focus:ring-cyan-500 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-200 dark:bg-cyan-500 dark:hover:bg-cyan-500 dark:focus:ring-cyan-500">
+      class="text-white bg-blue-700 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-700 font-medium rounded-lg text-sm px-5 py-2.5 text-center transition duration-200 dark:bg-blue-700 dark:hover:bg-blue-700 dark:focus:ring-blue-700">
       SUBMIT
     </button>
     <button type="button" onclick="window.location='{{ route('attendances.index') }}'"
       class="focus:outline-none text-white bg-green-700 hover:bg-green-800 focus:ring-4 focus:ring-green-300 font-medium rounded-lg text-sm px-5 py-2.5 dark:bg-green-600 dark:hover:bg-green-700 dark:focus:ring-green-800 transition duration-200">BACK</button>
     </div>
   </form>
+  @if ($errors->any())
+    <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+        <ul class="list-disc pl-4">
+            @foreach ($errors->all() as $error)
+                <li>{{ $error }}</li>
+            @endforeach
+        </ul>
+    </div>
+@endif
+
   <script>
-    function checkAttendanceTime() {
+  // Variabel global untuk menyimpan stream kamera dan posisi
+  let cameraStream = null;
+  let currentPosition = null;
+
+  // 1. Fungsi yang berjalan setelah DOM siap
+  document.addEventListener('DOMContentLoaded', function() {
+    // Sembunyikan tombol submit di awal
+    document.querySelector('button[type="submit"]').style.display = 'none';
+
+    // Tampilkan tanggal hari ini
+    document.getElementById('current-date').textContent = getCurrentDate();
+
+    // Cek waktu absensi
+    checkAttendanceTime();
+
+    // Dapatkan lokasi pengguna
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          currentPosition = position;
+          console.log("Lokasi berhasil didapat:", position.coords.latitude, position.coords.longitude);
+        },
+        (error) => {
+          console.warn("Error mendapatkan lokasi:", error.message);
+          alert("Gagal mendapatkan lokasi. Pastikan Anda mengizinkan akses lokasi.");
+        }
+      );
+    } else {
+      console.warn("Geolocation tidak didukung oleh browser ini.");
+      alert("Browser Anda tidak mendukung Geolocation.");
+    }
+  });
+
+  // 2. Fungsi untuk mengecek jam absensi
+  function checkAttendanceTime() {
     const now = new Date();
     const hours = now.getHours();
     const minutes = now.getMinutes();
@@ -74,175 +118,127 @@
     const startTime = 7 * 60; // 07:00
     const endTime = 9 * 60; // 09:00
     const label = "07.00 - 09.00";
-
     const timeStatus = document.getElementById('time-status');
 
     if (currentTime >= startTime && currentTime <= endTime) {
-      timeStatus.textContent = `You are within the attendance time (${label}).`;
+      timeStatus.textContent = `Anda berada dalam waktu absensi (${label}).`;
       timeStatus.classList.remove('text-red-600');
       timeStatus.classList.add('text-green-600');
     } else {
-      timeStatus.textContent = `Attendance time is over! (${label})`;
+      timeStatus.textContent = `Waktu absensi sudah lewat! (${label})`;
       timeStatus.classList.remove('text-green-600');
       timeStatus.classList.add('text-red-600');
     }
-    }
+  }
 
-    document.addEventListener('DOMContentLoaded', function () {
-    // Sembunyikan tombol submit di awal
-    document.querySelector('button[type="submit"]').style.display = 'none';
-    document.getElementById('current-date').textContent = getCurrentDate();
-    checkAttendanceTime(); // Cek waktu saat ini
-    });
-
-    // Display the current date in the paragraph with id 'current-date'
-    document.getElementById('current-date').textContent = getCurrentDate();
-
-    let currentPosition = null; // Store the current location coordinates
-    let cameraStream = null; // Store camera stream to stop it after capture
-
-    // Start camera
-    function startCamera() {
+  // 3. Fungsi untuk memulai kamera
+  function startCamera() {
     const video = document.getElementById('video');
-    const canvas = document.getElementById('canvas');
-    const context = canvas.getContext('2d');
-
-    // Request access to the camera
-    navigator.mediaDevices.getUserMedia({ video: true })
+    navigator.mediaDevices.getUserMedia({
+        video: true
+      })
       .then(stream => {
-      video.srcObject = stream;
-      cameraStream = stream; // Store the camera stream
-      video.classList.remove('hidden'); // Show video element when the camera starts
+        video.srcObject = stream;
+        cameraStream = stream;
+        video.classList.remove('hidden');
+        document.querySelector('button[onclick="startCamera()"]').classList.add('hidden');
       })
       .catch(err => {
-      console.error("Error accessing camera: " + err);
+        console.error("Error mengakses kamera: ", err);
+        alert("Tidak bisa mengakses kamera. Pastikan Anda memberikan izin.");
       });
-    }
+  }
 
-    // Take a picture from the camera feed
-    function takePicture() {
+  // 4. Fungsi untuk mengambil gambar
+  function takePicture() {
     const video = document.getElementById('video');
     const canvas = document.getElementById('canvas');
     const context = canvas.getContext('2d');
     const imgElement = document.getElementById('captured-image');
     const retryButton = document.getElementById('retryButton');
-    const photoInfo = document.getElementById('photo-info');
-    const timestampElement = document.getElementById('timestamp');
-    const coordinatesElement = document.getElementById('coordinates');
 
-    // Set canvas size to video size
+    // **PENTING**: Pastikan video sudah punya dimensi sebelum menggambar
+    if (video.videoWidth === 0 || video.videoHeight === 0) {
+        console.error("Video stream belum siap.");
+        alert("Kamera belum siap, silakan coba lagi sesaat.");
+        return;
+    }
+    
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
-
-    // Draw the current frame from the video to the canvas
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
-    // Get the timestamp (date and time)
     const now = new Date();
-    const timestamp = now.toLocaleString(); // Format: MM/DD/YYYY, HH:mm:ss
+    const timestamp = now.toLocaleString('id-ID', { dateStyle: 'medium', timeStyle: 'medium' });
 
-    // Add timestamp and coordinates to the image (bottom left corner)
-    const latitude = currentPosition ? currentPosition.coords.latitude : 'N/A';
-    const longitude = currentPosition ? currentPosition.coords.longitude : 'N/A';
+    const latitude = currentPosition ? currentPosition.coords.latitude.toFixed(6) : 'N/A';
+    const longitude = currentPosition ? currentPosition.coords.longitude.toFixed(6) : 'N/A';
 
+    // Tambahkan teks timestamp dan lokasi ke canvas
     context.font = '20px Arial';
     context.fillStyle = 'white';
-    context.fillText("Timestamp: " + timestamp, 10, canvas.height - 40); // Date and time
-    context.fillText("Location: Lat " + latitude + ", Lon " + longitude, 10, canvas.height - 10); // Coordinates
+    context.strokeStyle = 'black';
+    context.lineWidth = 4;
+    context.strokeText(timestamp, 10, canvas.height - 40);
+    context.fillText(timestamp, 10, canvas.height - 40);
+    context.strokeText(`Lokasi: ${latitude}, ${longitude}`, 10, canvas.height - 15);
+    context.fillText(`Lokasi: ${latitude}, ${longitude}`, 10, canvas.height - 15);
 
-    // Convert canvas to image and set it in img element
+    // Konversi canvas ke base64
     const imageUrl = canvas.toDataURL('image/png');
     imgElement.src = imageUrl;
 
-    // Show the captured image and info
+    // Tampilkan gambar dan sembunyikan video
     imgElement.classList.remove('hidden');
+    video.classList.add('hidden');
     retryButton.classList.remove('hidden');
-    photoInfo.classList.remove('hidden');
 
-    // Set the value of a hidden input field with the Base64 data
-    const photoInput = document.createElement('input');
-    photoInput.type = 'hidden';
-    photoInput.name = 'photo';
+    // Buat dan isi input hidden untuk foto
+    let photoInput = document.querySelector('input[name="photo"]');
+    if (!photoInput) {
+        photoInput = document.createElement('input');
+        photoInput.type = 'hidden';
+        photoInput.name = 'photo';
+        document.querySelector('form').appendChild(photoInput);
+    }
     photoInput.value = imageUrl;
-    document.querySelector('form').appendChild(photoInput);
 
-    // Sembunyikan tombol "Take Picture" dan tampilkan tombol "SUBMIT"
+    // Atur tampilan tombol
     document.querySelector('button[onclick="takePicture()"]').style.display = 'none';
     document.querySelector('button[type="submit"]').style.display = 'block';
 
-    // Disable the capture button
-    document.querySelector('button[onclick="takePicture()"]').disabled = true;
-
-    // Stop the camera stream and hide video
-    video.classList.add('hidden');
+    // Matikan stream kamera
     if (cameraStream) {
-      let tracks = cameraStream.getTracks();
-      tracks.forEach(track => track.stop()); // Stop the camera stream
+      cameraStream.getTracks().forEach(track => track.stop());
     }
-    }
+  }
 
-    // Retry taking picture
-    function retryCapture() {
-    const imgElement = document.getElementById('captured-image');
-    const retryButton = document.getElementById('retryButton');
-    const photoInfo = document.getElementById('photo-info');
-    const videoElement = document.getElementById('video');
+  // 5. Fungsi untuk mengulang pengambilan gambar
+  function retryCapture() {
+    // Sembunyikan gambar
+    document.getElementById('captured-image').classList.add('hidden');
+    document.getElementById('retryButton').classList.add('hidden');
 
-    // Hide the current image and info
-    imgElement.classList.add('hidden');
-    retryButton.classList.add('hidden');
-    photoInfo.classList.add('hidden');
-
-    // Re-enable the capture button
-    document.querySelector('button[onclick="takePicture()"]').disabled = false;
-    document.querySelector('button[onclick="takePicture()"]').style.display = 'block'; // Show take picture button
-    document.querySelector('button[type="submit"]').style.display = 'none'; // Hide submit button
-
-    // Remove the hidden photo input
+    // Hapus nilai dari input foto
     const photoInput = document.querySelector('input[name="photo"]');
     if (photoInput) {
-      photoInput.remove();
+      photoInput.value = '';
     }
+    
+    // Atur ulang tampilan tombol
+    document.querySelector('button[onclick="takePicture()"]').style.display = 'block';
+    document.querySelector('button[type="submit"]').style.display = 'none';
 
-    // Show the video again and restart the camera
-    videoElement.classList.remove('hidden');
+    // Mulai ulang kamera
+    startCamera();
+  }
 
-    navigator.mediaDevices.getUserMedia({ video: true })
-      .then(stream => {
-      videoElement.srcObject = stream;
-      cameraStream = stream;
-      })
-      .catch(err => {
-      console.error("Error accessing camera: " + err);
-      });
-    }
-
-    function getCurrentDate() {
+  // 6. Fungsi utilitas untuk mendapatkan tanggal
+  function getCurrentDate() {
     const today = new Date();
     const day = String(today.getDate()).padStart(2, '0');
-    const month = String(today.getMonth() + 1).padStart(2, '0'); // Ingat bulan dimulai dari 0
+    const month = String(today.getMonth() + 1).padStart(2, '0');
     const year = today.getFullYear();
     return `${day}-${month}-${year}`;
-    }
-
-    document.addEventListener('DOMContentLoaded', function () {
-    document.getElementById('current-date').textContent = getCurrentDate();
-    checkAttendanceTime(); // Cek waktu saat ini (fungsi yang sudah ada)
-    });
-    // Get user's current location and store it
-    if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(
-      (position) => {
-      currentPosition = position;
-      console.log("Location acquired:", position.coords.latitude, position.coords.longitude);
-      },
-      (error) => {
-      console.warn("Error getting location:", error.message);
-      }
-    );
-    } else {
-    console.warn("Geolocation is not supported by this browser.");
-    }
-  </script>
-
-@endsection
+  }
+</script>

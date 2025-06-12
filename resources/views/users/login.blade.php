@@ -6,8 +6,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite(['resources/css/app.css', 'resources/js/app.js'])
-    <script src="https://unpkg.com/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://unpkg.com/flowbite@1.6.5/dist/flowbite.min.js"></script>
+    <script src="https://cdn.tailwindcss.com"></script>
 
     <title>Page </title>
 </head>
@@ -50,26 +50,16 @@
                         </div>
 
                         @if ($errors->any())
-                            <div
-                            class="mt-1 text-sm text-red-600 dark:text-red-400">
+                            <div class="mt-1 text-sm text-red-600 dark:text-red-400">
                                 {{ $errors->first() }}
                             </div>
                         @endif
 
-                        <button type="submit" :disabled="loading"
+                        <button type="submit"
                             class="w-full mt-4 text-white bg-blue-600 hover:bg-blue-700 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800 flex items-center justify-center">
-                            <template x-if="loading">
-                                <svg class="animate-spin h-5 w-5 mr-2 text-white" xmlns="http://www.w3.org/2000/svg"
-                                    fill="none" viewBox="0 0 24 24">
-                                    <circle class="opacity-25" cx="12" cy="12" r="10"
-                                        stroke="currentColor" stroke-width="4"></circle>
-                                    <path class="opacity-75" fill="currentColor"
-                                        d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z">
-                                    </path>
-                                </svg>
-                            </template>
-                            <span x-text="loading ? 'Signing in...' : 'Sign in'"></span>
+                            Sign In
                         </button>
+
                     </form>
 
                 </div>
@@ -78,6 +68,14 @@
     </section>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.1/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-HwwvtgBNo3bZJJLYd8oVXjrBZt8cqVSpeBNS5n7C8IVInixGAoxmnlMuBnhbgrkm" crossorigin="anonymous">
+    </script>
+    <script>
+        import {
+            initFlowbite
+        } from 'flowbite';
+        document.addEventListener('DOMContentLoaded', function() {
+            initFlowbite();
+        });
     </script>
 </body>
 

@@ -21,4 +21,8 @@ class ItemFound extends Model
         'status',
         'description',
     ];
+    public function location()
+    {
+        return $this->belongsTo(Location::class, 'find_location');
+    }
 }

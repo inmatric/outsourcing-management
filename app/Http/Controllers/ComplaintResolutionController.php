@@ -45,8 +45,10 @@ class ComplaintResolutionController extends Controller
             $validated['photo_evidence'] = $path;
         }
 
-        // Add status to validated data
-        $validated['status'] = $request->status;
+
+        // // Add status to validated data
+        // $validated['status'] = $request->status;
+
 
         ComplaintResolution::create($validated);
 
@@ -76,7 +78,7 @@ class ComplaintResolutionController extends Controller
             'photo_evidence' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'location_id' => 'required|exists:locations,id',
             'notes' => 'nullable|string|max:255',
-            'status' => 'required|in:pending,processed,resolved',  // Add validation for status
+            'status' => 'required|in:pending,processed,resolved,rejected',  // Add validation for status
         ]);
 
         // Handle photo update

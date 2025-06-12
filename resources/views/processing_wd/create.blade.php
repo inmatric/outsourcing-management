@@ -28,7 +28,7 @@
                         class="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:ring-blue-500 focus:border-blue-500">
                         <option value="">Select task</option>
                         @foreach ($works as $work)
-                            <option value="{{ $work->id }}">{{ $work->task }}</option>
+                            <option value="{{ $work->id }}">{{ $work->job_name }}</option>
                         @endforeach
                     </select>
                 </div>
